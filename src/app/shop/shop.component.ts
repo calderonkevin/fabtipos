@@ -99,4 +99,9 @@ export class ShopComponent {
     return total.toFixed(2)
   }
 
+  
+  buscarFire(searchValue: string): void {
+    console.log("hola del boton: " + searchValue);    
+  }
+
 }
