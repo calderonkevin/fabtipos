@@ -1,0 +1,650 @@
+img, object, embed, video {
+	/*max-width: 100%;*/
+}
+/* IE 6 no admite max-width (anchura máxima), por lo que usa de manera predeterminada una anchura del 100% */
+.ie6 img {
+	width: 100%;
+	border: none
+}
+/* ---------- Start General CSS ---------- */
+*{
+	padding: 0;
+	margin: 0;
+	transition: all 0.3s ease 0s;
+	-webkit-transition: all 0.3s ease 0s;
+	-moz-transition: all 0.3s ease 0s;
+	-o-transition: all 0.3s ease 0s;
+	-ms-transition: all 0.3s ease 0s;
+}
+a {
+	cursor: pointer !important;
+	outline: none !important;
+	border: none;
+	color: inherit ;
+	text-decoration: none
+}
+img {
+	border: none;
+}
+html, body {
+	min-height: 100% !important;
+	height: 100%;
+}
+body {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif !important;
+	background-color: #f5f5f5 !important;
+	color: #424c55;
+	height: 100%;
+}
+.clear {
+	clear: both;
+}
+.block{
+	display:block !important;
+}
+/* ---------- End General CSS ---------- */
+
+/* ======================================== */
+/* START LOGIN */
+/* ==================== */
+.bodyLogin{
+	background-image: url(images/bg-demo.png);
+	background-size: cover;
+	background-position: center center;
+}
+.logo{
+	line-height: 30px;
+	font-size: 18px;
+	color: #fff;
+	position: absolute;
+	top: 30px;
+	left: 5%;
+}
+.logo span{
+	font-weight: 800;
+}
+.moreInfo{
+	position: absolute;
+  right: 5%;
+  color: rgba(255,255,255,.75);
+  font-size: 13px;
+  line-height: 30px;
+  top: 30px;
+}
+.moreInfo a{
+	text-decoration: underline;
+  color: rgba(255,255,255,.75);
+}
+.moreInfo a:hover{
+	color: rgba(255,255,255,1);
+}
+.wrapLogin{
+	width: 290px;
+  position: absolute;
+	right: 50%;
+	top: 100px;
+  margin: 0 -145px 0 0;
+}
+.wrapLogin .login{
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 30px 20px;
+  margin: 0;
+  height: auto;
+	box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+}
+.wrapLogin .login .formLogin{
+	text-align: center;
+}
+.wrapLogin .login .formLogin h2{
+	text-align: center;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 30px;
+	padding: 0;
+	margin: 0 0 15px 0;
+}
+.wrapLogin .login .formLogin .mdc-text-field{
+	width: 100%;
+	margin: 3px 0 15px 0;
+}
+.wrapLogin .login .formLogin .mdc-text-field .mdc-text-field__icon{
+	color: #1e88e5;
+}
+.wrapLogin .login .formLogin .mdc-text-field input{
+	padding: 16px 16px 16px 50px;
+}
+.pr50{
+	padding-right: 50px !important;
+}
+.wrapLogin .login .formLogin .mdc-text-field .mdc-icon-button{
+	width: 40px;
+	height: 40px;
+	padding: 8px;
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	opacity: .4;
+}
+.wrapLogin .login .formLogin .mdc-text-field .mdc-icon-button:hover{
+	opacity: .7;
+}
+.wrapLogin .login .formLogin .mdc-button{
+	height: 48px;
+  margin: 3px 0;
+  background-color: #1e88e5;
+  color: #fff;
+  font-size: 16px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: bold;
+	width: 100%;
+}
+.wrapLogin .login .formLogin .mdc-button::before, .wrapLogin .login .formLogin .mdc-button::after{
+	background-color: #1e88e5;
+}
+/* Login Number */
+.wrapLogin .login .formLogin .loginNumber .mdc-button{
+	background-color: #f5f5f5;
+	width: 32%;
+	float: left;
+	clear: right;
+	color: #1e88e5;
+  font-size: 15px;
+  font-weight: 600;
+	margin-right: 2%;
+}
+.mr0{
+	margin-right: 0 !important;
+}
+.btnNumber{
+	width: 66% !important;
+	margin-right: 0 !important;
+	color: #fff !important;
+	background-color: #1e88e5 !important;
+}
+.wrapLogin .login .formLogin .typeLogin{
+	font-size: 14px;
+	text-decoration: underline;
+	color: #607d8b;
+	line-height: 20px;
+	padding: 0;
+	margin: 20px 0 0 0;
+	display: inline-block;
+	cursor: pointer;
+	opacity: .7;
+}
+.wrapLogin .login .formLogin .typeLogin:hover{
+	opacity: 1;
+}
+.wrapLogin .copy{
+	text-align: center;
+	font-size: 12px;
+	margin: 20px;
+	line-height: 16px;
+	color: #fff;
+	opacity: .5;
+}
+/* ==================== */
+/* END LOGIN */
+/* ======================================== */
+
+/* ======================================== */
+/* START HEADER */
+/* ==================== */
+header {
+	background-color: #1e88e5;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 50px;
+	position: fixed;
+	z-index: 1;
+	box-shadow: inset 1px 1px 0 rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.07);
+}
+header .leftH{
+	width: 320px;
+	height: auto;
+}
+header .leftH .mdc-icon-button{
+	width: 40px;
+	height: 40px;
+	padding: 8px;
+	margin: 5px;
+	color: #fff;
+	float: left;
+	clear: right;
+}
+header .leftH .mdc-icon-button::before, header .leftH .mdc-icon-button::after{
+	background-color: #fff;
+}
+header .leftH .title{
+}
+header .leftH .title .mdc-button{
+	color: #fff !important;
+	text-transform: none;
+	letter-spacing: normal;
+	font-size: 16px;
+	margin: 7px 0;
+}
+header .leftH .title .mdc-button::before, header .title .mdc-button::after{
+	background-color: #fff;
+}
+header .leftH .title .mdc-button i{
+	width: 24px !important;
+	height: 24px !important;
+	line-height: 24px !important;
+	font-size: 24px !important;
+	margin: 0 0 0 2px !important;
+}
+header .rightH{
+	width: calc(100% - 320px);
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: auto;
+}
+header .rightH .tags{
+	width: 232px;
+	float: left;
+	clear: right;
+	position: relative;
+}
+header .rightH .tags .mdc-icon-button{
+	width: 40px;
+	height: 40px;
+	padding: 8px;
+	margin: 5px;
+	color: #fff;
+	float: left;
+	clear: right;
+}
+header .rightH .tags .mdc-icon-button::before, header .rightH .tags .mdc-icon-button::after{
+	background-color: #fff;
+}
+header .rightH .tags span{
+	color: #fff;
+	line-height: 50px;
+	font-size: 14px;
+	opacity: .7;
+}
+header .rightH .tags .wrapTags{
+	background-color: #fff;
+	border-radius: 4px;
+	padding: 10px;
+	margin: 0;
+	display: inline-block;
+	width: 530px;
+	position: absolute;
+	left: 0;
+	top: 46px;
+	box-shadow: 0 5px 5px -3px rgba(0,0,0,.15), 0 8px 10px 1px rgba(0,0,0,.15), 0 3px 14px 2px rgba(0,0,0,.15);
+}
+header .rightH .tags .wrapTags::after{
+	content: '';
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #fff;
+  position: absolute;
+  top: -8px;
+  left: 18px;
+}
+header .rightH .tags .wrapTags .itemTag{
+	list-style: none;
+	background-color: #fff;
+	width: 170px;
+	float: left;
+	clear: right;
+	line-height: 20px;
+	padding: 10px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+header .rightH .tags .wrapTags .itemTag i{
+	width: 30px;
+	height: 30px;
+	padding: 3px;
+	float: left;
+	clear: right;
+	margin: 1px 4px 1px 0;
+	color: #607d8b;
+}
+header .rightH .tags .wrapTags .itemTag .nameTag{
+	float: left;
+  clear: right;
+  color: #607d8b;
+  line-height: 16px !important;
+  margin: 8px 0 0 0;
+	opacity: 1;
+}
+.m0{
+	margin: 0 !important;
+}
+header .rightH .tags .wrapTags .itemTag:hover{
+	background-color: #eceff1;
+}
+.selectTag{
+	background-color: rgba(30,136,229,.1) !important;
+}
+.selectTag i{
+	color: #1e88e5 !important;
+}
+.selectTag .nameTag{
+	color: #1e88e5 !important;
+	font-weight: 600;
+}
+header .rightH .search{
+	height: 40px;
+	border-radius: 4px;
+	border-bottom: none;
+	background-color: rgba(255,255,255,.15);
+	margin: 5px;
+	width: 343px;
+	position: relative;
+}
+header .rightH .search i{
+	color: #fff !important;
+  top: 8px;
+}
+header .rightH .search input{
+	border-bottom: none;
+	color: #fff !important;
+	padding: 16px 50px !important;
+}
+header .rightH .search input::placeholder {
+  color: rgba(255,255,255,.6);
+}
+header .rightH .search .mdc-icon-button{
+	width: 40px;
+	height: 40px;
+	padding: 8px;
+	position: absolute;
+	top: 0;
+	right: 6px;
+	color: #fff;
+	opacity: .4;
+}
+header .rightH .search .mdc-icon-button::before, header .rightH .search .mdc-icon-button::after{
+	background-color: #fff;
+}
+header .rightH .search .mdc-icon-button:hover{
+	opacity: .7;
+}
+.searchFocus i{
+	color: #1e88e5 !important;
+}
+.searchFocus input{
+	background-color: #fff !important;
+}
+.searchFocus .mdc-icon-button{
+	color: #000 !important;
+}
+.searchFocus .mdc-icon-button::before, .searchFocus .mdc-icon-button::after{
+	background-color: #000 !important;
+}
+header .rightH .profile{
+	float: right;
+	clear: right;
+}
+header .rightH .profile .user{
+	width: 40px;
+	height: 40px;
+	font-size: 15px;
+	text-transform: uppercase;
+	line-height: 40px;
+	text-align: center;
+	color: #fff;
+	background-color: #607d8b;
+	border-radius: 20px;
+	margin: 5px 10px 5px 5px;
+}
+header .rightH .profile .wrapProfile{
+	background-color: #fff;
+	border-radius: 4px;
+	padding: 10px;
+	margin: 0;
+	display: inline-block;
+	width: 320px;
+	position: absolute;
+	right: 4px;
+	top: 46px;
+	box-shadow: 0 5px 5px -3px rgba(0,0,0,.15), 0 8px 10px 1px rgba(0,0,0,.15), 0 3px 14px 2px rgba(0,0,0,.15);
+}
+header .rightH .profile .wrapProfile::after{
+	content: '';
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #fff;
+  position: absolute;
+  top: -8px;
+  right: 17px;
+}
+header .rightH .profile .wrapProfile .audit{
+	display: inline-block;
+	width: 100%;
+	font-size: 11px;
+	text-align: right;
+	opacity: .5;
+}
+header .rightH .profile .wrapProfile .infoUser{
+	margin: 0 0 0 60px;
+	padding: 0;
+	position: relative;
+}
+header .rightH .profile .wrapProfile .infoUser .photo{
+	position: absolute;
+	left: -60px;
+}
+header .rightH .profile .wrapProfile .infoUser .h1{
+	font-size: 16px !important;
+}
+header .rightH .profile .wrapProfile .infoUser .h1 span{
+	font-size: 12px !important;
+}
+header .rightH .profile .wrapProfile .infoUser .mdc-button{
+	background-color: #f5f5f5;
+	width: auto;
+	float: right;
+	clear: right;
+	color: #1e88e5;
+  font-size: 15px;
+  font-weight: 600;
+	margin-right: 2%;
+}
+
+
+/* ==================== */
+/* END HEADER */
+/* ======================================== */
+
+
+/* ======================================== */
+/* START MAIN CONTENT */
+/* ==================== */
+.cntntRB{
+	padding: 0;
+	margin: 0;
+}
+.wrapL{
+	width: 320px;
+	position: absolute;
+	height:  calc(100% - 50px);
+	left: 0;
+	top: 0;
+	background-color: #fff;
+}
+.wrapL .customer{
+	background: #ddd;
+	height: 50px;
+}
+.wrapL .list{
+	margin: 0;
+	position: relative;
+	height: calc(100% - 200px);
+	overflow-x: hidden;
+}
+.wrapL .list .ttlBr{
+	background-color: #fff;
+	font-size: 12px;
+	padding: 10px;
+	line-height: 16px;
+}
+.wrapL .list .ulItems{
+	margin: 0;
+	padding: 0;
+}
+.wrapL .list .ulItems .item{
+	min-height: 50px;
+	margin: 0;
+	border-radius: 4px;
+	position: relative;
+	list-style: none;
+	background-color: #fff;
+}
+.wrapL .list .ulItems .item .photoItm{
+	margin: 0;
+	padding: 0;
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	background-color: silver;
+	border-radius: 30px;
+}
+.wrapL .list .ulItems .item .photoItm img{
+	width: 100%;
+}
+.wrapL .list .ulItems .item .infoItm{
+	margin: 0 0 0 60px;
+	padding: 10px 54px 10px 0;
+	min-height: 40px;
+	border-bottom: 1px solid #ddd;
+}
+.wrapL .list .ulItems .item:last-child .infoItm{
+	border: none;
+}
+.wrapL .list .ulItems .item .infoItm .nameItm{
+	display: block;
+	font-size: 14px;
+	line-height: 25px;
+	width: calc(100% - 65px);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.wrapL .list .ulItems .item .infoItm .featItm{
+	display: block;
+	font-size: 12px;
+	line-height: 15px;
+	width: calc(100% - 65px);
+}
+.wrapL .list .ulItems .item .infoItm .featItm span{
+	color: #777;
+}
+.wrapL .list .ulItems .item .infoItm .priceItm{
+	width: 62px;
+	display: inline-block;
+	position: absolute;
+	right: 54px;
+	top: 20px;
+}
+.wrapL .list .ulItems .item .infoItm .priceItm span{
+	font-size: 15px;
+	font-weight: bold;
+	float: right;
+	clear: right;
+	text-align: right;
+	line-height: 20px;
+}
+.wrapL .list .ulItems .item .infoItm .priceItm .currency{
+	float: left;
+	clear: right;
+	text-align: left;
+}
+.wrapL .list .ulItems .item .infoItm .mdc-icon-button{
+	position: absolute;
+	right: 6px;
+	top: 10px;
+	padding: 8px;
+	width: 40px;
+	height: 40px;
+	opacity: .4;
+}
+.wrapL .total{
+	height: 150px;
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	padding: 20px;
+	background-color: #fff;
+	border-top: 1px solid #ddd;
+}
+.wrapL .total .mdc-button{
+	width: 100%;
+}
+.wrapR{
+	position: absolute;
+	width: calc(100% - 320px);
+	top: 0;
+	right: 0;
+	height: calc(100% - 50px);
+}
+.wrapR .results{
+	padding: 3px;
+	margin: 50px 0 0 0;
+	position: relative;
+	height: calc(100% - 50px);
+	overflow-x: hidden;
+}
+.wrapR .results .product{
+	float: left;
+	clear: right;
+	width: 110px;
+	text-align: center;
+	font-size: 12px;
+	background-color: #fff;
+	min-height: 200px;
+	margin: 3px;
+	padding: 10px 5px 26px 5px;
+	position: relative;
+}
+.wrapR .results .product .photoPrdct{
+	width: 100%;
+}
+.wrapR .results .product .namePrdct{
+
+}
+.wrapR .results .product .pricePrdct{
+	display: inline-block;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	bottom: 8px;
+}
+/* ==================== */
+/* END MAIN CONTENT */
+/* ======================================== */
+
+@media only screen and (min-width: 481px) {
+	.wrapLogin{
+		width: 330px;
+	  right: 15%;
+		top: 130px;
+		margin: 0;
+	}
+	.wrapLogin .login{
+	  padding: 30px;
+	}
+}
+@media only screen and (min-width: 820px) {
+	.protect{
+		background-color:transparent;
+		display:none !important
+	}
+}

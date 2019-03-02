@@ -1,5 +1,5 @@
 import { Injectable} from '@angular/core';
-//import { Http, Response, Headers, RequestOptions  } from '@angular/http';
+import { Http, Response, Headers, RequestOptions  } from '@angular/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 //import { Observable, Subject, pipe } from 'rxjs';
@@ -17,12 +17,11 @@ export class LoginService{
     public token: string;
     public datadef: any;
 
-    constructor(//private _http: Http
-        ){
+    constructor(private _http: Http){
         this.url = GLOBAL.url;
         this.url2 = GLOBAL.url2;
     }
-/*
+
     articulos22(){        
         console.log("=================");
         let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});        
