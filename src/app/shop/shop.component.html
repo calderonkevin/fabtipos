@@ -1,0 +1,46 @@
+
+<div class="shop">
+    <div class="customer">
+            <!--<mat-form-field class="example-full-width">
+                <input matInput placeholder="State" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+                    <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
+                    <span>{{state.name}}</span> |
+                    <small>Population: {{state.population}}</small>
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>-->
+    </div>
+    <div class="listItems">
+            <div  class="item" *ngIf="invoice.length == 0">
+                    
+                      Agregue sus productos
+                    
+            </div>  
+            
+        <div class="item" *ngFor="let invoItem of invoice; let i = index">
+            <button mat-button>
+                <div class="photoItem">
+                    <!--<mat-icon mat-list-icon>fastfood</mat-icon>-->
+                    <img src="https://falabella.scene7.com/is/image/FalabellaPE/15767763_1?$producto308$&amp;wid=472&amp;hei=472">
+                </div>
+                <div class="textItem">
+                    <h4 mat-line>{{i}}-{{invoItem.nompro}}</h4>
+                    <h6 mat-line>{{invoItem.descolor}}</h6>
+                    <h6 mat-line>{{invoItem.serpro}}</h6>
+                </div>
+                <div class="priceItem">
+                    <!--<span class="currency">S/</span>-->
+                    <span>S/ {{invoItem.punituser}}</span>
+                </div>
+            </button>
+            <button mat-icon-button class="deleteItem" (click)="invoItemDelete(i)">
+                <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="total">
+        <button mat-raised-button color="primary" style="font-size: 24px;">Pagar S/ {{ invoGetTotal() }}</button>
+    </div> 
+</div>
