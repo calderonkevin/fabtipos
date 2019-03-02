@@ -7,9 +7,10 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { ZnoexisteComponent } from './znoexiste/znoexiste.component';
 
 import { AdminGuard } from './common/services/admin.guard';
+import { CanActivate } from '@angular/router/src/utils/preactivation';
 
 const appRoutes: Routes = [    
-    {path: '', component: LoginComponent},
+    {path: '', component: LoginComponent},    
     //{path: '', component: CatalogComponent},
     {path: '', redirectTo: 'login' , pathMatch: 'full'},
     {canActivate: [AdminGuard], path: 'catalogo', component: CatalogComponent},

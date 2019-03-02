@@ -12,6 +12,15 @@ export class ProductService {
         return this.productList = this.firebase.list("articulo");
 
     }
+    getIdProducto(idItem){
+        //return this.productList = this.firebase.list("listabarra");
+
+        return this.firebase;
+        
+    }
+
+
+    
 
     getCategoria(){
         return this.productList = this.firebase.list("categoria");

@@ -25,6 +25,11 @@ import { environment } from '../environments/environment';
 import { routing, appRoutingProviders }  from './app.routing';
 import { HttpModule } from '@angular/http';
 
+// services
+import { LoginService } from './common/services/login.service';
+import { AdminGuard } from './common/services/admin.guard';
+
+
 @NgModule({
   declarations: [
     AppComponent, HeaderComponent, ShopComponent, CatalogComponent, LoginComponent, ZnoexisteComponent
@@ -40,7 +45,7 @@ import { HttpModule } from '@angular/http';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule
   ],
-  providers: [ProductService, appRoutingProviders],
+  providers: [LoginService, ProductService, appRoutingProviders, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

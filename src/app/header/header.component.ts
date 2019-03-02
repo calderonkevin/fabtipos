@@ -3,8 +3,11 @@ import { Component , OnInit} from '@angular/core';
 import { Tienda } from '../models/tienda';
 import { Categoria } from '../models/categoria';
 
+import { LoginService } from '../common/services/login.service';
 import { ProductService } from '../common/services/product.service';
 
+
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 export interface Food {
   value: string;
@@ -15,17 +18,21 @@ export interface Food {
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
+  providers: [LoginService ]
 })
 export class HeaderComponent implements OnInit  {
  
   tiendaList: Tienda[];
   categoriaList: Categoria[];
-
+  identity: any;  
   
   constructor(
+    private _loginService: LoginService,
     private _productService: ProductService,
-  ) {
+    private _route: ActivatedRoute,
+    private _router: Router,
+  ) {    
   }
 
   
@@ -60,7 +67,18 @@ export class HeaderComponent implements OnInit  {
         });
       });
 
+      this.identity = this._loginService.getIdentity();    
+    //this.invoiceCab = [{'codcli':'5','coddir':'0001','codper':'44001713','nomcom':'otros mas'}];
+    //this.invoiceCab = this._loginService.getDataDef();
+    console.log("entra a oninit");
+    console.log(this._loginService.getDataDef());
    }
+
+   logout(): void {
+    localStorage.clear();
+    this._router.navigate(['/']);
+  }
+
    
   foods: Food[] = [
     {value: 'steak-0', viewValue: 'Steak'},

@@ -15,7 +15,7 @@
             <button mat-icon-button [matMenuTriggerFor]="menuCategoria">
                 <mat-icon>view_module</mat-icon>
             </button>
-            <span>Celulares</span>
+            <span>Todos</span>
             <mat-menu #menuCategoria="matMenu">
                 <div class="wrapTags">
                     <button mat-button class="tag" *ngFor="let item of categoriaList; let i = index">
@@ -54,23 +54,17 @@
                 <mat-icon>close</mat-icon>
             </button>-->
         </div>
-        <div class="profile">
-            <button mat-icon-button [matMenuTriggerFor]="menuUser">
+        
+        <div class="profile">                
+            <span style="font-size: 14px;">{{identity.payload.data.nombres}} {{identity.payload.data.apellidos}}</span>
+            <button mat-icon-button [matMenuTriggerFor]="menuUser">                    
                 <mat-icon>account_circle</mat-icon>
             </button>
             <mat-menu #menuUser="matMenu">
-                <button mat-menu-item>
-                    <mat-icon>dialpad</mat-icon>
-                    <span>TODOS</span>
-                </button>
-                <button mat-menu-item disabled>
-                    <mat-icon>voicemail</mat-icon>
-                    <span>BATERIAS</span>
-                </button>
-                <button mat-menu-item>
-                    <mat-icon>notifications_off</mat-icon>
-                    <span>PANTALLAS</span>
-                </button>
+                <button mat-menu-item (click)="logout()">
+                    <mat-icon>toggle_off</mat-icon>
+                    <span>SALIR</span>
+                </button>                
             </mat-menu>
         </div>
     </mat-toolbar-row>

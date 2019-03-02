@@ -42,7 +42,7 @@ export class LoginService{
         //let dataString = $(params).serialize();
         let params = 'username='+ email  +'&pwd='+ miclave;
         
-        console.log(params);
+        console.log("0001-"+params);
         let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});        
         let options = new RequestOptions({ headers: headers });
         return this._http.post(this.url + 'login', params, options)
