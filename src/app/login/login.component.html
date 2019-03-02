@@ -1,1 +1,101 @@
-<h1>Aqui va el login</h1>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="src/image/png" href="images/favicon.png" />
+    <title><h1>{{title}}</h1></title>
+    <meta name="description" content="">
+	<meta name="keywords" content="">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+	<script type="text/javascript" src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	
+</head>
+
+<body class="bodyLogin">
+    <div class="logo">Fabti<span>POS</span></div>
+    <div class="moreInfo">Más información<a href="#">fabti.pe/pos</a></div>
+    <div class="wrapLogin">
+		<div class="login">
+			<div class="formLogin" style="display:none">
+				<h2>Inicio de sesión</h2>
+				<div class="loginNumber">
+					<div class="mdc-text-field mdc-text-field--no-label mdc-text-field--with-leading-icon">
+						<i class="material-icons mdc-text-field__icon" tabindex="0" role="button">account_circle</i>
+						<input type="text" class="mdc-text-field__input pr50" placeholder="Ingresa tu còdigo" aria-label="Label">
+						<div class="mdc-line-ripple"></div>
+						<button class="mdc-icon-button material-icons">close</button>
+					</div>
+					<button class="mdc-button">
+						<span class="mdc-button__label">1</span>
+					</button>
+					<button class="mdc-button">
+						<span class="mdc-button__label">2</span>
+					</button>
+					<button class="mdc-button mr0" style="">
+						<span class="mdc-button__label">3</span>
+					</button>
+					<button class="mdc-button">
+						<span class="mdc-button__label">4</span>
+					</button>
+					<button class="mdc-button">
+						<span class="mdc-button__label">5</span>
+					</button>
+					<button class="mdc-button mr0">
+						<span class="mdc-button__label">6</span>
+					</button>
+					<button class="mdc-button">
+						<span class="mdc-button__label">7</span>
+					</button>
+					<button class="mdc-button">
+						<span class="mdc-button__label">8</span>
+					</button>
+					<button class="mdc-button mr0">
+						<span class="mdc-button__label">9</span>
+					</button>
+					<button class="mdc-button">
+						<span class="mdc-button__label">0</span>
+					</button>
+					<button class="mdc-button btnNumber">
+						<span class="mdc-button__label">Ingresar</span>
+					</button>
+				</div>
+				<span class="typeLogin">Acceder con usuario y clave</span>
+			</div>
+			<div class="formLogin">
+				<h2>{{title}}</h2>
+				<div class="alert alert-{{status}}" *ngIf="codError!=-999">            
+					{{msgError}}
+				</div> 
+				<form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="form-horizontal" role="form"  id="needs-validation" novalidate>
+					<div class="mdc-text-field mdc-text-field--no-label mdc-text-field--with-leading-icon">
+						<i class="material-icons mdc-text-field__icon" tabindex="0" role="button">account_circle</i>
+					
+						<input type="email" name="email" #email="ngModel" [(ngModel)]="emailForm" class="mdc-text-field__input" placeholder="email" required autofocus> 
+						<div class="invalid-feedback" *ngIf="!email.valid && email.touched">
+							El email es obligatorio.
+						</div>
+						<div class="mdc-line-ripple"></div>
+					</div>
+					<div class="mdc-text-field mdc-text-field--no-label mdc-text-field--with-leading-icon">
+						<i class="material-icons mdc-text-field__icon" tabindex="0" role="button">lock</i>
+						<input type="password" name="password" #password="ngModel" [(ngModel)]="pwdForm"  class="mdc-text-field__input" placeholder="Contraseña" required>
+						<div class="invalid-feedback" *ngIf="!password.valid && password.touched">
+								La contraseña es obligatorio
+						</div>
+						<div class="mdc-line-ripple"></div>
+					</div>
+					 
+					<button class="mdc-button" type="submit" >
+						<span class="mdc-button__label">Ingresar</span>
+					</button>
+				<span class="typeLogin">Acceder con código</span>
+			</form>
+			</div>
+		</div>
+		<div class="copy">Fabti SAC © 2019</div>
+	</div>
+</body>
+</html>
