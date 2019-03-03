@@ -10,9 +10,11 @@ import { CatalogComponent }  from './catalog/catalog.component';
 import { LoginComponent }  from './login/login.component';
 import { ZnoexisteComponent }  from './znoexiste/znoexiste.component';
 import { ProductService } from './common/services/product.service';
+import { MyDialogComponent } from './my-dialog/my-dialog.component';
+
 //material
 import { MaterialModule } from './zmaterial/material';
-
+import {MatDialogModule} from '@angular/material';
 //animation
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -32,7 +34,7 @@ import { AdminGuard } from './common/services/admin.guard';
 
 @NgModule({
   declarations: [
-    AppComponent, HeaderComponent, ShopComponent, CatalogComponent, LoginComponent, ZnoexisteComponent
+    AppComponent, HeaderComponent, ShopComponent, CatalogComponent, LoginComponent, ZnoexisteComponent,MyDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -42,8 +44,12 @@ import { AdminGuard } from './common/services/admin.guard';
     MaterialModule,
     HttpModule,
     FormsModule,
+    MatDialogModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule
+  ],
+  entryComponents: [
+    MyDialogComponent
   ],
   providers: [LoginService, ProductService, appRoutingProviders, AdminGuard],
   bootstrap: [AppComponent]

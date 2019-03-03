@@ -6,7 +6,7 @@
         <mat-menu #menuGeneral="matMenu">
             <button mat-menu-item>
                 <mat-icon>shop</mat-icon>
-                <span>VENTA</span>
+                <span (click)="openDialog()">VENTA</span>
             </button>
             <button mat-menu-item>
                     <mat-icon>compare_arrows</mat-icon>
@@ -24,6 +24,7 @@
 
 
         <span class="titlePage">VENTA > ALMACEN > PRINCIPAL</span>
+        
         <mat-form-field>
             <mat-select [(value)]="selected">
                 <mat-option value="{{item.$key}}" *ngFor="let item of tiendaList; let i = index">{{item.destab}}
