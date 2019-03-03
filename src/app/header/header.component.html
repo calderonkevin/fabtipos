@@ -1,19 +1,40 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row class="headerLeft">
-        <button mat-icon-button>
-            <mat-icon>menu</mat-icon>
-        </button>
-        <span class="titlePage">Operación</span>
+        <button mat-icon-button [matMenuTriggerFor]="menuGeneral">
+            <mat-icon>dashboard</mat-icon>
+        </button>        
+        <mat-menu #menuGeneral="matMenu">
+            <button mat-menu-item>
+                <mat-icon>shop</mat-icon>
+                <span>VENTA</span>
+            </button>
+            <button mat-menu-item>
+                    <mat-icon>compare_arrows</mat-icon>
+                    <span>TRANSFERENCIA</span>
+            </button>
+            <button mat-menu-item>
+                    <mat-icon>undo</mat-icon>
+                    <span>DEVOLUCIÓN</span>
+            </button>
+            <button mat-menu-item (click)="logout()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>SALIR</span>
+                </button>
+        </mat-menu>
+
+
+        <span class="titlePage">VENTA > ALMACEN > PRINCIPAL</span>
         <mat-form-field>
-            <mat-select [(value)]="selected">                
-                <mat-option value="{{item.$key}}" *ngFor="let item of tiendaList; let i = index">{{item.destab}}</mat-option>                
+            <mat-select [(value)]="selected">
+                <mat-option value="{{item.$key}}" *ngFor="let item of tiendaList; let i = index">{{item.destab}}
+                </mat-option>
             </mat-select>
         </mat-form-field>
     </mat-toolbar-row>
     <mat-toolbar-row class="headerRight">
         <div class="tags">
             <button mat-icon-button [matMenuTriggerFor]="menuCategoria">
-                <mat-icon>view_module</mat-icon>
+                <mat-icon>filter_list</mat-icon>
             </button>
             <span>Todos</span>
             <mat-menu #menuCategoria="matMenu">
@@ -22,28 +43,6 @@
                         <mat-icon>dialpad</mat-icon>
                         <span class="nameTag">{{item.destab}}</span>
                     </button>
-                    <!--
-                    <button mat-button class="tag tagSelect">
-                        <mat-icon>notifications_off</mat-icon>
-                        <span class="nameTag">Pantallas</span>
-                    </button>
-                    <button mat-button class="tag">
-                        <mat-icon>dialpad</mat-icon>
-                        <span class="nameTag">Todos</span>
-                    </button>
-                    <button mat-button class="tag">
-                        <mat-icon>notifications_off</mat-icon>
-                        <span class="nameTag">Pantallas</span>
-                    </button>
-                    <button mat-button class="tag">
-                        <mat-icon>dialpad</mat-icon>
-                        <span class="nameTag">Todos</span>
-                    </button>
-                    <button mat-button class="tag">
-                        <mat-icon>notifications_off</mat-icon>
-                        <span class="nameTag">Pantallas</span>
-                    </button>
-                -->
                 </div>
             </mat-menu>
         </div>
@@ -54,17 +53,17 @@
                 <mat-icon>close</mat-icon>
             </button>-->
         </div>
-        
-        <div class="profile">                
+
+        <div class="profile">
             <span style="font-size: 14px;">{{identity.payload.data.nombres}} {{identity.payload.data.apellidos}}</span>
-            <button mat-icon-button [matMenuTriggerFor]="menuUser">                    
+            <button mat-icon-button [matMenuTriggerFor]="menuUser">
                 <mat-icon>account_circle</mat-icon>
             </button>
             <mat-menu #menuUser="matMenu">
                 <button mat-menu-item (click)="logout()">
-                    <mat-icon>toggle_off</mat-icon>
+                    <mat-icon>power_settings_new</mat-icon>
                     <span>SALIR</span>
-                </button>                
+                </button>
             </mat-menu>
         </div>
     </mat-toolbar-row>

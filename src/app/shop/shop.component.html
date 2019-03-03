@@ -1,10 +1,10 @@
 
 <div class="shop">
     <div class="customer">
-            <form  style="display:none;" >
-            <input id="detectabarra" name="detectabarra">
+            <form  style="display:none;"  >
+            <input id="detectabarra" name="detectabarra" (input)="onSearchChange($event.target.value)">
             <br>
-            <button id="btnejecuta" (click)="buscarFire($event);" mat-raised-button color="primary" style="font-size: 24px;">Buscar Barra</button>
+            <button id="btnejecuta" (click)="buscarFire($event.target);" mat-raised-button color="primary" style="font-size: 24px;">.........</button>
             </form>
             <!--<mat-form-field class="example-full-width">
                 <input matInput placeholder="State" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
