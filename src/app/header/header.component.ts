@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit  {
   identity: any;  
   descuento=0;
   tipoDescuento=0;
-  
+
   constructor(
     private _loginService: LoginService,
     private _productService: ProductService,
@@ -89,7 +89,7 @@ export class HeaderComponent implements OnInit  {
   
     
     let dialogRefDes = this.dialog.open(MyDialogComponent, {
-      width: '350px',
+      width: '450px',
       // data: { name: this.name, animal: this.animal }
       //data: ''
       data: {
