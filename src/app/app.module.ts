@@ -13,6 +13,9 @@ import { ProductService } from './common/services/product.service';
 //material
 import { MaterialModule } from './zmaterial/material';
 
+//toastr
+import { ToastrModule } from 'ngx-toastr';
+
 //animation
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -39,6 +42,7 @@ import { AdminGuard } from './common/services/admin.guard';
     AppRoutingModule,
     routing,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(), 
     MaterialModule,
     HttpModule,
     FormsModule,

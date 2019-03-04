@@ -1,7 +1,7 @@
 import { Component , OnInit} from '@angular/core';
 
 import { Tienda } from '../models/tienda';
-import { Categoria } from '../models/categoria';
+import { Category } from '../models/category';
 
 import { LoginService } from '../common/services/login.service';
 import { ProductService } from '../common/services/product.service';
@@ -24,7 +24,7 @@ export interface Food {
 export class HeaderComponent implements OnInit  {
  
   tiendaList: Tienda[];
-  categoriaList: Categoria[];
+  categoriaList: Category[];
   identity: any;  
   
   constructor(
@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit  {
           //console.log(element.key);
           x["$key"] = element.key;
           //console.log(element.key);
-          this.categoriaList.push(x as Categoria);
+          this.categoriaList.push(x as Category);
         });
       });
 

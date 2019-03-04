@@ -1,4 +1,4 @@
-export class Categoria {
+export class Category {
     
     $key: string;    
     destab: string;    

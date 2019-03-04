@@ -2,35 +2,38 @@
     <mat-toolbar-row class="headerLeft">
         <button mat-icon-button [matMenuTriggerFor]="menuGeneral">
             <mat-icon>dashboard</mat-icon>
-        </button>        
+        </button>
         <mat-menu #menuGeneral="matMenu">
             <button mat-menu-item>
                 <mat-icon>shop</mat-icon>
                 <span>VENTA</span>
             </button>
             <button mat-menu-item>
-                    <mat-icon>compare_arrows</mat-icon>
-                    <span>TRANSFERENCIA</span>
+                <mat-icon>compare_arrows</mat-icon>
+                <span>TRANSFERENCIA</span>
             </button>
             <button mat-menu-item>
-                    <mat-icon>undo</mat-icon>
-                    <span>DEVOLUCIÓN</span>
+                <mat-icon>undo</mat-icon>
+                <span>DEVOLUCIÓN</span>
             </button>
             <button mat-menu-item (click)="logout()">
-                    <mat-icon>exit_to_app</mat-icon>
-                    <span>SALIR</span>
-                </button>
+                <mat-icon>exit_to_app</mat-icon>
+                <span>SALIR</span>
+            </button>
         </mat-menu>
 
 
-        <span class="titlePage">VENTA > ALMACEN > PRINCIPAL</span>
+        <span class="titlePage">VENTA / ALMACEN PRINCIPAL</span>
+        <!--
         <mat-form-field>
             <mat-select [(value)]="selected">
                 <mat-option value="{{item.$key}}" *ngFor="let item of tiendaList; let i = index">{{item.destab}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
+        -->
     </mat-toolbar-row>
+
     <mat-toolbar-row class="headerRight">
         <div class="tags">
             <button mat-icon-button [matMenuTriggerFor]="menuCategoria">
@@ -55,7 +58,8 @@
         </div>
 
         <div class="profile">
-            <span style="font-size: 14px;">{{identity.payload.data.nombres}} {{identity.payload.data.apellidos}}</span>
+            <span style="font-size: 14px;">{{identity.payload.data.nombres}}
+                {{identity.payload.data.apellidos}}</span>
             <button mat-icon-button [matMenuTriggerFor]="menuUser">
                 <mat-icon>account_circle</mat-icon>
             </button>

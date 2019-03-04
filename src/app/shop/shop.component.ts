@@ -1,35 +1,16 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 
+//model
+import { Productbarcode } from '../models/productbarcode';
+
+//service
 import { ProductService } from '../common/services/product.service';
-import { AttrAst } from '@angular/compiler';
-import { CloseScrollStrategy } from '@angular/cdk/overlay';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
+//toastr
+import { ToastrService } from 'ngx-toastr';
 
 declare var jQuery: any;
 declare var $: any;
-
-
-export interface Producto {
-  id: number;
-  codpro: string;
-  nompro: string;
-  cantid: number;
-  punituser: number;
-  codcol: string;
-  descolor: string;
-  talla: string;
-  serpro: string;
-  fecvendet: string;
-}
-
-export interface State {
-  flag: string;
-  name: string;
-  population: string;
-}
 
 @Component({
   selector: 'app-shop',
@@ -38,23 +19,29 @@ export interface State {
 })
 export class ShopComponent {
 
+  constructor(
+    private _productService: ProductService,
+    private toastr: ToastrService
+  ) {
+
+  }
+
+  invoiceId: number = 0;
   invoiceCab = [];
-  //invoice = [];
-  productObj: Producto;
+
+  productObj: Productbarcode;
   searchValue: string = "";
 
-  constructor(
-    private _productService: ProductService
-  ) {
-  }
+  tipcodope: string = "0090";
+  sucursal: string = "000001";
 
-  invoItemDelete(item: number): void {
-    this.invoice.splice(item, 1);
-  }
-  invoice = [];
-  invoice2: Producto[] = [
+
+
+  //invoice = [];
+  invoice: Productbarcode[] = [
     {
       id: 1,
+      sucursal : '000001',
       codpro: "123",
       nompro: "PANTALLA-HTC-DESIRE-100",
       cantid: 1,
@@ -67,6 +54,7 @@ export class ShopComponent {
     },
     {
       id: 2,
+      sucursal : '000001',
       codpro: "123",
       nompro: "PANTALLA-HTC-DESIRE-200",
       cantid: 1,
@@ -79,6 +67,7 @@ export class ShopComponent {
     },
     {
       id: 3,
+      sucursal : '000001',
       codpro: "123",
       nompro: "PANTALLA-HTC-DESIRE-300",
       cantid: 1,
@@ -91,6 +80,7 @@ export class ShopComponent {
     },
     {
       id: 4,
+      sucursal : '000001',
       codpro: "123",
       nompro: "PANTALLA-HTC-DESIRE-400",
       cantid: 1,
@@ -103,8 +93,12 @@ export class ShopComponent {
     },
 
   ];
+  
 
 
+  invoItemDelete(item: number): void {
+    this.invoice.splice(item, 1);
+  }
 
   invoGetTotal(): string {
     var total = 0;
@@ -114,79 +108,84 @@ export class ShopComponent {
     return total.toFixed(2)
   }
 
-
   buscarFire(searchValue: string): void {
     this.searchValue = $("#detectabarra").val();
-    console.log("ESTO VIENE DEL TEXTO:" + this.searchValue);
+    //console.log("ESTO VIENE DEL TEXTO:" + this.searchValue);
+
+    //this.toastr.info("ESTO VIENE DEL TEXTO:" + this.searchValue + " - tipcodope:" + this.tipcodope + " - sucursal:" + this.sucursal);
+
+    if (this.tipcodope != "" && this.sucursal != "" && this.searchValue != "") {
+
+      //Inicio - buscar producto duplicado
+      var duplicadoExiste = "";
+      var tmpLista = this.invoice.filter(obj => obj.serpro == this.searchValue);
+      console.log(tmpLista);
+      for (let item of tmpLista) {
+        duplicadoExiste = "SI";
+      }
+      //Fin - buscar producto duplicado
+      if (duplicadoExiste === "SI") {
+        this.toastr.warning('Existe duplicado del Código de barras.');
+      } else {
 
 
-    var aRef = this._productService.getIdProducto("aaa").list("listabarra/" + this.searchValue)
-      .snapshotChanges()
-      .subscribe(item => {
-        //this.productObj = null;
-        console.log("Item: " + item);
-        //console.log("SubItem: "+item.payload);
+        var aRef = this._productService.getIdProducto("aaa").list("listabarra/" + this.searchValue)
+          .snapshotChanges()
+          .subscribe(item => {
+            //this.productObj = null;
+            console.log("Item: " + item);
+            //console.log("SubItem: "+item.payload);
 
-        //console.log("Item: "+item.payload.;
-        //console.log(item.length);
-        //console.log("aaaa: "+item.forEach.);
-        var arr = [];
-        arr['serpro'] = this.searchValue;
-        item.forEach(element => {
-          let x = element.payload.toJSON();
-          console.log("key:" + element.key);
-          console.log("value:" + x);
-          arr[element.key] = x;
-          arr['existe'] = "SI";
-          //x["$key"] = element.key;
-          
+            //console.log("Item: "+item.payload.;
+            //console.log(item.length);
+            //console.log("aaaa: "+item.forEach.);
+            var arr = [];
+            arr['serpro'] = this.searchValue;
+            //arr['sucursal'] = this.sucursal;
+            item.forEach(element => {
+              let x = element.payload.toJSON();
+              console.log("key:" + element.key);
+              console.log("value:" + x);
+              arr[element.key] = x;
+              arr['existe'] = "SI";
+              //x["$key"] = element.key;
 
-          //this.productObj.push(x as Producto);
-        });
-        console.log(arr);
-        console.log("sale:" + arr['codpro']);
-        if (arr['existe'] == 'SI') {
-          this.invoice.push(
-            {
-              id: 5,
-              codpro: arr['codpro'],
-              nompro: arr['nompro'],
-              cantid: 1,
-              punituser: arr['precio2'],
-              codcol: arr['codcol'],
-              descolor: arr['descolor'],
-              talla: arr['talla'],
-              serpro: arr['serpro'],
-              fecvendet: arr['fecvendet']
+
+              //this.productObj.push(x as Producto);
             });
-          }
-      
-    /*
-    this.productObj.id = 5;
-    this.productObj.serpro = arr['serpro'];
-    this.productObj.codpro = arr['codpro'];
-    this.productObj.nompro = "F A L T A";
-    this.productObj.codcol = arr['codcol'];
-    this.productObj.descolor = "F A L T A";
-    this.productObj.talla = "F A L T A";
-    this.productObj.fecvendet = arr['fecvendet'];
-    this.productObj.cantid = arr['cantid'];
-    this.productObj.punituser = 0.00;
-    
-    this.invoice.push(this.productObj as Producto);
-    */
-  });
-  console.log("Lista: " + this.productObj);
-      
-
-  
+            console.log(arr);
+            console.log("sale:" + arr['codpro']);
+            if (arr['existe'] == 'SI' && arr['cantid'] >  0 ) {
+              if (arr['sucursal'] == this.sucursal) {
+              this.invoiceId = this.invoiceId + 1;
+              this.invoice.push(
+                {
+                  id: this.invoiceId,
+                  sucursal: arr['sucursal'],
+                  codpro: arr['codpro'],
+                  nompro: arr['nompro'],
+                  cantid: 1,
+                  punituser: arr['precio2'],
+                  codcol: arr['codcol'],
+                  descolor: arr['descolor'],
+                  talla: arr['talla'],
+                  serpro: arr['serpro'],
+                  fecvendet: arr['fecvendet']
+                });
+              }
+              else
+              {
+                this.toastr.warning('Producto esta en otro almace (' + arr['sucursal'] +')');  
+              }
+            }
+            else {
+              this.toastr.error('No existe producto');
+            }
+          });
+      }
+    }
+    else {
+      this.toastr.warning('Falta seleccionar Tienda');
+    }
   }
-
-onSearchChange(searchValue: string) {
-  this.searchValue = searchValue;
-
-  console.log("searchValue = " + this.searchValue);
-
-}
-
 }
