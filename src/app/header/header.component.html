@@ -6,7 +6,7 @@
         <mat-menu #menuGeneral="matMenu">
             <button mat-menu-item>
                 <mat-icon>shop</mat-icon>
-                <span>VENTA</span>
+                <span (click)="openDialog()">VENTA</span>
             </button>
             <button mat-menu-item>
                 <mat-icon>compare_arrows</mat-icon>
@@ -21,7 +21,6 @@
                 <span>SALIR</span>
             </button>
         </mat-menu>
-
 
         <span class="titlePage">VENTA / ALMACEN PRINCIPAL</span>
         <!--

@@ -25,8 +25,7 @@ export class CatalogComponent implements OnInit {
   productList: Product[];
   identity: any;  
   invoiceCab = [];
-  
-  
+
 
   constructor(
     private _route: ActivatedRoute,
@@ -70,6 +69,8 @@ export class CatalogComponent implements OnInit {
     localStorage.clear();
     this._router.navigate(['/']);
   }
+
+ 
 
   products: Section[] = [
     { name: 'Photos' },

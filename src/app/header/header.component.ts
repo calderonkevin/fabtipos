@@ -1,4 +1,5 @@
 import { Component , OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material';
 
 import { Tienda } from '../models/tienda';
 import { Category } from '../models/category';
@@ -9,6 +10,8 @@ import { ProductService } from '../common/services/product.service';
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+//Dialog
+import {MyDialogComponent} from '../my-dialog/my-dialog.component';
 export interface Food {
   value: string;
   viewValue: string;
@@ -26,12 +29,15 @@ export class HeaderComponent implements OnInit  {
   tiendaList: Tienda[];
   categoriaList: Category[];
   identity: any;  
-  
+  descuento=0;
+  tipoDescuento=0;
+
   constructor(
     private _loginService: LoginService,
     private _productService: ProductService,
     private _route: ActivatedRoute,
     private _router: Router,
+    public dialog: MatDialog
   ) {    
   }
 
@@ -79,7 +85,28 @@ export class HeaderComponent implements OnInit  {
     this._router.navigate(['/']);
   }
 
-   
+  openDialog(): void {
+  
+    
+    let dialogRefDes = this.dialog.open(MyDialogComponent, {
+      width: '450px',
+      // data: { name: this.name, animal: this.animal }
+      //data: ''
+      data: {
+        descuento: this.descuento,
+        tipoDescuento: this.tipoDescuento,
+        
+      }
+    });
+
+    dialogRefDes.afterClosed().subscribe(result => {
+        //alert(result);
+       
+        //console.log('The dialog was closed');
+        //this.animal = result;
+    });
+  }
+
   foods: Food[] = [
     {value: 'steak-0', viewValue: 'Steak'},
     {value: 'pizza-1', viewValue: 'Pizza'},
