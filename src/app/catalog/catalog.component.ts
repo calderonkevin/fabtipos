@@ -167,7 +167,7 @@ export class CatalogComponent implements OnInit {
   
     this.codError = -999;
     if (searchValue != "") {
-      this._loginService.articulos().subscribe(
+      this._loginService.articulos(searchValue).subscribe(
         response => {
           console.log("L I S T A   D E   P R O D U C T O S");
           console.log(response);
