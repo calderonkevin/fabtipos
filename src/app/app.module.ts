@@ -11,6 +11,7 @@ import { LoginComponent }  from './login/login.component';
 import { ZnoexisteComponent }  from './znoexiste/znoexiste.component';
 import { ProductService } from './common/services/product.service';
 import { MyDialogComponent } from './my-dialog/my-dialog.component';
+import { MyDialogEditarPrecioComponent } from './my-dialog/my-dialog-editar-precio.component';
 
 //material
 import { MaterialModule } from './zmaterial/material';
@@ -36,16 +37,17 @@ import { LoginService } from './common/services/login.service';
 import { AdminGuard } from './common/services/admin.guard';
 
 
+
 @NgModule({
   declarations: [
-    AppComponent, HeaderComponent, ShopComponent, CatalogComponent, LoginComponent, ZnoexisteComponent,MyDialogComponent
+    AppComponent, HeaderComponent, ShopComponent, CatalogComponent, LoginComponent, ZnoexisteComponent,MyDialogComponent, MyDialogEditarPrecioComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     routing,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(), 
+    ToastrModule.forRoot({positionClass: 'toast-center-center'}), 
     MaterialModule,
     HttpModule,
     FormsModule,
@@ -54,7 +56,8 @@ import { AdminGuard } from './common/services/admin.guard';
     AngularFireDatabaseModule
   ],
   entryComponents: [
-    MyDialogComponent
+    MyDialogComponent,
+    MyDialogEditarPrecioComponent
   ],
   providers: [LoginService, ProductService, appRoutingProviders, AdminGuard],
   bootstrap: [AppComponent]

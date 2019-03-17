@@ -19,7 +19,17 @@ export class ProductService {
         
     }
 
+    
 
+    getProductBarCode(idItem){        
+        return this.productList = this.firebase.list("listabarraotro/"+idItem);
+        
+    }
+
+    putProductBarCodeFire(idItem){        
+        return this.firebase.database.ref().child('/listabarraotro/' + idItem);
+        
+    }
     
 
     getCategoria(){

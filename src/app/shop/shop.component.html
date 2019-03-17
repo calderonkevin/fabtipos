@@ -1,40 +1,45 @@
-<form style="display:none;">
-    <input id="detectabarra" name="detectabarra">
-    <button id="btnejecuta" (click)="buscarFire($event.target);" mat-raised-button color="primary"
-        style="font-size: 24px;">.........</button>
-</form>
-
 <div class="shop">
-    <div class="customer">
-        <!--<mat-form-field class="example-full-width">
-                <input matInput placeholder="State" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
-                <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
-                    <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
-                    <span>{{state.name}}</span> |
-                    <small>Population: {{state.population}}</small>
+    <div class="customer">        
+        <span>Cliente</span>
+        {{invoiceCab.nomcom}}
+<!--
+        <mat-form-field class="example-full-width">
+            <mat-select placeholder="Cliente">
+                <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{food.viewValue}}
                 </mat-option>
-            </mat-autocomplete>
+            </mat-select>
         </mat-form-field>-->
     </div>
+    <div class="customer">
+            
+                    <mat-form-field class="example-full-width" style="margin-left: 15px; width: 280px;">
+                        <input matInput placeholder="Ingrese código de barra" id="detectabarra" name="detectabarra" value="" onfocus="this.select()" (keyup.enter)="buscarFire($event.target.value)" autocomplete="off">
+                      </mat-form-field>
+                    
+                    
+            
+    </div>
     <div class="listItems">
-        <div class="item" *ngIf="invoice.length == 0">
+        <div class="item" *ngIf="invoiceDet.length == 0">
 
             Agregue sus productos
 
         </div>
 
-        <div class="item" *ngFor="let invoItem of invoice; let i = index">
-            <button mat-button>
+        <div class="item" *ngFor="let invoItem of invoiceDet; let i = index">
+            <button mat-button (click)="openDialogEditarPrecio(i, invoItem)">
                 <div class="photoItem">
                     <!--<mat-icon mat-list-icon>fastfood</mat-icon>-->
                     <img
                         src="https://falabella.scene7.com/is/image/FalabellaPE/15767763_1?$producto308$&amp;wid=472&amp;hei=472">
                 </div>
                 <div class="textItem">
-                    <h4 mat-line>{{i}}-{{invoItem.nompro}}</h4>
+                    <!--<h4 mat-line>{{invoItem.codpro}}-{{invoItem.sucursal}}-{{i}}-{{invoItem.nompro}}</h4>-->
+                    <h4 mat-line>{{invoItem.nompro}}</h4>
                     <h6 mat-line>{{invoItem.descolor}}</h6>
                     <h6 mat-line>{{invoItem.serpro}}</h6>
+                    <h6 mat-line style="color: #00F;" *ngIf="invoItem.sucursal != sucursal" >{{invoItem.dessucursal}}</h6>
                 </div>
                 <div class="priceItem">
                     <!--<span class="currency">S/</span>-->
@@ -47,6 +52,10 @@
         </div>
     </div>
     <div class="total">
-        <button mat-raised-button color="primary" style="font-size: 24px;">Pagar S/ {{ invoGetTotal() }}</button>
+        <button [disabled]="loading" id="#btnCrear" name="#btnCrear" mat-raised-button color="primary" (click)="crearTicket()" style="font-size: 24px;">
+            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+            Pagar S/ {{ invoGetTotal() }}
+        </button>
+        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
     </div>
 </div>

@@ -1,12 +1,13 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row class="headerLeft">
-        <button mat-icon-button [matMenuTriggerFor]="menuGeneral">
+        <button mat-icon-button>
             <mat-icon>dashboard</mat-icon>
         </button>
+        <!--
         <mat-menu #menuGeneral="matMenu">
-            <button mat-menu-item>
+            <button mat-menu-item (click)="openDialog()">
                 <mat-icon>shop</mat-icon>
-                <span (click)="openDialog()">VENTA</span>
+                <span>VENTA</span>
             </button>
             <button mat-menu-item>
                 <mat-icon>compare_arrows</mat-icon>
@@ -21,8 +22,10 @@
                 <span>SALIR</span>
             </button>
         </mat-menu>
+    -->
 
-        <span class="titlePage">VENTA / ALMACEN PRINCIPAL</span>
+
+        <span class="titlePage">VENTA / <span style="font-size: 11px;">{{datadef.sucursal}}-{{datadef.dessucursal}}</span></span>
         <!--
         <mat-form-field>
             <mat-select [(value)]="selected">
@@ -50,7 +53,7 @@
         </div>
         <div class="search">
             <mat-icon>search</mat-icon>
-            <input type="search" id="name" name="name" placeholder="Buscar">
+            <input type="search" id="txtBusqueda" name="txtBusqueda" placeholder="Buscar código de barra" onfocus="this.select()" (keyup.enter)="onSearchChange($event.target.value)">
             <!--<button mat-icon-button>
                 <mat-icon>close</mat-icon>
             </button>-->

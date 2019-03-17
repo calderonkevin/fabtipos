@@ -98,16 +98,26 @@ export class LoginService{
     }
 
     articulos(){        
+
         console.log("=================");
-        //let params = {username: email , pwd: miclave};
-        //let dataString = $(params).serialize();
+        let params = '';
+        
+        console.log("0001-"+params);
+        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});        
+        let options = new RequestOptions({ headers: headers });
+        return this._http.get(this.url + 'articulo/lista12', options)
+                         .pipe(map(res => res.json()));
+                         
+                         
+    }
+
+    clientes(){        
+        console.log("===========CLIENTES======");
         
         let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});        
         let options = new RequestOptions({ headers: headers });        
-        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-//console.log(this._http.post(this.url2 + 'catalogo/lista-articulo', options)
-//.pipe(map(res => res.json()))      );
-        return this._http.post(this.url + 'articulo/lista13in', options)
+        console.log("---CLIENTES");
+        return this._http.post(this.url + 'clientes/listacombo', options)
                          .pipe(map(res => res.json()));        
                          
     }
@@ -130,7 +140,7 @@ console.log(token);
             "dataCab": dataCab
            }
         ];    
-        console.log(listaJson);
+        console.log("listaJson:" +listaJson);
 
         
         let headers = new Headers();        
@@ -183,6 +193,38 @@ console.log(token);
             this.datadef = null;
         }
         return this.datadef;
+    }    
+
+    consultaArticuloBarraAjuIng(busqueda:string){
+        //let aa =body;  
+        console.log("=================");        
+        console.log("consulta producto barra: " + busqueda);
+        var listaJson = [];
+        //var dataCab = [{'codcli':'5','coddir':'0001','codper':'44001713'}];        
+        var token = this.getToken();
+        var identity = this.getIdentity();
+console.log(token);
+        listaJson = [
+          {
+            "token": token,
+            "identity": identity,
+            "data": busqueda,            
+           }
+        ];    
+        console.log("listaJson:" +listaJson);
+
+        
+        let headers = new Headers();        
+        headers.append("Content-Type", "application/json; charset=UTF-8");
+        headers.append("Authorization", token);
+
+        //let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8'});
+        //headers = new Headers({ 'Authorization': 'Basic'+ token});        
+        let options = new RequestOptions({ headers: headers });                
+
+        return this._http.post(this.url + 'articulo/consulta-barra-aju-ing', JSON.stringify(listaJson),  options)
+                         .pipe(map(res => res.json()));        
+                         
     }
 
 

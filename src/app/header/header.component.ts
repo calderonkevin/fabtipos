@@ -1,7 +1,6 @@
 import { Component , OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 
-import { Tienda } from '../models/tienda';
 import { Category } from '../models/category';
 
 import { LoginService } from '../common/services/login.service';
@@ -12,10 +11,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 //Dialog
 import {MyDialogComponent} from '../my-dialog/my-dialog.component';
-export interface Food {
-  value: string;
-  viewValue: string;
-}
+
+declare var jQuery: any;
+declare var $: any;
 
 
 @Component({
@@ -26,9 +24,10 @@ export interface Food {
 })
 export class HeaderComponent implements OnInit  {
  
-  tiendaList: Tienda[];
+  
   categoriaList: Category[];
   identity: any;  
+  datadef: any;  
   descuento=0;
   tipoDescuento=0;
 
@@ -59,30 +58,35 @@ export class HeaderComponent implements OnInit  {
         });
       });
 
-      this._productService.getTienda()
-      .snapshotChanges()
-      .subscribe(item => {
-        this.tiendaList = [];
-        //console.log(item.length);
-        item.forEach(element => {
-          let x = element.payload.toJSON();
-          //console.log(element.key);
-          x["$key"] = element.key;
-          //console.log(element.key);
-          this.tiendaList.push(x as Tienda);
-        });
-      });
-
+      
       this.identity = this._loginService.getIdentity();    
+      this.datadef = this._loginService.getDataDef()
     //this.invoiceCab = [{'codcli':'5','coddir':'0001','codper':'44001713','nomcom':'otros mas'}];
     //this.invoiceCab = this._loginService.getDataDef();
-    console.log("entra a oninit");
+    console.log("entra a oninit HEAD");
     console.log(this._loginService.getDataDef());
+
    }
 
    logout(): void {
     localStorage.clear();
     this._router.navigate(['/']);
+  }
+
+  onSearchChange(searchValue: string) {
+    console.log("Ingresa con enter");
+    $("#txtBusqueda").select();
+    if(searchValue.startsWith("0"))
+    {
+     $("#detectabarra").val(searchValue);
+     $("#btnejecuta").click();
+    }
+    else{
+      console.log("no hace nada")
+    }
+    return;
+
+
   }
 
   openDialog(): void {
@@ -107,10 +111,6 @@ export class HeaderComponent implements OnInit  {
     });
   }
 
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
-  ];
+  
 
 }

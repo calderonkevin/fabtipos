@@ -36,10 +36,6 @@ body {
 	background-color: #f5f5f5 !important;
 	color: #424c55;
 	height: 100%;
-
-	background-image: url(../../assets/images/bg-demo.png);
-	background-size: cover;
-	background-position: center center;
 }
 .clear {
 	clear: both;
@@ -52,21 +48,11 @@ body {
 /* ======================================== */
 /* START LOGIN */
 /* ==================== */
-
-
 .bodyLogin{
-	font-size: 12px;
-	font-family: Arial, Helvetica, sans-serif !important;
-	background-color: #f5f5f5 !important;
-	color: #424c55;
-	height: 100%;
-
-	background: url(../../assets/images/bg-demo.png);
-	background-size: cover; 
-	background-position: center center;		
+	background-image: url(images/bg-demo.png);
+	background-size: cover;
+	background-position: center center;
 }
-
-
 .logo{
 	line-height: 30px;
 	font-size: 18px;

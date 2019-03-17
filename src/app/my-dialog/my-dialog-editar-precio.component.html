@@ -1,0 +1,16 @@
+<h2 mat-dialog-title style="margin: 0px; padding: 0px;">{{data.nompro}}</h2>
+<h2 mat-dialog-title style="font-size: 12px; margin: 0px; padding: 0px;">{{data.descolor}}</h2>
+
+<mat-dialog-content>
+  <div class="example-container">
+    <mat-form-field>      
+      <input id="txtpunituser" name="txtpunituser"  type="number" matInput placeholder="Precio" [(ngModel)]="data.punituser" >
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Cancelar</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-raised-button color="primary" [mat-dialog-close]="data.punituser">Actualizar</button>
+  
+</mat-dialog-actions>

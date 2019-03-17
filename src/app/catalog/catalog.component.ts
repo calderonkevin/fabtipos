@@ -11,7 +11,8 @@ import { Product } from '../models/product';
 
 
 export interface Section {
-  name: string;
+  name: string;  
+    
 }
 
 @Component({
@@ -25,7 +26,9 @@ export class CatalogComponent implements OnInit {
   productList: Product[];
   identity: any;  
   invoiceCab = [];
-
+  codError:number;
+  msgError:string;
+  status:string;
 
   constructor(
     private _route: ActivatedRoute,
@@ -37,7 +40,7 @@ export class CatalogComponent implements OnInit {
 
 
   ngOnInit() {
-
+    /*
     this._productService.getProduct()
       .snapshotChanges()
       .subscribe(item => {
@@ -51,7 +54,37 @@ export class CatalogComponent implements OnInit {
           this.productList.push(x as Product);
         });
       });
+      */
 
+      console.log("entrando a validar");
+      this.codError = -999;
+      
+      this._loginService.articulos().subscribe(
+        response => {
+          console.log("L I S T A   D E   P R O D U C T O S");
+            console.log(response);
+            this.codError = response.code;
+            this.msgError = response.msg;
+            this.productList = response.data;
+            if(this.codError == 0){
+              
+                this.status = "success";               
+                
+            }else{
+                this.status = "danger";
+            }
+
+        },
+        error => {
+            console.log(<any>error);
+            //console.log("error 454545.");
+            var errorMessage = <any>error;
+            if (errorMessage != null){
+                var body = JSON.parse(error._body);
+                this.codError = -1;
+            }
+        }
+    )
       
 
 
@@ -60,7 +93,7 @@ export class CatalogComponent implements OnInit {
         this.identity = this._loginService.getIdentity();    
     //this.invoiceCab = [{'codcli':'5','coddir':'0001','codper':'44001713','nomcom':'otros mas'}];
     this.invoiceCab = this._loginService.getDataDef();
-    console.log("entra a oninit");
+    console.log("entra a oninit CATALOGO");
     console.log(this._loginService.getDataDef());
 
   }
