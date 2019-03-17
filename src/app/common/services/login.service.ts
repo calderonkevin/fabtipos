@@ -97,15 +97,14 @@ export class LoginService{
         
     }
 
-    articulos(){        
+    articulos(searchValue: string){        
 
-        console.log("=================");
-        let params = '';
+        console.log("=================");        
+        let params = 'searchValue='+ searchValue;        
         
-        console.log("0001-"+params);
         let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});        
         let options = new RequestOptions({ headers: headers });
-        return this._http.get(this.url + 'articulo/lista12', options)
+        return this._http.post(this.url + 'articulo/lista12', params, options)
                          .pipe(map(res => res.json()));
                          
                          
