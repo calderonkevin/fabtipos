@@ -32,7 +32,7 @@ export interface Food {
   providers: [LoginService]
 })
 export class ShopComponent {
-
+  selected = 'option2';
 
   foods: Food[] = [
     { value: 'steak-0', viewValue: 'Cliente General' }
@@ -69,6 +69,24 @@ export class ShopComponent {
 
 
   ngOnInit() {
+
+    this._loginService.clientes().subscribe(
+      response => {
+        console.log("L I S T A   D E   C L I E N T E S");
+        console.log(response);
+        //this.productList = response.data;        
+
+      },
+      error => {
+        console.log(<any>error);
+        //console.log("error 454545.");
+        var errorMessage = <any>error;
+        if (errorMessage != null) {
+          var body = JSON.parse(error._body);          
+        }
+      }
+    )
+
 
     let wTienda = this._productService.getTienda()
       .snapshotChanges()

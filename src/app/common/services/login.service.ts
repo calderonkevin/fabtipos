@@ -111,6 +111,19 @@ export class LoginService{
     }
 
     clientes(){        
+
+        console.log("=================");        
+        let params = '';        
+        
+        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});        
+        let options = new RequestOptions({ headers: headers });
+        return this._http.post(this.url + 'cliente/get-pairs', params, options)
+                         .pipe(map(res => res.json()));
+                         
+                         
+    }
+    
+    clientes02(){        
         console.log("===========CLIENTES======");
         
         let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});        
