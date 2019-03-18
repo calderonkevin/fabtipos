@@ -70,8 +70,9 @@ export class HeaderComponent implements OnInit {
   onSearchChange(searchValue: string) {
     //console.log("Ingresa con enter");
     //console.log(searchValue);
-
-    this.catalogComponent.loadCatalogo(searchValue);
+    if (searchValue != "") {
+      this.catalogComponent.loadCatalogo(searchValue);
+    }
 
     /*$("#txtBusqueda").select();
     if (searchValue.startsWith("0")) {
