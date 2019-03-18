@@ -122,17 +122,34 @@ export class LoginService{
                          
                          
     }
-    
-    clientes02(){        
-        console.log("===========CLIENTES======");
-        
-        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'});        
-        let options = new RequestOptions({ headers: headers });        
-        console.log("---CLIENTES");
-        return this._http.post(this.url + 'clientes/listacombo', options)
-                         .pipe(map(res => res.json()));        
+
+    listaTicket(searchValue: string){        
+
+        var listaJson = [];                
+        var token = this.getToken();
+        var identity = this.getIdentity();
+        listaJson = [
+          {
+            "token": token,
+            "identity": identity,            
+           }
+        ];    
+        console.log("listaJson:" +listaJson);
+
+        let headers = new Headers();        
+        headers.append("Content-Type", "application/json; charset=UTF-8");
+        headers.append("Authorization", token);
+
+        //let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8'});
+        //headers = new Headers({ 'Authorization': 'Basic'+ token});        
+        let options = new RequestOptions({ headers: headers });                
+
+        return this._http.post(this.url + 'ticket/lista-json', JSON.stringify(listaJson),  options)
+                         .pipe(map(res => res.json()));                         
                          
     }
+
+    
 
     crearTicketPos(body, invoiceCab){
         //let aa =body;  

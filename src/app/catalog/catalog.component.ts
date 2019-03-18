@@ -7,11 +7,16 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 // model
 import { Product } from '../models/product';
+import { Ticket } from '../models/ticket';
 
 export interface Section {
   name: string;
 
 }
+
+
+const ELEMENT_DATA: Ticket[] = [];
+
 
 @Component({
   selector: 'app-catalog',
@@ -22,13 +27,19 @@ export interface Section {
 export class CatalogComponent implements OnInit {
 
   productList: Product[];
+  ticketList: Ticket[];
   identity: any;
   invoiceCab = [];
   codError: number;
   msgError: string;
   status: string;
   totalProduct: number;
+  totalTicketVenta: string;
 
+  displayedColumns: string[] = ['dessucursal', 'numcodope', 'serie', 'total', 'fecdoc', 'fabrica', 'desfabrica', 'feccre','usernamecre'];
+  dataSource = ELEMENT_DATA;
+
+  
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -61,6 +72,8 @@ export class CatalogComponent implements OnInit {
     this.invoiceCab = this._loginService.getDataDef();
     console.log("entra a oninit CATALOGO");
     console.log(this._loginService.getDataDef());
+
+    this.loadTicket(this.identity);
 
   }
 
@@ -198,5 +211,57 @@ export class CatalogComponent implements OnInit {
       )
  
 
+  }
+
+
+  
+  loadTicket(searchValue: string) {
+    console.log("loadTicket");
+
+    this.codError = -999;
+   
+      this._loginService.listaTicket(searchValue).subscribe(
+        response => {
+          console.log("L I S T A   D E   T I C K E T");
+          console.log(response);
+          this.codError = response.code;
+          this.msgError = response.msg;
+          this.dataSource = response.data;
+          console.log("this.ticketList:" + this.ticketList);
+
+          this.totalTicketVenta = this.ticketGetTotal();
+          
+          //this.totalProduct = this.productList.length;
+          //console.log(this.productList.length);
+
+          if (this.codError == 0) {
+
+            this.status = "success";
+
+          } else {
+            this.status = "danger";
+          }
+
+        },
+        error => {
+          console.log(<any>error);
+          //console.log("error 454545.");
+          var errorMessage = <any>error;
+          if (errorMessage != null) {
+            var body = JSON.parse(error._body);
+            this.codError = -1;
+          }
+        }
+      )
+ 
+
+  }
+
+  ticketGetTotal(): string {
+    var total = 0;
+    for (let item of this.dataSource) {
+      total = total + (item.total * 1)
+    }    
+    return total.toFixed(2)
   }
 }

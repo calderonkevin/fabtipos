@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 
 //Dialog
 import { MyDialogEditarPrecioComponent } from '../my-dialog/my-dialog-editar-precio.component';
+import { CatalogComponent } from '../catalog/catalog.component';
 
 declare var jQuery: any;
 declare var $: any;
@@ -50,7 +51,8 @@ export class ShopComponent {
     private _loginService: LoginService,
     private _productService: ProductService,
     private toastr: ToastrService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private catalogComponent: CatalogComponent,
   ) {
 
   }
@@ -75,6 +77,8 @@ export class ShopComponent {
   selectedCodcliValue: string;
 
   ngOnInit() {
+
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
     this._loginService.clientes().subscribe(
       response => {
@@ -459,6 +463,7 @@ export class ShopComponent {
           this.invoiceDet = [];
           this.invoiceCab = this._loginService.getDataDef();
           this.selectedCodcliValue =  this.invoiceCab["codcli"];
+          this.catalogComponent.loadTicket('');
 
 
           //////////////////////////////////
