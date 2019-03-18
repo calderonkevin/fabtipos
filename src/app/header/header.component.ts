@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
   datadef: any;
   descuento = 0;
   tipoDescuento = 0;
-
+  searchValue: string;
   constructor(
     private _loginService: LoginService,
     private _productService: ProductService,
@@ -70,9 +70,9 @@ export class HeaderComponent implements OnInit {
   onSearchChange(searchValue: string) {
     //console.log("Ingresa con enter");
     //console.log(searchValue);
-    if (searchValue != "") {
+    //if (searchValue != "") {
       this.catalogComponent.loadCatalogo(searchValue);
-    }
+    //}
 
     /*$("#txtBusqueda").select();
     if (searchValue.startsWith("0")) {

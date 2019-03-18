@@ -2,6 +2,80 @@
 <app-shop></app-shop>
 
 <div class="catalog">
+    <div class="wrapResults">
+        <div class="results">
+            
+            <h1 class="titleResult">Resultados encontrados</h1>
+            <div *ngIf="this.totalProduct  > 0; else no_record">
+                <button mat-raised-button class="product" *ngFor="let item of productList; let i = index">
+                    <h1 class="nameProduct">{{item.nompro}}</h1>
+                    <img mat-card-image
+                        src="https://falabella.scene7.com/is/image/FalabellaPE/15767763_1?$producto308$&amp;wid=472&amp;hei=472"
+                        alt="Photo of a Shiba Inu">
+                    <ul class="ulPrice">
+                        <li class="liPrice">
+                            <span>P. General</span> <span class="priceProduct">S/ {{item.webprecio}}</span>
+                        </li>
+                        <li class="liPrice">
+                            <span>P. Unidad</span> <span class="priceProduct">S/ {{item.precio}}</span>
+                        </li>
+                        <li class="liPrice">
+                            <span>P. Mayor</span> <span class="priceProduct">S/ {{item.precio2}}</span>
+                        </li>
+                    </ul>
+                </button>
+            </div>
+            <ng-template #no_record>
+                <p></p>
+                <div >No existe Registros</div>                
+            </ng-template>
+
+        </div>
+
+    </div>
+
+    <div class="infoDay">
+        <mat-tab-group>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+                    Movimientos
+                </ng-template>
+
+
+
+            </mat-tab>
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+                    Ventas
+                </ng-template>
+                Content 2
+            </mat-tab>
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+                    Transferencias
+                </ng-template>
+
+                Content 3
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+                    Devoluciones
+                </ng-template>
+
+                Content 3
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+</div>
+
+<!-- <div class="catalog">
     <div class="results">
 
           
@@ -11,4 +85,4 @@
                 <span class="priceProduct">S/ {{item.pre}}</span>            
         </button>
     </div>
-</div>
+</div> -->

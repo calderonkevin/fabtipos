@@ -27,18 +27,19 @@ export class CatalogComponent implements OnInit {
   codError: number;
   msgError: string;
   status: string;
+  totalProduct: number;
 
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
     private _loginService: LoginService,
-    private _productService: ProductService  
+    private _productService: ProductService
   ) {
   }
 
   ngOnInit() {
-    
-   // console.log(this.headerComponent.descuento);
+
+    // console.log(this.headerComponent.descuento);
     /*
     this._productService.getProduct()
       .snapshotChanges()
@@ -163,10 +164,9 @@ export class CatalogComponent implements OnInit {
 
   loadCatalogo(searchValue: string) {
     console.log("loadCatalogo");
-    console.log(searchValue);
-  
+
     this.codError = -999;
-    if (searchValue != "") {
+   
       this._loginService.articulos(searchValue).subscribe(
         response => {
           console.log("L I S T A   D E   P R O D U C T O S");
@@ -174,6 +174,9 @@ export class CatalogComponent implements OnInit {
           this.codError = response.code;
           this.msgError = response.msg;
           this.productList = response.data;
+          this.totalProduct = this.productList.length;
+          //console.log(this.productList.length);
+
           if (this.codError == 0) {
 
             this.status = "success";
@@ -193,7 +196,7 @@ export class CatalogComponent implements OnInit {
           }
         }
       )
-    }
+ 
 
   }
 }
