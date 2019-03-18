@@ -65,66 +65,6 @@ export class ShopComponent {
 
   tipcodope: string = "0090";
   sucursal: string = "";
-
-  /*
-    invoiceDet22: Invoicedet[] = [
-      {
-        id: 1,
-        sucursal: '000001',
-        codpro: "12",
-        nompro: "PANTALLA-HTC-DESIRE-100",
-        cantid: 1,
-        punituser: 10.25,
-        codcol: "000001",
-        descolor: "TRANSPARENTE",
-        talla: "000001",
-        destalla: "",
-        serpro: "000011234454119",
-        fecvendet: "2019-01-01"
-      },
-      {
-        id: 2,
-        sucursal: '000001',
-        codpro: "13",
-        nompro: "PANTALLA-HTC-DESIRE-200",
-        cantid: 1,
-        punituser: 10.25,
-        codcol: "000001",
-        descolor: "TRANSPARENTE",
-        talla: "000001",
-        destalla: "",
-        serpro: "000011234454119",
-        fecvendet: "2019-01-01"
-      },
-      {
-        id: 3,
-        sucursal: '000001',
-        codpro: "14",
-        nompro: "PANTALLA-HTC-DESIRE-300",
-        cantid: 1,
-        punituser: 10.25,
-        codcol: "000001",
-        descolor: "TRANSPARENTE",
-        talla: "000001",
-        serpro: "000011234454119",
-        fecvendet: "2019-01-01"
-      },
-      {
-        id: 4,
-        sucursal: '000001',
-        codpro: "15",
-        nompro: "PANTALLA-HTC-DESIRE-400",
-        cantid: 1,
-        punituser: 10.25,
-        codcol: "000001",
-        descolor: "VERDE",
-        talla: "000001",
-        serpro: "000011234454119",
-        fecvendet: "2019-01-01"
-      },
-  
-    ];
-  */
   identity: any;
 
 

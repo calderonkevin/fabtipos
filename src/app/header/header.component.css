@@ -5,10 +5,10 @@
   height: 50px;
   min-height: 50px;
 	position: fixed;
-	z-index: 1;
+	z-index: 3;
 }
 .mat-toolbar .mat-toolbar-row{
-  padding: 0 10px;
+  padding: 0 8px;
 }
 .mat-toolbar .headerLeft{
 	width: 320px;
@@ -24,13 +24,18 @@
   margin: 5px 0;
 }
 .mat-toolbar .headerLeft .titlePage{
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 600;
   float: left;
   clear: right;
-  line-height: 50px;
-  margin: 0 0 0 10px;
+  line-height: 16px;
+  margin: 10px 0 0 5px;
   padding: 0;
+}
+.mat-toolbar .headerLeft .titlePage .subtitlePage{
+	display: block;
+	font-size: 11px;
+	font-weight: 500;
 }
 .mat-toolbar .headerLeft .mat-form-field{
   font-size: 15px;
@@ -85,7 +90,7 @@
 	font-size: 28px;
 }
 .wrapTags .mat-button .nameTag{
-  float: left;
+	float: left;
 	clear: right;
 	line-height: 28px !important;
 	margin: 0 0 0 7px;
@@ -96,11 +101,11 @@
 	color: #3f51b5 !important;
 }
 .search{
-  height: 40px;
+	height: 40px;
 	margin: 5px;
 	width: 346px;
 	position: relative;
-  float: left;
+	float: left;
 	clear: right;
 }
 .search .mat-icon{
@@ -111,7 +116,7 @@
 .search input{
 	line-height: 40px;
   font-size: 15px;
-  padding: 0 15px 0 44px;
+  padding: 0 50px 0 44px;
   width: 100%;
   box-sizing: border-box;
   border: none;

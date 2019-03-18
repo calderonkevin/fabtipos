@@ -1,19 +1,79 @@
 .shop{
     width: 320px;
-	position: absolute;
+	position: fixed;
 	height:  calc(100% - 50px);
 	left: 0;
 	top: 50px;
 	background-color: #fff;
 }
 .shop .customer{
-    height: 50px;
+    height: 48px;
+    padding: 0 16px 0 55px;
+    position: relative;
+}
+.shop .customer .mat-icon{
+    position: absolute;
+    top: 50%;
+    color: #607d8b;
+    left: 16px;
+    margin: -12px 0 0 0;
+}
+.shop .customer .mat-form-field{
+    width: 100%;
+    margin: -3px 0 0 0;
+    font-size: 15px;
+}
+.shop .searchAdd{
+	height: auto;
+    margin: 0;
+    padding: 5px 6px 8px 6px;
+    position: relative;
     border-bottom: 1px solid #ddd;
+}
+.shop .searchAdd .mat-icon{
+	position: absolute;
+	left: 15px;
+    top: 13px;
+    color: #607d8b;
+}
+.shop .searchAdd input{
+	line-height: 40px;
+    font-size: 15px;
+    padding: 0 50px 0 49px;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+}
+.shop .searchAdd input::placeholder {
+	color: #777;
+}
+.shop .searchAdd input:focus{
+	box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+	background-color: #fff;
+}
+.shop .searchAdd input:focus::placeholder {
+	color: rgba(0,0,0,.6);
+}
+.shop .searchAdd .mat-icon-button{
+	position: absolute;
+	right: 6px;
+}
+.shop .searchAdd .mat-icon-button .mat-icon{
+	position: inherit;
+	left: 0;
+    top: 0;
+    color: #999;
+}
+.shop .searchAdd .mat-icon-button::before, .shop .searchAdd .mat-icon-button::after{
+	background-color: #999;
 }
 .shop .listItems{
     margin: 0;
 	position: relative;
-	height: calc(100% - 105px);
+	height: calc(100% - 156px);
 	overflow-x: hidden;
 }
 .shop .listItems .item{
@@ -23,7 +83,7 @@
     border-bottom: 1px solid #ddd;
 }
 .shop .listItems .item .mat-button{
-    padding: 10px 120px 10px 60px;
+    padding: 10px 118px 10px 55px;
     line-height: 16px;
     font-weight: normal;
     text-align: left;
@@ -37,7 +97,7 @@
     height: 40px;
     position: absolute;
     top: 50%;
-    left: 10px;
+    left: 8px;
     background-color: #f2f2f2;
     border-radius: 30px;
 }
@@ -88,7 +148,7 @@
 }
 .shop .listItems .item .mat-icon-button{
 	position: absolute;
-    right: 10px;
+    right: 6px;
     top: 50%;
     margin: -20px 0 0 0;
     color: #607d8b;
