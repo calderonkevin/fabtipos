@@ -6,11 +6,11 @@
     <div class="customer">
         <mat-icon>account_circle</mat-icon>
         <mat-form-field>
-            <mat-select [(value)]="selected">                
-                <mat-option select=true value="option1">Option 1</mat-option>
-                <mat-option value="option2">Option 2</mat-option>
-                <mat-option value="option3">Option 3</mat-option>
-            </mat-select>
+            <mat-select [(ngModel)]="selectedCodcliValue" name="codcli">
+                <mat-option *ngFor="let cliente of clientes" [value]="cliente.codcli">
+                    {{cliente.nomcom}}
+                </mat-option>
+            </mat-select>            
         </mat-form-field>
     </div>
     <div class="searchAdd">

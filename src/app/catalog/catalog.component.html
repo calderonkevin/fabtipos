@@ -14,6 +14,9 @@
                         alt="Photo of a Shiba Inu">
                     <ul class="ulPrice">
                         <li class="liPrice">
+                            <span>Cantidad</span> <span class="priceProduct">{{item.cantid}}</span>
+                        </li>
+                        <li class="liPrice">
                             <span>P. General</span> <span class="priceProduct">S/ {{item.webprecio}}</span>
                         </li>
                         <li class="liPrice">
@@ -21,7 +24,7 @@
                         </li>
                         <li class="liPrice">
                             <span>P. Mayor</span> <span class="priceProduct">S/ {{item.precio2}}</span>
-                        </li>
+                        </li>                        
                     </ul>
                 </button>
             </div>
@@ -34,7 +37,7 @@
 
     </div>
 
-    <div class="infoDay">
+    <div class="infoDay" style="display: none;">
         <mat-tab-group>
             <mat-tab>
                 <ng-template mat-tab-label>

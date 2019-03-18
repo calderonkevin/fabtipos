@@ -19,9 +19,14 @@ import { MyDialogEditarPrecioComponent } from '../my-dialog/my-dialog-editar-pre
 declare var jQuery: any;
 declare var $: any;
 
-export interface Food {
+export interface Food2 {
   value: string;
   viewValue: string;
+}
+
+export interface Ciente {
+  codcli: string;
+  nomcom: string;
 }
 
 
@@ -31,12 +36,13 @@ export interface Food {
   styleUrls: ['./shop.component.css'],
   providers: [LoginService]
 })
-export class ShopComponent {
-  selected = 'option2';
+export class ShopComponent {  
 
-  foods: Food[] = [
-    { value: 'steak-0', viewValue: 'Cliente General' }
-  ];
+  
+  clientes: Ciente[];
+  
+  
+
 
   tiendaList: Tienda[];
 
@@ -56,7 +62,7 @@ export class ShopComponent {
   loading = false;
   loadingprecio = false;
   jsonImpresion: string;
-  clienteListCombo = [];
+  clienteListCombo = [];  
 
   productObj: Productbarcode;
   productBarcodeList: Productbarcode[];
@@ -66,7 +72,7 @@ export class ShopComponent {
   tipcodope: string = "0090";
   sucursal: string = "";
   identity: any;
-
+  selectedCodcliValue: string;
 
   ngOnInit() {
 
@@ -74,8 +80,7 @@ export class ShopComponent {
       response => {
         console.log("L I S T A   D E   C L I E N T E S");
         console.log(response);
-        //this.productList = response.data;        
-
+        this.clientes = response.data;  
       },
       error => {
         console.log(<any>error);
@@ -113,6 +118,8 @@ export class ShopComponent {
     console.log("this.invoiceCab: " + this.invoiceCab);
     console.log(this._loginService.getDataDef());
     this.sucursal = this.invoiceCab['sucursal'];
+    this.selectedCodcliValue = this.invoiceCab['codcli'];
+    
     if (this.sucursal == null)
     {
       this.sucursal = "";
@@ -163,8 +170,7 @@ export class ShopComponent {
         if (errorMessage != null) {
           var body = JSON.parse(errorMessage._body);
 
-        }
-        
+        }        
         //this.toastr.error(errorMessage, 'Venta');
       })
 
@@ -427,13 +433,16 @@ export class ShopComponent {
   }
 
   crearTicket(): void {
+    //console.log("selectedCodcliValue:" + this.selectedCodcliValue)
+    //return;
 
-    
     console.log(" fin creando nuevo ticket");
     this.loading = true;
     if (this.invoiceDet.length > 0 )
     {
     this.invoiceCab["sucursal"] = this.sucursal;
+    this.invoiceCab["codcli"] = this.selectedCodcliValue;
+
     this._loginService.crearTicketPos(this.invoiceDet, this.invoiceCab).subscribe(
       response => {
         console.log(response);
@@ -448,15 +457,18 @@ export class ShopComponent {
           console.log(dataEnconde);
           this.jsonImpresion = dataEnconde;
           this.invoiceDet = [];
+          this.invoiceCab = this._loginService.getDataDef();
+          this.selectedCodcliValue =  this.invoiceCab["codcli"];
+
 
           //////////////////////////////////
-          console.log("inicio fire");
-          var obj = JSON.parse(response.nose);
-          console.log("Total Fire:" + Object.keys(obj).length);
-          for (let key in obj) {
-            this._productService.putProductBarCodeFire(key).set(obj[key]);
-          }
-          console.log("fin fire");
+          //console.log("inicio fire");
+          //var obj = JSON.parse(response.nose);
+          //console.log("Total Fire:" + Object.keys(obj).length);
+          //for (let key in obj) {
+          //  this._productService.putProductBarCodeFire(key).set(obj[key]);
+          //}
+          //console.log("fin fire");
           //////////////////////////////////
 
 
