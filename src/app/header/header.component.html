@@ -23,9 +23,8 @@
             </button>
         </mat-menu>
     -->
-
-
-        <span class="titlePage">VENTA / <span style="font-size: 11px;">{{datadef.sucursal}}-{{datadef.dessucursal}}</span></span>
+       
+        <h1 class="titlePage">Venta<span class="subtitlePage">{{datadef.sucursal}}-{{datadef.dessucursal}}</span></h1>
         <!--
         <mat-form-field>
             <mat-select [(value)]="selected">
@@ -53,7 +52,7 @@
         </div>
         <div class="search">
             <mat-icon>search</mat-icon>
-            <input type="search" id="txtBusqueda" name="txtBusqueda" placeholder="Buscar código de barra" onfocus="this.select()" (keyup.enter)="onSearchChange($event.target.value)">
+            <input type="search" id="txtBusqueda" name="txtBusqueda" placeholder="Buscar por nombre o código" onfocus="this.select()" (keyup.enter)="onSearchChange($event.target.value)">
             <!--<button mat-icon-button>
                 <mat-icon>close</mat-icon>
             </button>-->

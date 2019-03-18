@@ -1,25 +1,26 @@
 <div class="shop">
-    <div class="customer">        
+    <!--<div class="customer">        
         <span>Cliente</span>
         {{invoiceCab.nomcom}}
-<!--
-        <mat-form-field class="example-full-width">
-            <mat-select placeholder="Cliente">
-                <mat-option *ngFor="let food of foods" [value]="food.value">
-                    {{food.viewValue}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>-->
-    </div>
+    </div>-->
     <div class="customer">
-            
-                    <mat-form-field class="example-full-width" style="margin-left: 15px; width: 280px;">
-                        <input matInput placeholder="Ingrese código de barra" id="detectabarra" name="detectabarra" value="" onfocus="this.select()" (keyup.enter)="buscarFire($event.target.value)" autocomplete="off">
-                      </mat-form-field>
-                    
-                    
-            
+        <mat-icon>account_circle</mat-icon>
+        <mat-form-field>
+            <mat-select [(value)]="selected">
+                <mat-option>None</mat-option>
+                <mat-option value="option1">Option 1</mat-option>
+                <mat-option value="option2">Option 2</mat-option>
+                <mat-option value="option3">Option 3</mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
+    <div class="searchAdd">
+        <mat-icon>search</mat-icon>        
+        <input type="search"  placeholder="Ingrese código de barra" id="detectabarra" name="detectabarra" value="" onfocus="this.select()" (keyup.enter)="buscarFire($event.target.value)" autocomplete="off">
+        <!--<button mat-icon-button>
+            <mat-icon>close</mat-icon>
+        </button>-->
+    </div>    
     <div class="listItems">
         <div class="item" *ngIf="invoiceDet.length == 0">
 
