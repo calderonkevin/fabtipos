@@ -1,17 +1,19 @@
-<app-header></app-header>
-<app-shop></app-shop>
+<app-header (pasameMenu)="verDatosMenu($event)"></app-header>
+<app-shop *ngIf="menuTipcodope == 'VENTA'"></app-shop>
+<app-transf *ngIf="menuTipcodope == 'TRANSF'"></app-transf>
+<app-devolucion *ngIf="menuTipcodope == 'DEVOL'"></app-devolucion>
 
 <div class="catalog">
+    
     <div class="wrapResults">
-        <div class="results">
-            
+        <div class="results">            
             <h1 class="titleResult">Resultados encontrados</h1>
             <div *ngIf="this.totalProduct  > 0; else no_record">
                 <button mat-raised-button class="product" *ngFor="let item of productList; let i = index">
                     <h1 class="nameProduct">{{item.nompro}}</h1>
                     <img mat-card-image
                         src="https://falabella.scene7.com/is/image/FalabellaPE/15767763_1?$producto308$&amp;wid=472&amp;hei=472"
-                        alt="Photo of a Shiba Inu">
+                        alt="">                        
                     <ul class="ulPrice">
                         <li class="liPrice">
                             <span>Cantidad</span> <span class="priceProduct">{{item.cantid}}</span>
@@ -24,13 +26,15 @@
                         </li>
                         <li class="liPrice">
                             <span>P. Mayor</span> <span class="priceProduct">S/ {{item.precio2}}</span>
-                        </li>                        
+                        </li>
                     </ul>
                 </button>
             </div>
             <ng-template #no_record>
-                <p></p>
-                <div >No existe Registros</div>                
+                    <div class="resultsEmpty">
+                            <img src="../../assets/images/icon-consultproduct.png">
+                            <p>Recuerda que puedes realizar la consulta de cualquier producto.</p>
+                        </div>
             </ng-template>
 
         </div>
@@ -39,94 +43,182 @@
 
     <div class="infoDay">
         <mat-tab-group>
+
+           
             
+           
             <mat-tab>
                 <ng-template mat-tab-label>
-                    <mat-icon class="example-tab-icon">shop</mat-icon>
-                    Ventas ({{ totalTicketVenta }})
+                    <mat-icon class="example-tab-icon">add_shopping_cart</mat-icon>
+                    Ventas ({{ totalTicketDetVenta }})
                 </ng-template>
-                
-                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">                        
-                        <!--- Note that these columns can be defined in any order.
+
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                    <!--- Note that these columns can be defined in any order.
                               The actual rendered columns are set as a property on the row definition" -->
-                        <!-- Position Column -->
-                        <ng-container matColumnDef="dessucursal">
-                                <th mat-header-cell *matHeaderCellDef> Tienda </th>
-                                <td mat-cell *matCellDef="let element"> {{element.dessucursal}} </td>
-                              </ng-container>
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="dessucursal">
+                        <th mat-header-cell *matHeaderCellDef> Tienda </th>
+                        <td mat-cell *matCellDef="let element"> {{element.dessucursal}} </td>
+                    </ng-container>
 
-                        <!-- Position Column -->
-                        <ng-container matColumnDef="numcodope">
-                          <th mat-header-cell *matHeaderCellDef> No. </th>
-                          <td mat-cell *matCellDef="let element"> {{element.numcodope}} </td>
-                        </ng-container>
-                      
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="serie">
-                          <th mat-header-cell *matHeaderCellDef> Serie </th>
-                          <td mat-cell *matCellDef="let element"> {{element.serie}} </td>
-                        </ng-container>
-                      
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="total">
-                          <th mat-header-cell *matHeaderCellDef> Total </th>
-                          <td mat-cell *matCellDef="let element"> {{element.total}} </td>
-                        </ng-container>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="serienumref">
+                        <th mat-header-cell *matHeaderCellDef> Serie </th>
+                        <td mat-cell *matCellDef="let element"> {{element.serienumref}} </td>
+                    </ng-container>
 
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="fecdoc">
-                                <th mat-header-cell *matHeaderCellDef> Fec.Doc</th>
-                                <td mat-cell *matCellDef="let element"> {{element.fecdoc}} </td>
-                              </ng-container>
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="numref">
+                        <th mat-header-cell *matHeaderCellDef> Num.Doc </th>
+                        <td mat-cell *matCellDef="let element"> {{element.numref}} </td>
+                    </ng-container>
 
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="fabrica">
-                                <th mat-header-cell *matHeaderCellDef> RUC/DNI </th>
-                                <td mat-cell *matCellDef="let element"> {{element.fabrica}} </td>
-                              </ng-container>
-                        
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="desfabrica">
-                                <th mat-header-cell *matHeaderCellDef> Cliente </th>
-                                <td mat-cell *matCellDef="let element"> {{element.desfabrica}} </td>
-                              </ng-container>
 
-                              <!-- Weight Column -->
-                        <ng-container matColumnDef="feccre">
-                                <th mat-header-cell *matHeaderCellDef> Fec.Creación </th>
-                                <td mat-cell *matCellDef="let element"> {{element.feccre}} </td>
-                              </ng-container>
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="punit">
+                        <th mat-header-cell *matHeaderCellDef> Precio </th>
+                        <td mat-cell *matCellDef="let element"> {{element.punit}} </td>
+                    </ng-container>
 
-                        <!-- Weight Column -->
-                        <ng-container matColumnDef="usernamecre">
-                                <th mat-header-cell *matHeaderCellDef> Realizado por </th>
-                                <td mat-cell *matCellDef="let element"> {{element.usernamecre}} </td>
-                              </ng-container>
-    
-    
-                        <!-- Symbol Column -->
-                        <ng-container matColumnDef="symbol">
-                            <th mat-header-cell *matHeaderCellDef></th>
-                            <td mat-cell *matCellDef="let element">
-                                <button mat-icon-button>
-                                    <mat-icon>print</mat-icon>
-                                </button></td>
-                        </ng-container>
-                      
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                      </table>
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="fchdoc">
+                        <th mat-header-cell *matHeaderCellDef> Fec.Doc </th>
+                        <td mat-cell *matCellDef="let element"> {{element.fchdoc}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="serpro">
+                        <th mat-header-cell *matHeaderCellDef> Barra </th>
+                        <td mat-cell *matCellDef="let element"> {{element.serpro}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="nompro">
+                        <th mat-header-cell *matHeaderCellDef> Artículo </th>
+                        <td mat-cell *matCellDef="let element"> {{element.nompro}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="descolor">
+                        <th mat-header-cell *matHeaderCellDef> Color </th>
+                        <td mat-cell *matCellDef="let element"> {{element.descolor}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="nomcom">
+                        <th mat-header-cell *matHeaderCellDef> Cliente</th>
+                        <td mat-cell *matCellDef="let element"> {{element.nomcom}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="feccre">
+                        <th mat-header-cell *matHeaderCellDef> Fec.Cre</th>
+                        <td mat-cell *matCellDef="let element"> {{element.feccre}} </td>
+                    </ng-container>
+
+
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="symbol">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-icon-button>
+                                <mat-icon>print</mat-icon>
+                            </button></td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
 
             </mat-tab>
-            <!--
             <mat-tab>
                 <ng-template mat-tab-label>
                     <mat-icon class="example-tab-icon">compare_arrows</mat-icon>
                     Transferencias
                 </ng-template>
 
-                En construcción
+                <table mat-table [dataSource]="dataSourceTransferencia" class="mat-elevation-z8">
+                    <!--- Note that these columns can be defined in any order.
+                              The actual rendered columns are set as a property on the row definition" -->
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="dessucursal">
+                        <th mat-header-cell *matHeaderCellDef> T.Origen </th>
+                        <td mat-cell *matCellDef="let element"> {{element.dessucursal}} </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="dessucref">
+                        <th mat-header-cell *matHeaderCellDef> T.Destino </th>
+                        <td mat-cell *matCellDef="let element"> {{element.dessucref}} </td>
+                    </ng-container>
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="numcodope">
+                        <th mat-header-cell *matHeaderCellDef> Num.Doc </th>
+                        <td mat-cell *matCellDef="let element"> {{element.numcodope}} </td>
+                    </ng-container>
+
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="punit">
+                        <th mat-header-cell *matHeaderCellDef> Precio </th>
+                        <td mat-cell *matCellDef="let element"> {{element.punit}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="fchdoc">
+                        <th mat-header-cell *matHeaderCellDef> Fec.Doc </th>
+                        <td mat-cell *matCellDef="let element"> {{element.fchdoc}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="serpro">
+                        <th mat-header-cell *matHeaderCellDef> Barra </th>
+                        <td mat-cell *matCellDef="let element"> {{element.serpro}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="nompro">
+                        <th mat-header-cell *matHeaderCellDef> Artículo </th>
+                        <td mat-cell *matCellDef="let element"> {{element.nompro}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="descolor">
+                        <th mat-header-cell *matHeaderCellDef> Color </th>
+                        <td mat-cell *matCellDef="let element"> {{element.descolor}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="nomcom">
+                        <th mat-header-cell *matHeaderCellDef> Cliente</th>
+                        <td mat-cell *matCellDef="let element"> {{element.nomcom}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="feccre">
+                        <th mat-header-cell *matHeaderCellDef> Fec.Cre</th>
+                        <td mat-cell *matCellDef="let element"> {{element.feccre}} </td>
+                    </ng-container>
+
+
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="symbol">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-icon-button>
+                                <mat-icon>print</mat-icon>
+                            </button></td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsTransferencia"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsTransferencia;"></tr>
+                </table>
+                
             </mat-tab>
+            <!--
+            
             <mat-tab>
                 <ng-template mat-tab-label>
                     <mat-icon class="example-tab-icon">undo</mat-icon>

@@ -1,0 +1,195 @@
+.shop{
+    width: 320px;
+	position: fixed;
+	height:  calc(100% - 50px);
+	left: 0;
+	top: 50px;
+	background-color: #fff;
+}
+.shop .customer{
+    height: 60px;
+    padding: 0 16px 0 55px;
+    position: relative;
+}
+.shop .customer .mat-icon{
+    position: absolute;
+    top: 50%;
+    color: #1e88e5;
+    left: 16px;
+    margin: -4px 0 0 0;
+}
+.shop .customer .mat-form-field{
+    width: 100%;
+    margin: 10px 0 0 0;
+    font-size: 15px;
+}
+.shop .searchAdd{
+	height: auto;
+    margin: 0;
+    padding: 5px 6px 8px 6px;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+}
+.shop .searchAdd .mat-icon{
+	position: absolute;
+	left: 15px;
+    top: 13px;
+    color: #1e88e5;
+}
+.shop .searchAdd input{
+	line-height: 40px;
+    font-size: 15px;
+    padding: 0 50px 0 49px;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+}
+.shop .searchAdd input::placeholder {
+	color: #777;
+}
+.shop .searchAdd input:focus{
+	box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+	background-color: #fff;
+}
+.shop .searchAdd input:focus::placeholder {
+	color: rgba(0,0,0,.6);
+}
+.shop .searchAdd .mat-icon-button{
+	position: absolute;
+	right: 6px;
+}
+.shop .searchAdd .mat-icon-button .mat-icon{
+	position: inherit;
+	left: 0;
+    top: 0;
+    color: #999;
+}
+.shop .searchAdd .mat-icon-button::before, .shop .searchAdd .mat-icon-button::after{
+	background-color: #999;
+}
+.shop .listItems{
+    margin: 0;
+	position: relative;
+	height: calc(100% - 168px);
+	overflow-x: hidden;
+}
+.shop .listItems .listEmpty{
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 36px 24px;
+    box-sizing: border-box;
+}
+.shop .listItems .listEmpty img{
+    width: 180px;
+}
+.shop .listItems .listEmpty p{
+    text-align: center;
+    margin: 0;
+    padding: 10px 0;
+    font-size: 14px;
+    color: #999;
+}
+.shop .listItems .item{
+    margin: 0;
+    padding: 0;
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    display: none;
+}
+.shop .listItems .item .mat-button{
+    padding: 10px 118px 10px 55px;
+    line-height: 16px;
+    font-weight: normal;
+    text-align: left;
+    width: 100%;
+    border-radius: 0;
+}
+.shop .listItems .photoItem{
+    margin: -20px 0 0 0;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    background-color: #f2f2f2;
+    border-radius: 30px;
+}
+.shop .listItems .photoItem img{ 
+    width: 100%;
+    border-radius: 20px;
+}
+.shop .listItems .photoItem .mat-icon{ 
+    padding: 0;
+	margin: 8px;
+}
+.shop .listItems .textItem{
+    margin: 0;
+    padding: 0;
+    min-height: 40px;
+}
+.shop .listItems .textItem h4{
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+}
+.shop .listItems .textItem h6{
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    font-weight: 400;
+}
+.shop .listItems .priceItem{
+	width: 67px;
+	display: inline-block;
+	position: absolute;
+	right: 55px;
+	top: 50%;
+	margin: -10px 0 0 0;
+}
+.shop .listItems .priceItem span{
+	font-size: 13px;
+	font-weight: 600;
+	float: right;
+	clear: right;
+	text-align: right;
+	line-height: 20px;
+}
+.shop .listItems .priceItem .currency{
+	float: left;
+	clear: right;
+	text-align: left;
+}
+.shop .listItems .item .mat-icon-button{
+	position: absolute;
+    right: 6px;
+    top: 50%;
+    margin: -20px 0 0 0;
+    color: #607d8b;
+}
+.shop .listItems .item .mat-icon-button::before, .shop .listItems .item .mat-icon-button::after{
+    background-color: #607d8b;
+}
+.shop .total{
+    height: auto;
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	padding: 6px;
+	background-color: #fff;
+    border-top: 2px solid #fff;
+    box-sizing: border-box;
+}
+.shop .total .mat-raised-button{
+    width: 100%;
+    height: 40px;
+    background-color: #1e88e5;
+}
+.shop .total .mat-raised-button::before, .shop .total .mat-raised-button::after{
+    background-color: #1e88e5;
+}
+

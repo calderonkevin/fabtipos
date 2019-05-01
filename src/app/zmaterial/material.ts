@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   imports: [MatButtonModule
@@ -27,6 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     , MatTabsModule
     , MatTableModule
     , MatDialogModule
+    , MatButtonToggleModule
   ],
   exports: [MatButtonModule
     , MatCheckboxModule
@@ -41,6 +43,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     , MatTabsModule
     , MatTableModule
     , MatDialogModule
+    , MatButtonToggleModule
   ],
  
 })

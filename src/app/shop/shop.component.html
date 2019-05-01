@@ -1,61 +1,207 @@
 <div class="shop">
-    <!--<div class="customer">        
-        <span>Cliente</span>
-        {{invoiceCab.nomcom}}
-    </div>-->
-    <div class="customer">
-        <mat-icon>account_circle</mat-icon>
-        <mat-form-field>
-            <mat-select [(ngModel)]="selectedCodcliValue" name="codcli">
-                <mat-option *ngFor="let cliente of clientes" [value]="cliente.codcli">
-                    {{cliente.nomcom}}
-                </mat-option>
-            </mat-select>            
-        </mat-form-field>
+
+    <div id="print-section" style="display: none;">
+        <style>
+            .fontGen {
+                font-family: Verdana, Geneva, sans-serif;
+                font-size: 10px;
+                font-style: normal;
+                font-variant: normal;
+
+            }
+
+            .tTitle {
+                font-size: 12px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .tNumTicket {
+                font-weight: bold;
+                text-align: center;
+            }
+
+
+            .tLinea {
+                text-align: center;
+            }
+
+            .tTabla {
+                font-size: 8px;
+            }
+        </style>
+
+        <div class="ticket">
+            <div class="fontGen tTitle">SISGENPERU</div>
+            <div class="fontGen tNumTicket">Ticket No. 00000151</div>
+            <div class="fontGen">Tienda: MALVINAS-H99</div>
+            <div class="fontGen">Fecha de Emisión: 26/01/2019 04:24:12 PM</div>
+            <div class="fontGen tLinea">--------------------------------------------------------------</div>
+
+            <table class="fontGen tTabla">
+                <tr>
+                    <td class="tCantidad">1000</td>
+                    <td class="producto">PANTALLA-HUAWEI-P9-LITE-2017-(P8-LITE-2017/NOVA-LITE)
+                        <br>00121254212542125 TRANSPARENTE
+                    </td>
+                    <td class="tPrecio">1,208.50</td>
+                </tr>
+                <tr>
+                    <td class="tCantidad">2</td>
+                    <td class="producto">PANTALLA-HUAWEI-P9-LITE-2017<br>00121254212542125 TRANSPARENTE</td>
+                    <td class="tPrecio">10.00</td>
+                </tr>
+                <tr>
+                    <td class="tCantidad">1</td>
+                    <td class="producto">PANTALLA-HUAWEI-P9-LITE-2017<br>00121254212542125 TRANSPARENTE</td>
+                    <td class="tPrecio">10.00</td>
+                </tr>
+            </table>
+            <div class="fontGen tLinea">--------------------------------------------------------------</div>
+            <table class="fontGen tTabla">
+                <tr>
+                    <td class="tTotal">TOTAL</td>
+                    <td class="tTotal">1,208.50</td>
+                </tr>
+            </table>
+            <div class="fontGen tCambioDoc">Gracias por realizar sus compras en SISGENPERU</div>
+            <div class="fontGen tCambioDoc">Para mas información, por favor visite</div>
+            <div class="fontGen tCambioDoc">www.sisgenperu.com</div>
+            <div class="fontGen tCambioDoc">Cambiar por Factura o Boleta</div>
+        </div>
     </div>
-    <div class="searchAdd">
-        <mat-icon>search</mat-icon>        
-        <input type="search"  placeholder="Ingrese código de barra" id="detectabarra" name="detectabarra" value="" onfocus="this.select()" (keyup.enter)="buscarFire($event.target.value)" autocomplete="off">
-        <!--<button mat-icon-button>
+    <button (click)="print()" style="display: none;">print</button>
+
+    <div id="divPagos" style="display:none;">
+        <h4>DETALLE DE VENTA</h4>
+        <div>{{ invoGetTotal() }}</div>
+
+        <div>Cliente</div>
+        <div>
+            <div>{{invoiceCab.desinden}} {{invoiceCab.codcli}}</div>
+            <div>{{invoiceCab.nomcom}}</div>
+            <div>
+                <button id="#btnBuscarConsultaCliente" name="#btnBuscarConsultaCliente" mat-raised-button
+                    color="primary" (click)="openDialogConsultaCliente()">
+                    <mat-icon>edit</mat-icon>
+                </button></div>
+
+        </div>
+
+        <div class="customer" style="display:none;">
+            <mat-icon>account_circle</mat-icon>
+            <mat-form-field>
+                <mat-label>Cliente</mat-label>
+                <mat-select [(ngModel)]="selectedCodcliValue" name="codcli">
+                    <mat-option *ngFor="let cliente of clientes" [value]="cliente.codcli">
+                        {{cliente.nomcom}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div>Tipo de Documento</div>
+        <mat-button-toggle-group [(value)]="selectedTipoVentaValue">
+            <mat-button-toggle value="0012">Boleta</mat-button-toggle>
+            <mat-button-toggle value="0011">Factura</mat-button-toggle>
+            <mat-button-toggle value="0090">Ticket</mat-button-toggle>
+        </mat-button-toggle-group>
+
+
+        <div>Forma de Pago</div>
+        <mat-button-toggle-group [(value)]="selectedFormaPagoValue">
+            <mat-button-toggle value="CONT">Contado</mat-button-toggle>
+            <mat-button-toggle value="CRED">Crédito</mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <div>Soles</div>
+        <div class="searchAdd">
+            
+            <mat-icon>attach_money</mat-icon>
+            <input type="number" placeholder="Ingrese monto soles" id="pagoefectivo" name="pagoefectivo" value="0.00"
+                onfocus="this.select()" autocomplete="off">
+            <!--<button mat-icon-button>
             <mat-icon>close</mat-icon>
         </button>-->
-    </div>    
-    <div class="listItems">
-        <div class="item" *ngIf="invoiceDet.length == 0">
-
-            Agregue sus productos
-
         </div>
 
-        <div class="item" *ngFor="let invoItem of invoiceDet; let i = index">
-            <button mat-button (click)="openDialogEditarPrecio(i, invoItem)">
-                <div class="photoItem">
-                    <!--<mat-icon mat-list-icon>fastfood</mat-icon>-->
-                    <img
-                        src="https://falabella.scene7.com/is/image/FalabellaPE/15767763_1?$producto308$&amp;wid=472&amp;hei=472">
-                </div>
-                <div class="textItem">
-                    <!--<h4 mat-line>{{invoItem.codpro}}-{{invoItem.sucursal}}-{{i}}-{{invoItem.nompro}}</h4>-->
-                    <h4 mat-line>{{invoItem.nompro}}</h4>
-                    <h6 mat-line>{{invoItem.descolor}}</h6>
-                    <h6 mat-line>{{invoItem.serpro}}</h6>
-                    <h6 mat-line style="color: #00F;" *ngIf="invoItem.sucursal != sucursal" >{{invoItem.dessucursal}}</h6>
-                </div>
-                <div class="priceItem">
-                    <!--<span class="currency">S/</span>-->
-                    <span>S/ {{invoItem.punituser}}</span>
-                </div>
+        <div>Pago en Banco (Tarjeta / Deposito / Transferencia)</div>
+        <div class="searchAdd">                
+            <mat-icon>payment</mat-icon>
+            <input type="number" placeholder="Ingrese Monto Tarjeta" id="pagotarjeta" name="pagotarjeta" value="0.00"
+                onfocus="this.select()" autocomplete="off">
+            <!--<button mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>-->
+        </div>
+
+
+        <div class="total">
+            <h3>Item: [{{ invoGetCantid() }}] Total S/ {{ invoGetTotal() }}</h3>
+            <button id="#btnRegresar" name="#btnRegresar" mat-raised-button color="primary" (click)="crearAtras()"
+                style="font-size: 24px;">
+                <mat-icon>undo</mat-icon>
+                Atras
             </button>
-            <button mat-icon-button class="deleteItem" (click)="invoItemDelete(i)">
-                <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+            <button [disabled]="loading" id="#btnCrear" name="#btnCrear" mat-raised-button color="primary"
+                (click)="crearTicket()" style="font-size: 24px;">
+                <mat-icon>save</mat-icon>
+                Guardar
+            </button>
+            <img *ngIf="loading"
+                src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+        <!-- FINNNNNNN-->
+    </div>
+
+    <div id="divProductos" style="display:block;">
+        <div class="searchAdd">
+            <mat-icon>search</mat-icon>
+            <input type="search" placeholder="Ingrese código de barra" id="detectabarra" name="detectabarra"
+                value="7750126000691" onfocus="this.select()" (keyup.enter)="buscarFire($event.target.value)" autocomplete="off">
+            <!--<button mat-icon-button>
+            <mat-icon>close</mat-icon>
+        </button>-->
+        </div>
+        <div class="listItems">
+            <div class="listEmpty" *ngIf="invoiceDet.length == 0">
+                <h1>Venta</h1>
+                <img src="../../assets/images/icon-scanbarcode.png">
+                <p>Escanea los productos que deseas agregar.</p>
+            </div>
+            <div class="item" *ngFor="let invoItem of invoiceDet; let i = index">
+                <button mat-button (click)="openDialogEditarPrecio(i, invoItem)">
+                    <div class="photoItem">
+                        <!--<mat-icon mat-list-icon>fastfood</mat-icon>-->
+                        <img
+                            src="https://falabella.scene7.com/is/image/FalabellaPE/15767763_1?$producto308$&amp;wid=472&amp;hei=472">
+                    </div>
+                    <div class="textItem">
+                        <!--<h4 mat-line>{{invoItem.codpro}}-{{invoItem.sucursal}}-{{i}}-{{invoItem.nompro}}</h4>-->
+                        <h4 mat-line>{{invoItem.nompro}}</h4>
+                        <h6 mat-line>{{invoItem.descolor}}</h6>
+                        <h6 mat-line>{{invoItem.serpro}}</h6>
+                        <h6 mat-line style="color: #00F;" *ngIf="invoItem.sucursal != sucursal">{{invoItem.dessucursal}}
+                        </h6>
+                    </div>
+                    <div class="priceItem">
+                        <!--<span class="currency">S/</span>-->
+                        <span>S/ {{invoItem.punituser}}</span>
+                        <span>S/ {{invoItem.descuentouser}}</span>
+                    </div>
+                </button>
+                <button mat-icon-button class="deleteItem" (click)="invoItemDelete(i)">
+                    <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="total">
+            <button id="#btnNext" name="#btnNext" mat-raised-button color="primary" (click)="crearNext()"
+                style="font-size: 24px;">
+                [{{ invoGetCantid() }}] Siguiente S/ {{ invoGetTotal() }}
             </button>
         </div>
     </div>
-    <div class="total">
-        <button [disabled]="loading" id="#btnCrear" name="#btnCrear" mat-raised-button color="primary" (click)="crearTicket()" style="font-size: 24px;">
-            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-            Pagar S/ {{ invoGetTotal() }}
-        </button>
-        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-    </div>
+
 </div>
+<iframe id="iframeImpresion" name=iframeImpresion style="display:none;"></iframe>

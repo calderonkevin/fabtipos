@@ -6,12 +6,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent }  from './header/header.component';
 import { ShopComponent }  from './shop/shop.component';
+import { TransfComponent }  from './transf/transf.component';
+import { DevolucionComponent }  from './devolucion/devolucion.component';
 import { CatalogComponent }  from './catalog/catalog.component';
 import { LoginComponent }  from './login/login.component';
 import { ZnoexisteComponent }  from './znoexiste/znoexiste.component';
 import { ProductService } from './common/services/product.service';
 import { MyDialogComponent } from './my-dialog/my-dialog.component';
 import { MyDialogEditarPrecioComponent } from './my-dialog/my-dialog-editar-precio.component';
+import { MyDialogDevolucionComponent } from './my-dialog-devolucion/my-dialog-devolucion.component';
+import { MyDialogConsultaClienteComponent } from './my-dialog-consulta-cliente/my-dialog-consulta-cliente.component';
 
 //material
 import { MaterialModule } from './zmaterial/material';
@@ -40,7 +44,10 @@ import { AdminGuard } from './common/services/admin.guard';
 
 @NgModule({
   declarations: [
-    AppComponent, HeaderComponent, ShopComponent, CatalogComponent, LoginComponent, ZnoexisteComponent,MyDialogComponent, MyDialogEditarPrecioComponent
+    AppComponent, HeaderComponent, ShopComponent, TransfComponent
+    , DevolucionComponent, CatalogComponent, LoginComponent, ZnoexisteComponent
+    , MyDialogComponent, MyDialogEditarPrecioComponent, MyDialogDevolucionComponent
+    , MyDialogConsultaClienteComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +64,9 @@ import { AdminGuard } from './common/services/admin.guard';
   ],
   entryComponents: [
     MyDialogComponent,
-    MyDialogEditarPrecioComponent
+    MyDialogEditarPrecioComponent,
+    MyDialogDevolucionComponent,
+    MyDialogConsultaClienteComponent
   ],
   providers: [LoginService, ProductService, appRoutingProviders, AdminGuard],
   bootstrap: [AppComponent]

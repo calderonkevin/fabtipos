@@ -1,0 +1,143 @@
+.bodyLogin{
+	background-image: url(http://novit.pe/rb/otros/fs/bg-demo.png);
+    background-size: cover;
+    background-position: center center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.logo{
+	line-height: 30px;
+	font-size: 18px;
+	color: #fff;
+	position: absolute;
+	top: 30px;
+	left: 5%;
+}
+.logo span{
+	font-weight: 800;
+}
+.moreInfo{
+	position: absolute;
+	right: 5%;
+	color: rgba(255,255,255,.75);
+	font-size: 13px;
+	line-height: 30px;
+	top: 30px;
+}
+.moreInfo a{
+	text-decoration: underline;
+	color: rgba(255,255,255,.75);
+}
+.moreInfo a:hover{
+	color: rgba(255,255,255,1);
+}
+.wrapLogin{
+	width: 290px;
+	position: absolute;
+	right: 50%;
+	top: 100px;
+	margin: 0 -145px 0 0;
+}
+.wrapLogin .login{
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 30px 20px;
+	margin: 0;
+	height: auto;
+	box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+}
+.wrapLogin .login .formLogin{
+	text-align: center;
+}
+.wrapLogin .login .formLogin h2{
+	text-align: center;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 30px;
+	padding: 0;
+	margin: 0 0 15px 0;
+}
+.wrapLogin .login .formLogin .mdc-text-field{
+	width: 100%;
+	margin: 3px 0 15px 0;
+}
+.wrapLogin .login .formLogin .mdc-text-field .mdc-text-field__icon{
+	color: #1e88e5;
+}
+.wrapLogin .login .formLogin .mdc-text-field input{
+	padding: 16px 16px 16px 50px;
+}
+.pr50{
+	padding-right: 50px !important;
+}
+.wrapLogin .login .formLogin .mdc-text-field .mdc-icon-button{
+	width: 40px;
+	height: 40px;
+	padding: 8px;
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	opacity: .4;
+}
+.wrapLogin .login .formLogin .mdc-text-field .mdc-icon-button:hover{
+	opacity: .7;
+}
+.wrapLogin .login .formLogin .mdc-button{
+	height: 48px;
+	margin: 3px 0;
+	background-color: #1e88e5;
+	color: #fff;
+	font-size: 16px;
+	text-transform: none;
+	letter-spacing: 0;
+	font-weight: bold;
+	width: 100%;
+}
+.wrapLogin .login .formLogin .mdc-button::before, .wrapLogin .login .formLogin .mdc-button::after{
+	background-color: #1e88e5;
+}
+/* Login Number */
+.wrapLogin .login .formLogin .loginNumber .mdc-button{
+	background-color: #f5f5f5;
+	width: 32%;
+	float: left;
+	clear: right;
+	color: #1e88e5;
+	font-size: 15px;
+	font-weight: 600;
+	margin-right: 2%;
+}
+.mr0{
+	margin-right: 0 !important;
+}
+.btnNumber{
+	width: 66% !important;
+	margin-right: 0 !important;
+	color: #fff !important;
+	background-color: #1e88e5 !important;
+}
+.wrapLogin .login .formLogin .typeLogin{
+	font-size: 14px;
+	text-decoration: underline;
+	color: #607d8b;
+	line-height: 20px;
+	padding: 0;
+	margin: 20px 0 0 0;
+	display: inline-block;
+	cursor: pointer;
+	opacity: .7;
+}
+.wrapLogin .login .formLogin .typeLogin:hover{
+	opacity: 1;
+}
+.wrapLogin .copy{
+	text-align: center;
+	font-size: 12px;
+	margin: 20px;
+	line-height: 16px;
+	color: #fff;
+	opacity: .5;
+}

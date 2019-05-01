@@ -17,6 +17,8 @@ import { ToastrService } from 'ngx-toastr';
 import { MyDialogEditarPrecioComponent } from '../my-dialog/my-dialog-editar-precio.component';
 import { CatalogComponent } from '../catalog/catalog.component';
 
+import { MyDialogConsultaClienteComponent } from '../my-dialog-consulta-cliente/my-dialog-consulta-cliente.component';
+
 declare var jQuery: any;
 declare var $: any;
 
@@ -25,9 +27,14 @@ export interface Food2 {
   viewValue: string;
 }
 
-export interface Ciente {
+export interface Cliente {
   codcli: string;
   nomcom: string;
+}
+
+export interface PagoMonto {
+  codtab: string;
+  destab: string;
 }
 
 
@@ -37,12 +44,24 @@ export interface Ciente {
   styleUrls: ['./shop.component.css'],
   providers: [LoginService]
 })
-export class ShopComponent {  
+export class ShopComponent {
+  
+  verver: string  = "125.25";
+  clientes: Cliente[];  
+  pagoMontoList: PagoMonto[] = [
+    {codtab: 'PTOT', destab: "PAGO TOTAL"},
+    {codtab: '0.00', destab: '0.00'},
+    {codtab: '1.00', destab: '1.00'},
+    {codtab: '2.00', destab: '2.00'},
+    {codtab: '5.00', destab: '5.00'},
+    {codtab: '10.00', destab: '10.00'},
+    {codtab: '20.00', destab: '20.00'},
+    {codtab: '50.00', destab: '50.00'},
+    {codtab: '100.00', destab: '100.00'},
+    {codtab: '200.00', destab: '200.00'},
+  ];
 
-  
-  clientes: Ciente[];
-  
-  
+
 
 
   tiendaList: Tienda[];
@@ -64,37 +83,27 @@ export class ShopComponent {
   loading = false;
   loadingprecio = false;
   jsonImpresion: string;
-  clienteListCombo = [];  
+  clienteListCombo = [];
 
   productObj: Productbarcode;
   productBarcodeList: Productbarcode[];
 
   searchValue: string = "";
 
-  tipcodope: string = "0090";
+  tipcodope: string = "0012";
   sucursal: string = "";
   identity: any;
   selectedCodcliValue: string;
+  selectedFormaPagoValue: string = "CONT";
+  selectedTipoVentaValue: string = "0012"; // 0011-FACTURA, 0012-BOLETA, 0090-TICKET  
+  selectedPagoEfectivoValue: string = "PTOT";
+  selectedPagoTarjetaValue: string = "0.00";
 
   ngOnInit() {
 
     console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
-    this._loginService.clientes().subscribe(
-      response => {
-        console.log("L I S T A   D E   C L I E N T E S");
-        console.log(response);
-        this.clientes = response.data;  
-      },
-      error => {
-        console.log(<any>error);
-        //console.log("error 454545.");
-        var errorMessage = <any>error;
-        if (errorMessage != null) {
-          var body = JSON.parse(error._body);          
-        }
-      }
-    )
+    this.verclientescombo();
 
 
     let wTienda = this._productService.getTienda()
@@ -123,9 +132,8 @@ export class ShopComponent {
     console.log(this._loginService.getDataDef());
     this.sucursal = this.invoiceCab['sucursal'];
     this.selectedCodcliValue = this.invoiceCab['codcli'];
-    
-    if (this.sucursal == null)
-    {
+
+    if (this.sucursal == null) {
       this.sucursal = "";
     }
 
@@ -139,9 +147,19 @@ export class ShopComponent {
   invoGetTotal(): string {
     var total = 0;
     for (let item of this.invoiceDet) {
-      total = total + (item.cantid * item.punituser)
-    }    
+      total = total + (item.cantid * (item.punituser - (item.descuentouser * 1)))
+    }
+    this.verver = total.toFixed(2);    
+
     return total.toFixed(2)
+  }
+
+  invoGetCantid(): string {
+    var total = 0;
+    for (let item of this.invoiceDet) {
+      total = total + (item.cantid * 1)
+    }    
+    return total.toFixed(0)
   }
 
   //consultaArticuloBarraAjuIng
@@ -149,7 +167,7 @@ export class ShopComponent {
   buscarFirePreueba(wsearchValue): void {
     this.searchValue = wsearchValue;
     $("#detectabarra").select();
-    
+
     this._loginService.consultaArticuloBarraAjuIng(this.searchValue).subscribe(
       response => {
         console.log(response);
@@ -157,24 +175,24 @@ export class ShopComponent {
 
         if (response.r1 == 0) {
           this.toastr.info("BIEN", 'Venta');
-        
+
         } else {
           this.toastr.error(response.r4, 'Venta');
         }
-        
+
       },
       error => {
         this.loading = false;
         this.toastr.error("Ha ocurrido un error", 'CONSULTA DE BARRA');
         console.log("ERROR ERROR ERROR ERROR ERROR ERROR ERROR .");
-        
+
         //console.log(<any>error);
-        
+
         var errorMessage = <any>error;
         if (errorMessage != null) {
           var body = JSON.parse(errorMessage._body);
 
-        }        
+        }
         //this.toastr.error(errorMessage, 'Venta');
       })
 
@@ -186,9 +204,10 @@ export class ShopComponent {
     this.searchValue = wsearchValue;
     $("#detectabarra").select();
 
+
     console.log("ESTO VIENE DEL TEXTO:" + this.searchValue);
     console.log("ESTO VIENE DE SUCURSAL:" + this.sucursal + "---");
-    
+
     if (this.tipcodope == "") {
       this.toastr.warning('Falta selecctionar Tipo de Operación');
       return;
@@ -214,21 +233,23 @@ export class ShopComponent {
     //  .snapshotChanges()
     //  .subscribe(item => {
     //    subscription.unsubscribe();
+    $("#detectabarra").prop("disabled", true);
     this._loginService.consultaArticuloBarraAjuIng(this.searchValue).subscribe(
       response => {
-    
+        $("#detectabarra").prop("disabled", false);
+        $("#detectabarra").select();
         console.log("DENTRO TIENE EL VALOR DE:" + this.searchValue);
         this.productBarcodeList = [];
         var item = response.data;
-        console.log("item: "+ item);
-        console.log("item.length" + item.length);        
+        console.log("item: " + item);
+        console.log("item.length" + item.length);
 
         item.forEach(element => {
           var x = element;
           //console.log(element.key);
           x["$key"] = element.serpro;
           //console.log(element.key);
-          this.productBarcodeList.push(x as Productbarcode);          
+          this.productBarcodeList.push(x as Productbarcode);
           console.log("lista de this.productBarcodeList:" + this.productBarcodeList);
 
         });
@@ -244,10 +265,11 @@ export class ShopComponent {
           this.tmpInvoiceDet = {
             id: this.invoiceId,
             sucursal: indSelect[0].sucursal,
-            dessucursal : this.getTiendaDestab(indSelect[0].sucursal),
+            dessucursal: this.getTiendaDestab(indSelect[0].sucursal),
             codpro: indSelect[0].codpro,
             nompro: indSelect[0].nompro,
             cantid: 1,
+            descuentouser:0.00,
             punituser: indSelect[0].precio2,
             codcol: indSelect[0].codcol,
             descolor: indSelect[0].descolor,
@@ -271,10 +293,11 @@ export class ShopComponent {
           this.tmpInvoiceDet = {
             id: this.invoiceId,
             sucursal: indSelect[0].sucursal,
-            dessucursal : this.getTiendaDestab(indSelect[0].sucursal),
+            dessucursal: this.getTiendaDestab(indSelect[0].sucursal),
             codpro: indSelect[0].codpro,
             nompro: indSelect[0].nompro,
             cantid: 1,
+            descuentouser: 0.00,
             punituser: indSelect[0].precio2,
             codcol: indSelect[0].codcol,
             descolor: indSelect[0].descolor,
@@ -285,7 +308,7 @@ export class ShopComponent {
 
           this.addInvoiceDet(this.tmpInvoiceDet);
 
-          this.toastr.info('Se trae de otra Tienda: ' + this.getTiendaDestab(indSelect[0].sucursal) );
+          this.toastr.info('Se trae de otra Tienda: ' + this.getTiendaDestab(indSelect[0].sucursal));
           return;
         }
 
@@ -304,7 +327,7 @@ export class ShopComponent {
 
     console.log("ESTO VIENE DEL TEXTO:" + this.searchValue);
     console.log("ESTO VIENE DE SUCURSAL:" + this.sucursal + "---");
-    
+
     if (this.tipcodope == "") {
       this.toastr.warning('Falta selecctionar Tipo de Operación');
       return;
@@ -354,10 +377,11 @@ export class ShopComponent {
           this.tmpInvoiceDet = {
             id: this.invoiceId,
             sucursal: indSelect[0].sucursal,
-            dessucursal : this.getTiendaDestab(indSelect[0].sucursal),
+            dessucursal: this.getTiendaDestab(indSelect[0].sucursal),
             codpro: indSelect[0].codpro,
             nompro: indSelect[0].nompro,
             cantid: 1,
+            descuentouser: 0.00,
             punituser: indSelect[0].precio2,
             codcol: indSelect[0].codcol,
             descolor: indSelect[0].descolor,
@@ -381,10 +405,11 @@ export class ShopComponent {
           this.tmpInvoiceDet = {
             id: this.invoiceId,
             sucursal: indSelect[0].sucursal,
-            dessucursal : this.getTiendaDestab(indSelect[0].sucursal),
+            dessucursal: this.getTiendaDestab(indSelect[0].sucursal),
             codpro: indSelect[0].codpro,
             nompro: indSelect[0].nompro,
             cantid: 1,
+            descuentouser: 0.00,
             punituser: indSelect[0].precio2,
             codcol: indSelect[0].codcol,
             descolor: indSelect[0].descolor,
@@ -395,7 +420,7 @@ export class ShopComponent {
 
           this.addInvoiceDet(this.tmpInvoiceDet);
 
-          this.toastr.info('Se trae de otra Tienda: ' + this.getTiendaDestab(indSelect[0].sucursal) );
+          this.toastr.info('Se trae de otra Tienda: ' + this.getTiendaDestab(indSelect[0].sucursal));
           return;
         }
 
@@ -425,6 +450,7 @@ export class ShopComponent {
         codpro: invoiceDet.codpro,
         nompro: invoiceDet.nompro,
         cantid: 1,
+        descuentouser: 0.00,
         punituser: invoiceDet.punituser,
         codcol: invoiceDet.codcol,
         descolor: invoiceDet.descolor,
@@ -437,75 +463,83 @@ export class ShopComponent {
   }
 
   crearTicket(): void {
-    //console.log("selectedCodcliValue:" + this.selectedCodcliValue)
+    console.log("selectedFormaPagoValue:" + this.selectedFormaPagoValue)
+    console.log("selectedTipoVentaValue:" + this.selectedTipoVentaValue)
+    console.log("selectedPagoEfectivoValue:" + this.selectedPagoEfectivoValue)
+    console.log("selectedPagoTarjetaValue:" + this.selectedPagoTarjetaValue)
+    
     //return;
 
     console.log(" fin creando nuevo ticket");
+
     this.loading = true;
-    if (this.invoiceDet.length > 0 )
-    {
-    this.invoiceCab["sucursal"] = this.sucursal;
-    this.invoiceCab["codcli"] = this.selectedCodcliValue;
+    this.tipcodope = this.selectedTipoVentaValue;
+    if (this.invoiceDet.length > 0) {
+      this.invoiceCab["sucursal"] = this.sucursal;
+      //this.invoiceCab["codcli"] = this.selectedCodcliValue;
 
-    this._loginService.crearTicketPos(this.invoiceDet, this.invoiceCab).subscribe(
-      response => {
-        console.log(response);
-        console.log("cargar link");
+      this._loginService.crearTicketPos(this.invoiceDet, this.invoiceCab).subscribe(
+        response => {
+          console.log(response);
+          console.log("cargar link");
 
-        if (response.r1 == 0) {
-          this.toastr.success('Nuevo registro añadido exitosamente', 'Venta');
-          //var impText = [{'invoicecab':this.invoiceCab, 'invoicecab2':response, 'invoice':this.invoice,}];
-          var impText = [{ 'invoicecab': response, 'invoice': this.invoiceDet, }];
-          var dataEnconde = btoa(JSON.stringify(impText));
-          console.log("convertido");
-          console.log(dataEnconde);
-          this.jsonImpresion = dataEnconde;
-          this.invoiceDet = [];
-          this.invoiceCab = this._loginService.getDataDef();
-          this.selectedCodcliValue =  this.invoiceCab["codcli"];
-          this.catalogComponent.loadTicket('');
-
-
-          //////////////////////////////////
-          //console.log("inicio fire");
-          //var obj = JSON.parse(response.nose);
-          //console.log("Total Fire:" + Object.keys(obj).length);
-          //for (let key in obj) {
-          //  this._productService.putProductBarCodeFire(key).set(obj[key]);
-          //}
-          //console.log("fin fire");
-          //////////////////////////////////
+          if (response.r1 == 0) {
+            this.toastr.success('Nuevo registro añadido exitosamente', 'Venta');
+            //var impText = [{'invoicecab':this.invoiceCab, 'invoicecab2':response, 'invoice':this.invoice,}];
+            var impText = [{ 'invoicecab': response.dataCab, 'invoice': response.dataDet, }];
+            var dataEnconde = btoa(JSON.stringify(impText));
+            console.log("convertido");
+            console.log(dataEnconde);
+            this.jsonImpresion = dataEnconde;
+            this.invoiceDet = [];
+            this.invoiceCab = this._loginService.getDataDef();
+            this.selectedCodcliValue = this.invoiceCab["codcli"];
+            this.catalogComponent.loadTicketDet('');
 
 
-          // window.open('http://localhost:8080/ver/impresiones/escpos-php-development/escpos-php-development/example/receipt.php?imp='+ dataEnconde ,'iframeImpresion');  
+            //////////////////////////////////
+            //console.log("inicio fire");
+            //var obj = JSON.parse(response.nose);
+            //console.log("Total Fire:" + Object.keys(obj).length);
+            //for (let key in obj) {
+            //  this._productService.putProductBarCodeFire(key).set(obj[key]);
+            //}
+            //console.log("fin fire");
+            //////////////////////////////////
+            console.log("L L A M A   I M P R E S I O N ");
+            console.log("L L A M A   I M P R E S I O N ");
+            console.log("L L A M A   I M P R E S I O N ");
+            //window.open(this.invoiceCab["rutaimp"]+ 'docTicket.php?imp=' + dataEnconde, 'iframeImpresion');
+            window.open('http://localhost/escpos-impresion-dona/example/docDocu.php?imp=' + dataEnconde, 'iframeImpresion');
+            console.log("FIN L L A M A   I M P R E S I O N ");
+            
 
-        } else {
-          this.toastr.error(response.r4, 'Venta');
-        }
+          } else {
+            this.toastr.error(response.r4, 'Venta');
+          }
 
-        //finaliza
+          //finaliza
 
-        //this.invoiceCab = this._loginService.getDataDef();
-        this.loading = false;
-      },
-      error => {
-        this.loading = false;
-        this.toastr.error("Ha ocurrido un error", 'Venta');
-        console.log("ERROR ERROR ERROR ERROR ERROR ERROR ERROR .");
-        
-        //console.log(<any>error);
-        
-        var errorMessage = <any>error;
-        if (errorMessage != null) {
-          var body = JSON.parse(errorMessage._body);
+          //this.invoiceCab = this._loginService.getDataDef();
+          this.loading = false;
+        },
+        error => {
+          this.loading = false;
+          this.toastr.error("Ha ocurrido un error", 'Venta');
+          console.log("ERROR ERROR ERROR ERROR ERROR ERROR ERROR .");
 
-        }
-        
-        //this.toastr.error(errorMessage, 'Venta');
-      })
+          //console.log(<any>error);
+
+          var errorMessage = <any>error;
+          if (errorMessage != null) {
+            var body = JSON.parse(errorMessage._body);
+
+          }
+
+          //this.toastr.error(errorMessage, 'Venta');
+        })
     }
-    else
-    {
+    else {
       this.loading = false;
       this.toastr.error('Falta agregar productos');
     }
@@ -517,16 +551,9 @@ export class ShopComponent {
 
     this._loginService.clientes().subscribe(
       response => {
-
-        this.clienteListCombo = [];
-        for (var key in response.datacat) {
-          if (response.datacat.hasOwnProperty(key)) {
-            var element = response.datacat[key];
-            this.clienteListCombo.push({ 'code': element.code, 'name': element.name });
-          }
-        }
-
-
+        console.log("L I S T A   D E   C L I E N T E S");
+        console.log(response);
+        this.clientes = response.data;
       },
       error => {
         console.log(<any>error);
@@ -534,10 +561,9 @@ export class ShopComponent {
         var errorMessage = <any>error;
         if (errorMessage != null) {
           var body = JSON.parse(error._body);
-
         }
-      })
-
+      }
+    )
 
   }
 
@@ -557,6 +583,7 @@ export class ShopComponent {
         nompro: invoItem.nompro,
         descolor: invoItem.descolor,
         punituser: invoItem.punituser,
+        descuentouser: invoItem.descuentouser,
         item: item
       }
 
@@ -566,13 +593,18 @@ export class ShopComponent {
     dialogRefDes.afterClosed().subscribe(result => {
       if (result != "") {
         //alert(result);
+        console.log(result);
+        console.log("AAAAAAAAA" + result.punituser);
 
         var tmpLista = this.invoiceDet.filter(obj => obj.codpro == this.tmpInvoiceDet.codpro);
         console.log(tmpLista);
         for (let item of tmpLista) {
           var objIndex = this.invoiceDet.findIndex(obj => obj.id == item.id);
           console.log("objIndex:" + objIndex)
-          this.invoiceDet[objIndex].punituser = result.toFixed(2);
+          var wp = (result.punituser * 1);
+          var wpd = (result.descuentouser * 1);
+          this.invoiceDet[objIndex].punituser = wp.toFixed(2);
+          this.invoiceDet[objIndex].descuentouser = wpd.toFixed(3);
         }
       }
 
@@ -582,6 +614,106 @@ export class ShopComponent {
 
   }
 
+  print(): void {
+    let printContents, popupWin;
+    printContents = document.getElementById('print-section').innerHTML;
+    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html>
+        <head>
+          <title>Print tab</title>        
+        <style>
+
+        
+        .fontGen {
+          font-family: sans-serif;
+          font-size: 12px;
+          font-style: normal;
+          font-variant: normal; 
+          font-weight: 150;
+      }
+
+      .tTitle {                
+          font-size: 13px;
+          font-weight: bold;                
+          text-align: center;
+      }
+
+      .tNumTicket {                
+          font-weight: bold;
+          text-align: center;
+      }
+      .tLinea {
+        text-align: center;
+      }
+
+      .tTabla {
+        font-size: 9px;
+        width:100%;        
+    }
+    .tCambioDoc {
+      font-size: 11px;
+      text-align: center;
+  }
+  .tCantidad {  
+    text-align: right;
+  }
+
+  .tPrecio { 
+    text-align: right;
+}
+
+
   
+
+  table td, table td * {
+    vertical-align: top;
+}
+    
+        </style>
+        </head>
+    <body onload="window.print();window.close()">${printContents}</body>
+      </html>`
+    );
+    popupWin.document.close();
+  }
+
+  openDialogConsultaCliente(): void {
+
+    let dialogRefDes = this.dialog.open(MyDialogConsultaClienteComponent, {
+      width: '900px',
+      // data: { name: this.name, animal: this.animal }
+      //data: ''      
+    });
+
+    dialogRefDes.afterClosed().subscribe(result => {
+      //alert(result);
+      if (result != "") {    
+        console.log(result);
+        console.log(this.invoiceCab);
+        this.invoiceCab['inden'] =    result.inden;
+        this.invoiceCab['desinden'] =    result.desinden;
+        this.invoiceCab['codcli'] =    result.codcli;
+        this.invoiceCab['nomcom'] =    result.nomcom;
+        this.invoiceCab['dircli'] =    result.dircli;
+        
+      }      
+      //console.log('The dialog was closed');
+      //this.animal = result;
+    });
+  }
+
+  crearNext(){
+    $("#divProductos").hide();
+    $("#divPagos").show();
+
+  }
+
+  crearAtras(){
+    $("#divProductos").show();
+    $("#divPagos").hide();
+
+  }
 
 }

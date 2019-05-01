@@ -1,0 +1,77 @@
+<div class="shop">
+    <!--<div class="customer">        
+        <span>Cliente</span>
+        {{invoiceCab.nomcom}}
+    </div>-->
+    <div class="customer">        
+        
+            <button id="#btnBuscarDevolucion" name="#btnBuscarDevolucion" mat-raised-button color="primary"
+                (click)="openDialogDevolucion()">            
+                Buscar Devolución
+            </button>
+            
+            <div>{{invoiceCab.codcli}} {{invoiceCab.nomcom}}</div>
+            <div>{{invoiceCab.destipodoc}} {{invoiceCab.serienumref}} {{invoiceCab.numref}}</div>
+    
+        
+    </div>
+    <div class="customer">
+        <mat-icon>input</mat-icon>
+        <mat-form-field>
+            <mat-label>Motivo Devolución</mat-label>
+            <mat-select [(ngModel)]="selectedMotivoValue" name="motivo">                
+                <mat-option *ngFor="let item of motivoList" [value]="item.codtab">
+                    {{item.destab}}
+                  </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="searchAdd">
+        <mat-icon>search</mat-icon>
+        <input type="search" placeholder="Ingrese código de barra" id="detectabarra" name="detectabarra" value=""
+            onfocus="this.select()" (keyup.enter)="buscarFire($event.target.value)" autocomplete="off">
+        <!--<button mat-icon-button>
+            <mat-icon>close</mat-icon>
+        </button>-->
+    </div>
+    <div class="listItems">
+        <div class="listEmpty" *ngIf="invoiceDet.length == 0">
+            <h1>Devolución</h1>
+            <img src="../../assets/images/icon-scanbarcode.png">
+            <p>Escanea los productos que deseas agregar.</p>
+        </div>
+        <div class="item" *ngFor="let invoItem of invoiceDet; let i = index">
+            <button mat-button (click)="openDialogEditarPrecio(i, invoItem)">
+                <div class="photoItem">
+                    <!--<mat-icon mat-list-icon>fastfood</mat-icon>-->
+                    <img
+                        src="https://falabella.scene7.com/is/image/FalabellaPE/15767763_1?$producto308$&amp;wid=472&amp;hei=472">
+                </div>
+                <div class="textItem">
+                    <!--<h4 mat-line>{{invoItem.codpro}}-{{invoItem.sucursal}}-{{i}}-{{invoItem.nompro}}</h4>-->
+                    <h4 mat-line>{{invoItem.nompro}}</h4>
+                    <h6 mat-line>{{invoItem.descolor}}</h6>
+                    <h6 mat-line>{{invoItem.serpro}}</h6>
+                    <h6 mat-line style="color: #00F;" *ngIf="invoItem.sucursal != sucursal">{{invoItem.dessucursal}}
+                    </h6>
+                </div>
+                <div class="priceItem">
+                    <!--<span class="currency">S/</span>-->
+                    <span>S/ {{invoItem.punituser}}</span>
+                </div>
+            </button>
+            <button mat-icon-button class="deleteItem" (click)="invoItemDelete(i)">
+                <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="total">
+        <button [disabled]="loading" id="#btnCrear" name="#btnCrear" mat-raised-button color="primary"
+            (click)="crearDevolucion()" style="font-size: 24px;">
+            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+            [{{ invoGetCantid() }}] Devolución S/ {{ invoGetTotal() }}
+        </button>
+        <img *ngIf="loading"
+            src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+    </div>
+</div>

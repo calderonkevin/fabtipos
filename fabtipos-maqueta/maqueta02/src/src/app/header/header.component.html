@@ -1,0 +1,79 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row class="headerLeft">
+        <button mat-icon-button>
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span class="titlePage">Operación</span>    
+        <mat-form-field>
+            <mat-select [(value)]="selected">
+                <mat-option>None</mat-option>
+                <mat-option value="option1">Option 1</mat-option>
+                <mat-option value="option2">Option 2</mat-option>
+                <mat-option value="option3">Option 3</mat-option>
+            </mat-select>
+        </mat-form-field>   
+    </mat-toolbar-row>
+    <mat-toolbar-row class="headerRight">
+        <div class="tags">
+            <button mat-icon-button [matMenuTriggerFor]="menuCategoria">
+                <mat-icon>view_module</mat-icon>
+            </button>
+            <span>Celulares</span>
+            <mat-menu #menuCategoria="matMenu">
+                <div class="wrapTags">
+                        <button mat-button class="tag">
+                            <mat-icon>dialpad</mat-icon>
+                            <span class="nameTag">Todos</span>
+                        </button>
+                        <button mat-button class="tag tagSelect">
+                            <mat-icon>notifications_off</mat-icon>
+                            <span class="nameTag">Pantallas</span>
+                        </button>
+                        <button mat-button class="tag">
+                            <mat-icon>dialpad</mat-icon>
+                            <span class="nameTag">Todos</span>
+                        </button>
+                        <button mat-button class="tag">
+                            <mat-icon>notifications_off</mat-icon>
+                            <span class="nameTag">Pantallas</span>
+                        </button>
+                        <button mat-button class="tag">
+                            <mat-icon>dialpad</mat-icon>
+                            <span class="nameTag">Todos</span>
+                        </button>
+                        <button mat-button class="tag">
+                            <mat-icon>notifications_off</mat-icon>
+                            <span class="nameTag">Pantallas</span>
+                        </button>
+
+                </div>
+            </mat-menu>   
+        </div>
+        <div class="search">
+            <mat-icon>search</mat-icon>
+            <input type="text" id="name" name="name" placeholder="Busca aqui chespi">
+            <button mat-icon-button>
+                    <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <div class="profile">
+            <button mat-icon-button [matMenuTriggerFor]="menuUser">
+                <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-menu #menuUser="matMenu">
+                <button mat-menu-item>
+                    <mat-icon>dialpad</mat-icon>
+                    <span>TODOS</span>
+                </button>
+                <button mat-menu-item disabled>
+                    <mat-icon>voicemail</mat-icon>
+                    <span>BATERIAS</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>notifications_off</mat-icon>
+                    <span>PANTALLAS</span>
+                </button>
+            </mat-menu>  
+       </div>
+    </mat-toolbar-row>
+</mat-toolbar>

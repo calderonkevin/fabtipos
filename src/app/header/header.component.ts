@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Category } from '../models/category';
 import { LoginService } from '../common/services/login.service';
@@ -6,11 +6,13 @@ import { ProductService } from '../common/services/product.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 //Dialog
-import { MyDialogComponent } from '../my-dialog/my-dialog.component';
+
 import { CatalogComponent } from '../catalog/catalog.component';
+
 
 declare var jQuery: any;
 declare var $: any;
+
 
 @Component({
   selector: 'app-header',
@@ -20,6 +22,9 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
 
+  @Output() pasameMenu = new EventEmitter();    
+  menuTipcodope:string;
+  menuDesTipcodope:string;
   categoriaList: Category[];
   identity: any;
   datadef: any;
@@ -33,7 +38,35 @@ export class HeaderComponent implements OnInit {
     private _router: Router,
     public dialog: MatDialog,
     private catalogComponent: CatalogComponent,
+    
   ) {
+    
+  }
+
+  miMenu(tipoMenu){
+    this.menuTipcodope = tipoMenu;
+    if(this.menuTipcodope == "VENTA"){
+      this.menuDesTipcodope = "Venta";
+    }else if(this.menuTipcodope == "TRANSF"){
+      this.menuDesTipcodope = "Transferencia";
+    }else if(this.menuTipcodope == "DEVOL"){
+      this.menuDesTipcodope = "Devolución";
+    }else{
+      this.menuTipcodope = "";
+      this.menuDesTipcodope = "No existe Opción";
+    }
+    
+    this.emitirEvento();
+  }
+
+
+  emitirEvento(){
+    console.log("aaaaaaaaaa ssssssssssssssssss");
+    this.pasameMenu.emit({
+      'menuTipcodope': this.menuTipcodope,
+      'menuDesTipcodope': this.menuDesTipcodope      
+    })
+
   }
 
   ngOnInit() {
@@ -59,6 +92,11 @@ export class HeaderComponent implements OnInit {
     //this.invoiceCab = this._loginService.getDataDef();
     console.log("entra a oninit HEAD");
     console.log(this._loginService.getDataDef());
+
+    console.log("E N T R A N D O  AL SSS");
+    this.miMenu("VENTA");
+    //this.miMenu("TRANSF");
+    //this.miMenu("DEVOL");
 
   }
 
@@ -87,27 +125,11 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  openDialog(): void {
-
-    let dialogRefDes = this.dialog.open(MyDialogComponent, {
-      width: '450px',
-      // data: { name: this.name, animal: this.animal }
-      //data: ''
-      data: {
-        descuento: this.descuento,
-        tipoDescuento: this.tipoDescuento,
-
-      }
-    });
-
-    dialogRefDes.afterClosed().subscribe(result => {
-      //alert(result);
-
-      //console.log('The dialog was closed');
-      //this.animal = result;
-    });
+  testPrint(){
+    var tmpLista = this._loginService.getDataDef();
+    window.open(tmpLista["rutaimp"] + 'testPrinter.php', 'iframeImpresion');
+    
+    
   }
-
-
 
 }

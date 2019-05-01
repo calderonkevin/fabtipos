@@ -1,0 +1,51 @@
+
+<div class="shop">
+    <div class="customer">
+        <mat-icon>account_circle</mat-icon>
+        <mat-form-field>
+            <mat-label>Cliente</mat-label>
+            <mat-select [(value)]="selected">
+                <mat-option value="" disabled>Seleccionar cliente</mat-option>
+                <mat-option value="option2">Option 1</mat-option>
+                <mat-option value="option3">Option 2</mat-option>
+                <mat-option value="option4">Option 3</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="searchAdd">
+        <mat-icon>search</mat-icon>
+        <input type="text" id="name" name="name" placeholder="Agregar producto">
+        <button mat-icon-button>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <div class="listItems">
+        <div class="listEmpty">
+            <img src="http://novit.pe//rb/otros/fs/icon-scanbarcode.png">
+            <p>Escanea los productos que deseas agregar.</p>
+        </div>
+        <div class="item" *ngFor="let product of products">
+            <button mat-button>
+                <div class="photoItem">
+                    <!--<mat-icon mat-list-icon>fastfood</mat-icon>-->
+                    <img src="https://falabella.scene7.com/is/image/FalabellaPE/15767763_1?$producto308$&amp;wid=472&amp;hei=472">
+                </div>
+                <div class="textItem">
+                    <h4 mat-line>Pantalla Moto E5 Plus</h4>
+                    <h6 mat-line>Transparente</h6>
+                    <h6 mat-line>00012578540025008</h6>
+                </div>
+                <div class="priceItem">
+                    <span class="currency">S/</span>
+                    <span>9,999.99</span>
+                </div>
+            </button>
+            <button mat-icon-button class="deleteItem">
+                <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="total">
+        <button mat-raised-button color="primary">Pagar S/0,000.00</button>
+    </div> 
+</div>

@@ -1,0 +1,40 @@
+
+<div class="shop">
+    <div class="customer">
+            <!--<mat-form-field class="example-full-width">
+                <input matInput placeholder="State" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+                    <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
+                    <span>{{state.name}}</span> |
+                    <small>Population: {{state.population}}</small>
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>-->
+    </div>
+    <div class="listItems">
+        <div class="item" *ngFor="let product of products">
+            <button mat-button>
+                <div class="photoItem">
+                    <!--<mat-icon mat-list-icon>fastfood</mat-icon>-->
+                    <img src="https://falabella.scene7.com/is/image/FalabellaPE/15767763_1?$producto308$&amp;wid=472&amp;hei=472">
+                </div>
+                <div class="textItem">
+                    <h4 mat-line>Pantalla Moto E5 Plus</h4>
+                    <h6 mat-line>Transparente</h6>
+                    <h6 mat-line>00012578540025008</h6>
+                </div>
+                <div class="priceItem">
+                    <span class="currency">S/</span>
+                    <span>9,999.99</span>
+                </div>
+            </button>
+            <button mat-icon-button class="deleteItem">
+                <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="total">
+        <button mat-raised-button color="primary">Pagar S/0,000.00</button>
+    </div> 
+</div>

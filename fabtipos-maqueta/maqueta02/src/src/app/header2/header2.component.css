@@ -1,0 +1,152 @@
+.mat-toolbar{
+	padding: 0;
+	margin: 0;
+	width: 100%;
+  height: 50px;
+  min-height: 50px;
+	position: fixed;
+	z-index: 3;
+	background-color: #1e88e5;
+}
+.mat-toolbar .mat-toolbar-row{
+  padding: 0 8px;
+}
+.mat-toolbar .headerLeft{
+	width: 320px;
+  height: auto;
+  position: relative;
+  display: inline-block;
+  float: left;
+  clear: right;
+}
+.mat-toolbar .headerLeft .mat-icon-button{
+  float: left;
+  clear: right;
+  margin: 5px 0;
+}
+.mat-toolbar .headerLeft .titlePage{
+  font-size: 15px;
+  font-weight: 600;
+  float: left;
+  clear: right;
+  line-height: 16px;
+  margin: 10px 0 0 5px;
+  padding: 0;
+}
+.mat-toolbar .headerLeft .titlePage .subtitlePage{
+	display: block;
+	font-size: 11px;
+	font-weight: 500;
+}
+.mat-toolbar .headerLeft .mat-form-field{
+  font-size: 15px;
+  width: 135px;
+  float: right;
+  clear: right;
+}
+.mat-toolbar .headerRight{
+	width: calc(100% - 320px);
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: auto;
+  display: inline-block;
+}
+.tags{
+	width: 228px;
+	float: left;
+	clear: right;
+	padding: 0;
+}
+.tags .mat-icon-button{
+  margin: 5px 0;
+}
+.tags span{
+  line-height: 40px;
+  font-size: 14px;
+  color: rgba(255,255,255,.6);
+  font-weight: normal;
+  margin: 5px;
+  display: inline-block;
+}
+.wrapTags{
+	padding: 0 10px;
+	display: inline-block;
+}
+.wrapTags .mat-button{
+	float: left;
+	clear: right;
+	width: 50%;
+	text-align: left;
+	color: #607d8b;
+	padding: 10px;
+}
+.wrapTags .mat-button .mat-icon{
+  width: 28px;
+	height: 28px;
+	padding: 0;
+	float: left;
+	clear: right;
+	margin: 0;
+	font-size: 28px;
+}
+.wrapTags .mat-button .nameTag{
+	float: left;
+	clear: right;
+	line-height: 28px !important;
+	margin: 0 0 0 7px;
+	font-weight: 400;
+}
+.tagSelect{
+	background-color: rgba(63,81,181,.15);
+	color: #3f51b5 !important;
+}
+.search{
+	height: 40px;
+	margin: 5px;
+	width: 346px;
+	position: relative;
+	float: left;
+	clear: right;
+}
+.search .mat-icon{
+	position: absolute;
+	left: 10px;
+	top: 8px;
+}
+.search input{
+	line-height: 40px;
+  font-size: 15px;
+  padding: 0 50px 0 44px;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  background-color: rgba(255,255,255,.25);
+}
+.search input::placeholder {
+	color: rgba(255,255,255,.6);
+}
+.search .mat-icon-button{
+	position: absolute;
+	right: 6px;
+	color: #999;
+}
+.search .mat-icon-button::before, .search .mat-icon-button::after{
+	background-color: #999;
+}
+.search input:focus{
+	background-color: #fff;
+	box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+.search input:focus::placeholder {
+	color: rgba(0,0,0,.6);
+}
+.profile{
+  float: right;
+	clear: right;
+}
+.profile .mat-icon-button{
+  margin: 5px 0;
+}

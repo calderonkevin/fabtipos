@@ -1,0 +1,52 @@
+.mat-dialog-container{
+	padding: 20px !important;
+}
+.mat-dialog-title {
+	margin: 0 0 20px;
+	display: block;
+	font-size: 18px;
+	line-height: 22px;
+	position: relative;
+}
+.mat-dialog-title .mat-icon-button{
+	position: absolute;
+    top: -12px;
+    right: -12px;
+    color: #ccc;
+}
+.infoProductDialog img{
+	width: 110px;
+	height: 110px;
+    margin: 0;
+    border-radius: 4px;
+    float: left;
+    clear: right;
+}
+.infoProductDialog .ulPriceDialog{
+	margin: 0 0 0 20px;
+	padding: 0;
+	float: left;
+	clear: right;
+	width: auto;
+}
+.infoProductDialog .ulPriceDialog .liPriceDialog{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.infoProductDialog .ulPriceDialog .liPriceDialog:nth-child(3), .infoProductDialog .ulPriceDialog .liPriceDialog:nth-child(4){
+	opacity: .7;
+}
+.infoProductDialog .ulPriceDialog .liPriceDialog span{
+	font-size: 15px;
+    line-height: 22px;
+    margin: 0;
+    float: left;
+    clear: right;
+    padding: 0 6px 0 0;
+}
+.infoProductDialog .ulPriceDialog .liPriceDialog .priceProductDialog{
+	float: right;
+	clear: right;
+	padding: 0;
+}

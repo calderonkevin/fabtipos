@@ -5,6 +5,7 @@ export class Productbarcode {
     codpro: string;
     nompro: string;
     cantid: number;
+    punituser?: number;
     precio: number;
     precio2: number;
     webprecio: number;

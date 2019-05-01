@@ -1,30 +1,35 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row class="headerLeft">
-        <button mat-icon-button>
+        <button mat-icon-button [matMenuTriggerFor]="menuGeneral">
             <mat-icon>dashboard</mat-icon>
-        </button>
-        <!--
+        </button>        
         <mat-menu #menuGeneral="matMenu">
-            <button mat-menu-item (click)="openDialog()">
-                <mat-icon>shop</mat-icon>
+            <button mat-menu-item (click)="miMenu('VENTA')">
+                <mat-icon>add_shopping_cart</mat-icon>
                 <span>VENTA</span>
             </button>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="miMenu('TRANSF')">
                 <mat-icon>compare_arrows</mat-icon>
                 <span>TRANSFERENCIA</span>
             </button>
-            <button mat-menu-item>
+            
+            <button mat-menu-item (click)="miMenu('DEVOL')">
                 <mat-icon>undo</mat-icon>
                 <span>DEVOLUCIÓN</span>
             </button>
+
+            <button mat-menu-item (click)="testPrint()">
+                <mat-icon>print</mat-icon>
+                <span>Testear Impresora</span>
+            </button>
+            
             <button mat-menu-item (click)="logout()">
                 <mat-icon>exit_to_app</mat-icon>
                 <span>SALIR</span>
             </button>
-        </mat-menu>
-    -->
+        </mat-menu>    
        
-        <h1 class="titlePage">Venta<span class="subtitlePage">{{datadef.dessucursal}}</span></h1>
+        <h1 class="titlePage">{{ menuDesTipcodope }}<span class="subtitlePage">{{datadef.dessucursal}}</span></h1>        
         <!--
         <mat-form-field>
             <mat-select [(value)]="selected">
@@ -36,7 +41,7 @@
     </mat-toolbar-row>
 
     <mat-toolbar-row class="headerRight">
-        <div class="tags">
+        <div class="tags" style="display:none;">
             <button mat-icon-button [matMenuTriggerFor]="menuCategoria">
                 <mat-icon>filter_list</mat-icon>
             </button>

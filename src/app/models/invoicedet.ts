@@ -1,12 +1,13 @@
 export class Invoicedet {
     
     id: number;
-    sucursal: string;
+    sucursal: string;    
     dessucursal: string;
     codpro: string;
     nompro: string;
     cantid: number;
     punituser: number;
+    descuentouser: number;
     codcol: string;
     descolor: string;
     talla: string;

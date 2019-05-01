@@ -1,0 +1,130 @@
+
+<div class="catalog">
+    <div class="resultsEmpty">
+        <img src="http://novit.pe//rb/otros/fs/icon-consultproduct.png">
+        <p>Recuerda que puedes realizar la consulta de cualquier producto.</p>
+    </div>
+    <div class="wrapResults" style="display:none">
+        <div class="results">
+            <h1 class="titleResult">Resultados encontrados</h1>
+            <button mat-raised-button class="product" *ngFor="let product of products" (click)="openDialog()">
+                <h1 class="nameProduct">Nombre del Producto</h1>  
+                <img mat-card-image src="https://falabella.scene7.com/is/image/FalabellaPE/15767763_1?$producto308$&amp;wid=472&amp;hei=472" alt="Photo of a Shiba Inu">              
+                <ul class="ulPrice">
+                        <li class="liPrice">
+                          <span>Cantidad</span> <span class="priceProduct">000,000</span>
+                        </li>
+                        <li class="liPrice">
+                            <span>P. General</span> <span class="priceProduct">S/ 0,000.00</span>
+                        </li> 
+                        <li class="liPrice">
+                            <span>P. Unidad</span> <span class="priceProduct">S/ 0,000.00</span>
+                        </li>  
+                        <li class="liPrice">
+                            <span>P. Mayor</span> <span class="priceProduct">S/ 0,000.00</span>
+                        </li>  
+                </ul>
+            </button>
+        </div>
+        <div class="results">
+            <h1 class="titleResult">Resultados similares</h1>
+            <button mat-raised-button class="product" *ngFor="let product of products" (click)="openDialog()">
+                <h1 class="nameProduct">Nombre del Producto</h1>  
+                <img mat-card-image src="https://falabella.scene7.com/is/image/FalabellaPE/15767763_1?$producto308$&amp;wid=472&amp;hei=472" alt="Photo of a Shiba Inu">              
+                <ul class="ulPrice">
+                      <li class="liPrice">
+                        <span>Cantidad</span> <span class="priceProduct">000,000</span>
+                      </li>
+                      <li class="liPrice">
+                          <span>P. General</span> <span class="priceProduct">S/ 0,000.00</span>
+                      </li> 
+                      <li class="liPrice">
+                          <span>P. Unidad</span> <span class="priceProduct">S/ 0,000.00</span>
+                      </li>  
+                      <li class="liPrice">
+                          <span>P. Mayor</span> <span class="priceProduct">S/ 0,000.00</span>
+                      </li> 
+                </ul>
+            </button>
+        </div>
+    </div>
+    <div class="infoDay">
+        <mat-tab-group>
+                <mat-tab>
+                  <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+                    Movimientos
+                  </ng-template>
+                  <button mat-icon-button class="refreshBtn">
+                      <mat-icon>refresh</mat-icon>
+                  </button>
+                    
+                  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    
+                        <!--- Note that these columns can be defined in any order.
+                              The actual rendered columns are set as a property on the row definition" -->
+                      
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="position">
+                          <th mat-header-cell *matHeaderCellDef> No. </th>
+                          <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                        </ng-container>
+                      
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="name">
+                          <th mat-header-cell *matHeaderCellDef> Name </th>
+                          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+                      
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="weight">
+                          <th mat-header-cell *matHeaderCellDef> Weight </th>
+                          <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                        </ng-container>
+    
+    
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="symbol">
+                            <th mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let element">
+                                <button mat-icon-button>
+                                    <mat-icon>print</mat-icon>
+                                </button></td>
+                        </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                      </table>
+    
+                </mat-tab>
+              
+                <mat-tab>
+                  <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+                    Ventas
+                  </ng-template>
+                  Content 2
+                </mat-tab>
+              
+                <mat-tab>
+                  <ng-template mat-tab-label>
+                    <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+                    Transferencias
+                  </ng-template>
+              
+                  Content 3
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                      <mat-icon class="example-tab-icon">thumb_up</mat-icon>
+                      Devoluciones
+                    </ng-template>
+                
+                    Content 3
+                  </mat-tab>
+              </mat-tab-group>
+    </div>
+</div>
+
+
+
