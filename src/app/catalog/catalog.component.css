@@ -9,7 +9,7 @@
 .catalog{
   position: absolute;
 	width: calc(100% - 320px);
-	top: 50px;
+	top: 0;
 	right: 0;
 	height: 100%;
 }
@@ -34,7 +34,7 @@
 }
 .catalog .wrapResults{
 	padding: 0 10px 10px 10px;
-	margin: 0;
+	margin: 60px 0 0 0;
 	display: inline-block;
 	border-bottom: 2px solid #ddd;
 }
@@ -112,7 +112,7 @@
 .catalog .infoDay{
 	background-color: #fff;
   border-radius: 4px;
-  margin: 10px;
+  margin: 10px 10px 30px 10px;
   padding: 0;
 }
 .catalog .infoDay .mat-tab-group{
@@ -137,5 +137,7 @@
   margin-right: 8px;
 }
 
-
-
+td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+	padding: 5px;
+	margin: 0px;
+}

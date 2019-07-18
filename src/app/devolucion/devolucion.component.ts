@@ -6,6 +6,7 @@ import { Productbarcode } from '../models/productbarcode';
 import { Invoicedet } from '../models/invoicedet';
 import { Tienda } from '../models/tienda';
 import { Motivo } from '../models/motivo';
+import { ListaPair } from '../models/listapair';
 
 //service
 import { LoginService } from '../common/services/login.service';
@@ -49,6 +50,7 @@ export class DevolucionComponent {
   
   tiendaList: Tienda[];
   motivoList: Motivo[];
+  devTipoList: ListaPair[];
 
   constructor(
     private _loginService: LoginService,
@@ -79,10 +81,12 @@ export class DevolucionComponent {
   identity: any;
   selectedCodcliValue: string;
   selectedMotivoValue: string;
+  selectedDevTipoValue: string;
 
   ngOnInit() {    
 
     this.verMotivocombo();
+    this.verDevTipocombo();
 
     this.identity = this._loginService.getIdentity();
     //this.invoiceCab = [{'codcli':'5','coddir':'0001','codper':'44001713','nomcom':'otros mas'}];
@@ -188,17 +192,36 @@ export class DevolucionComponent {
             //console.log(element.key);
             this.productBarcodeList.push(x as Productbarcode);          
             console.log("lista de this.productBarcodeList:" + this.productBarcodeList);
+            console.log("lista de this.productBarcodeList:" + JSON.stringify(this.productBarcodeList));
 
           });
-          console.log("cantidad se esta ejecutando solo: " + this.productBarcodeList.filter(obj => obj.cantid < 0).length);
+          console.log("cantidad se esta ejecutando solo: " + this.productBarcodeList.filter(obj => obj.cantid > 0).length);
           if (this.productBarcodeList.filter(obj => obj.cantid > 0).length === 0) {
             this.toastr.error('No existe codigo de barras: ' + this.searchValue);
             return;
           }
 
           var indSelect = this.productBarcodeList.filter(obj => obj.sucursal == this.sucursal && obj.cantid > 0)
+          console.log("indSelect.length: " + indSelect.length)
           if (indSelect.length === 1) {
-
+              console.log("response.pagobarra.importe: " + response.pagobarra[0].importe);
+              console.log(response.pagobarra[0].saldo);
+              var wacuenta = 0.00;
+              if(response.pagobarra[0].formapago == 'CONT')
+              {
+                wacuenta = response.pagobarra[0].importe;
+              }
+              else if(response.pagobarra[0].formapago == 'CRED')
+              {
+                wacuenta = (response.pagobarra[0].importe - response.pagobarra[0].saldo);
+              }else
+              {
+                this.toastr.error('Existe un error de pagos: ' + this.searchValue);
+                return;
+              }
+              
+              console.log(wacuenta);
+              
             this.tmpInvoiceDet = {
               id: this.invoiceId,
               sucursal: indSelect[0].sucursal,
@@ -207,12 +230,17 @@ export class DevolucionComponent {
               nompro: indSelect[0].nompro,
               cantid: 1,
               descuentouser:0.00,
-              punituser: indSelect[0].punituser,
+              punituser: wacuenta,
               codcol: indSelect[0].codcol,
               descolor: indSelect[0].descolor,
               talla: indSelect[0].talla,
               serpro: indSelect[0].serpro,
-              fecvendet: indSelect[0].fecvendet
+              fecvendet: indSelect[0].fecvendet,
+              imagen: indSelect[0].imagen,
+              importe: response.pagobarra[0].importe,
+              saldo: response.pagobarra[0].saldo,
+              acuenta: indSelect[0].punituser
+          
             };
 
             this.addInvoiceDet(this.tmpInvoiceDet);
@@ -237,7 +265,8 @@ export class DevolucionComponent {
   
   public getTiendaDestab(idsucursal) {
     var desTienda = "";
-    var indTienda = this.tiendaList.filter(obj => obj.$key.padStart(6, '0') == idsucursal);
+    //var indTienda = this.tiendaList.filter(obj => obj.$key.padStart(6, '0') == idsucursal);
+    var indTienda = this.tiendaList.filter(obj => obj.codtab == idsucursal);
     if (indTienda.length > 0) {
       desTienda = indTienda[0].destab;
     }
@@ -259,7 +288,11 @@ export class DevolucionComponent {
         descolor: invoiceDet.descolor,
         talla: invoiceDet.talla,
         serpro: invoiceDet.serpro,
-        fecvendet: invoiceDet.fecvendet
+        fecvendet: invoiceDet.fecvendet,
+        importe:  invoiceDet.importe,
+        saldo:  invoiceDet.saldo,
+        acuenta:  invoiceDet.acuenta
+
       });
 
     this.searchValue = "";
@@ -291,6 +324,13 @@ export class DevolucionComponent {
       return;
     }
 
+    if(this.selectedDevTipoValue == "" || this.selectedDevTipoValue == undefined)
+    {
+      this.loading = false;
+      this.toastr.error("Falta Seleccionar Tipo Devolución");
+      return;
+    }
+
     if (this.invoiceDet.length == 0 )
     {    
       this.loading = false;
@@ -299,6 +339,7 @@ export class DevolucionComponent {
     }
 
     this.invoiceCab["motivo"] = this.selectedMotivoValue;
+    this.invoiceCab["tipocobranza"] = this.selectedDevTipoValue;
 
     this._loginService.crearDevolucionPos(this.invoiceDet, this.invoiceCab).subscribe(
       response => {
@@ -314,13 +355,13 @@ export class DevolucionComponent {
           console.log(dataEnconde);
           this.jsonImpresion = dataEnconde;
           this.invoiceDet = [];
-          this.selectedMotivoValue = "";
+          this.selectedMotivoValue = "";          
+          this.selectedDevTipoValue = "";
           this.invoiceCab = this._loginService.getDataDef();   
           this.invoiceCab["codcli"]="";
           this.invoiceCab['nomcom']="";
 
-          this.catalogComponent.loadTicketDet('');
-
+          this.catalogComponent.loadDevolucion();
 
           //////////////////////////////////
           //console.log("inicio fire");
@@ -419,6 +460,27 @@ export class DevolucionComponent {
       }
     )   
 
+  }
+
+  verDevTipocombo(): void {
+
+    this._loginService.destipoCombo().subscribe(
+      response => {
+        console.log("L I S T A   D E   DEVTIPO COMBO");
+        console.log(response);        
+        this.devTipoList = response.data;  
+        console.log(this.devTipoList);
+        console.log("L I S T A   D E   DEVTIPO FIN COMBO");
+      },
+      error => {
+        console.log(<any>error);
+        //console.log("error 454545.");
+        var errorMessage = <any>error;
+        if (errorMessage != null) {
+          var body = JSON.parse(error._body);          
+        }
+      }
+    )
   }
 
 }

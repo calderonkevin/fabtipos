@@ -1,8 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
+import { LoginService } from '../common/services/login.service';
+
 declare var jQuery: any;
 declare var $: any;
+
+
 
 
 @Component({
@@ -14,7 +18,10 @@ declare var $: any;
 
 export class MyDialogEditarPrecioComponent {
 
+  dataDef = [];
+
   constructor(
+    private _loginService: LoginService,
     public thisDialogRef: MatDialogRef<MyDialogEditarPrecioComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string) { }
 
@@ -30,6 +37,6 @@ export class MyDialogEditarPrecioComponent {
      this.thisDialogRef.close('Cancel');
   }*/
   ngOnInit() {    
-    
+    this.dataDef = this._loginService.getDataDef();
   }
 }

@@ -1,48 +1,48 @@
-<h2 mat-dialog-title>Consulta RUC/DNI</h2>
-
+<div class="ttlDialog">
+    <h2 mat-dialog-title>Consulta Cliente</h2>
+    <button mat-icon-button [mat-dialog-close]="">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
 <mat-dialog-content>
-    <div class="example-container">
-
-
-        <mat-form-field>
-            <mat-label>Tipo Doc</mat-label>
-            <mat-select [(ngModel)]="selectedTipoDocValue" name="tipodoc">
-                <mat-option value="RUC">RUC</mat-option>
-                <mat-option value="DNI">DNI</mat-option>
-            </mat-select>
-        </mat-form-field>
+    <div class="dialogSearch">
 
         <mat-form-field>
-            <input type="search" matInput placeholder="Ingrese {{selectedTipoDocValue}}" id="searchPop" name="searchPop"
-                value="" autocomplete="off" onfocus="this.select()">
+            <input type="search" matInput placeholder="Ingrese RUC/DNI/Razon Social/Nombre" id="searchPop" name="searchPop" value=""
+                autocomplete="off" onfocus="this.select()" (keyup.enter)="consultarDatosCliente($event.target.value)">
         </mat-form-field>
-        <button id="#btnBuscarConsultaCliente" name="#btnBuscarConsultaCliente" mat-raised-button color="primary"
+        <button [disabled]="loading" mat-raised-button color="primary"
             (click)="consultarDatosCliente($event.target.value)">
             <mat-icon>search</mat-icon>
         </button>
+    </div>
+    <div>
+        <div style="padding-bottom:5px" *ngIf="codConsultaDocumento == 1">
+            <button mat-raised-button class="product" [mat-dialog-close]="item" class="btnResultCustomer" *ngFor="let item of externoClienteList; let i = index">
+                <ul class="ulConsult">
+                    <!--
+                    <li class="liConsult">
+                                {{externoClienteObj.desinden}} {{externoClienteObj.codcli}}
+                            </li>
+                    -->
+                    <li class="liConsult">
+                        {{item.desinden}} {{item.codcli}}
+                    </li>
+                    <li class="liConsult">
+                        {{item.nomcom}}
+                    </li>
+                    <li class="liConsult">
+                        {{item.dircli}}
+                    </li>
+                </ul>
+            </button>
 
-
-
-        <div>
-            <div>                    
-                    <button mat-raised-button class="product" [mat-dialog-close]="externoClienteObj">
-                    <ul>
-                        <li>
-                            <span>{{externoClienteObj.desinden}}</span> <span>{{externoClienteObj.codcli}}</span>
-                        </li>
-                        <li>
-                            <span>{{externoClienteObj.nomcom}}</span>
-                        </li>
-                        <li>
-                            <span>{{externoClienteObj.dircli}}</span>
-                        </li>
-                    </ul>
-                </button>
-                
-            </div>
-            <div>
-                <p>Nro de RUC o DNI no valido.</p>
+        </div>
+        <div *ngIf="codConsultaDocumento == 2">
+            <div class="resultEmpty">
+                <mat-icon>info_outline</mat-icon> Número {{selectedTipoDocValue}} no válido.
             </div>
         </div>
+
     </div>
 </mat-dialog-content>

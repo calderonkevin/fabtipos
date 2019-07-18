@@ -1,6 +1,7 @@
 export class Ticketdet {
       
-  sucursal: string;
+      sucursal: string;
+      numcodope: number;
       codpro: string;
       codope: string;
       codcol: string;
@@ -8,7 +9,7 @@ export class Ticketdet {
       numref: number;
       serpro: string;
       destipodoc: string;
-      cantid: string;
+      cantid: number;
       fchdoc: string;
       punit: number;
       nompro: string;

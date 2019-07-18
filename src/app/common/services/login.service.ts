@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 //import { Observable, Subject, pipe } from 'rxjs';
 import { GLOBAL } from './global';
 
+import { Tienda } from '../../models/tienda';
+
 
 declare var jQuery: any;
 declare var $: any;
@@ -23,6 +25,8 @@ export class LoginService {
         this.url2 = GLOBAL.url2;
         this.url3 = GLOBAL.url3;
     }
+
+    tiendaList: Tienda[];
 
     articulos22() {
         console.log("=================");
@@ -101,16 +105,51 @@ export class LoginService {
 
     articulos(searchValue: string) {
 
-        console.log("=================");
-        let params = 'searchValue=' + searchValue;
+        var listaJson = [];
+        var token = this.getToken();
+        var identity = this.getIdentity();
+        listaJson = [
+            {
+                "token": token,
+                "identity": identity,
+                "searchValue": searchValue
+            }
+        ];
+        console.log("enviar listaJson:" + listaJson);
+        /*
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json; charset=UTF-8");
+        headers.append("Authorization", token);
 
-        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+        //let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8'});
+        //headers = new Headers({ 'Authorization': 'Basic'+ token});        
         let options = new RequestOptions({ headers: headers });
-        return this._http.post(this.url + 'articulo/lista12', params, options)
+
+        return this._http.post(this.url + 'ticket/lista-json', JSON.stringify(listaJson), options)
+            .pipe(map(res => res.json()));
+*/
+
+        console.log("=================");
+        //let params = 'searchValue=' + searchValue;
+
+        //let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+        //let options = new RequestOptions({ headers: headers });
+        //return this._http.post(this.url + 'articulo/lista12', params, options)
+        //.pipe(map(res => res.json()));
+
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json; charset=UTF-8");
+        headers.append("Authorization", token);
+
+        //let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8'});
+        //headers = new Headers({ 'Authorization': 'Basic'+ token});        
+        let options = new RequestOptions({ headers: headers });
+            
+        return this._http.post(this.url + 'articulo/lista12', JSON.stringify(listaJson), options)
             .pipe(map(res => res.json()));
 
 
-    }
+    }    
 
     clientes() {
 
@@ -120,6 +159,19 @@ export class LoginService {
         let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         let options = new RequestOptions({ headers: headers });
         return this._http.post(this.url + 'cliente/get-pairs', params, options)
+            .pipe(map(res => res.json()));
+
+
+    }
+
+    personalCombo() {
+
+        console.log("=================");
+        let params = '';
+
+        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+        let options = new RequestOptions({ headers: headers });
+        return this._http.post(this.url + 'personal/get-pairs', params, options)
             .pipe(map(res => res.json()));
 
 
@@ -138,6 +190,34 @@ export class LoginService {
 
     }
 
+    sucursalCombo() {
+
+        console.log("=================");
+        let params = '';
+
+        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+        let options = new RequestOptions({ headers: headers });
+        return this._http.post(this.url + 'sucursal/get-pairs', params, options)
+            .pipe(map(res => res.json()));
+
+
+    }
+
+    destipoCombo() {
+
+        console.log("=================");
+        let params = '';
+
+        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+        let options = new RequestOptions({ headers: headers });
+        return this._http.post(this.url + 'devtipo/get-pairs', params, options)
+            .pipe(map(res => res.json()));
+
+
+    }
+    
+    
+
     listaTicket(searchValue: string) {
 
         var listaJson = [];
@@ -149,7 +229,7 @@ export class LoginService {
                 "identity": identity,
             }
         ];
-        console.log("listaJson:" + listaJson);
+        console.log("enviar listaJson:" + listaJson);
 
         let headers = new Headers();
         headers.append("Content-Type", "application/json; charset=UTF-8");
@@ -175,7 +255,33 @@ export class LoginService {
                 "identity": identity,
             }
         ];
-        console.log("listaJson:" + listaJson);
+        console.log("enviar listaJson:" + listaJson);
+
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json; charset=UTF-8");
+        headers.append("Authorization", token);
+
+        //let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8'});
+        //headers = new Headers({ 'Authorization': 'Basic'+ token});        
+        let options = new RequestOptions({ headers: headers });
+
+        return this._http.post(this.url + 'ticket/lista-det-json', JSON.stringify(listaJson), options)
+            .pipe(map(res => res.json()));
+
+    }
+
+    listaTicketDetPorNumcodope(searchValue: string) {
+
+        var listaJson = [];
+        var token = this.getToken();
+        var identity = this.getIdentity();
+        listaJson = [
+            {
+                "token": token,
+                "identity": identity,
+            }
+        ];
+        console.log("enviar listaJson:" + listaJson);
 
         let headers = new Headers();
         headers.append("Content-Type", "application/json; charset=UTF-8");
@@ -264,7 +370,8 @@ export class LoginService {
                 "dataCab": dataCab
             }
         ];
-        console.log("listaJson:" + listaJson);
+        console.log("listaJson REVSION:");
+        console.log( listaJson);
 
 
         let headers = new Headers();
@@ -276,6 +383,72 @@ export class LoginService {
         let options = new RequestOptions({ headers: headers });
 
         return this._http.post(this.url + 'emitir-ticket/add', JSON.stringify(listaJson), options)
+            .pipe(map(res => res.json()));
+
+    }
+
+reImpresionTicketPos(sucursal, numcodope) {
+        //let aa =body;  
+        console.log("=================");
+        console.log("re-impresion ticket");
+        var listaJson = [];
+        //var dataCab = [{'codcli':'5','coddir':'0001','codper':'44001713'}];        
+        var token = this.getToken();
+        var identity = this.getIdentity();
+        console.log(token);
+        listaJson = [
+            {
+                "token": token,
+                "identity": identity,
+                "sucursal": sucursal,
+                "numcodope": numcodope
+            }
+        ];
+        console.log("listaJson:" + listaJson);
+
+
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json; charset=UTF-8");
+        headers.append("Authorization", token);
+
+        //let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8'});
+        //headers = new Headers({ 'Authorization': 'Basic'+ token});        
+        let options = new RequestOptions({ headers: headers });
+
+        return this._http.post(this.url + 'ticket/re-imprimir-json', JSON.stringify(listaJson), options)
+            .pipe(map(res => res.json()));
+
+    }
+
+    reImpresionDevolucionPos(sucursal, numcodope) {
+        //let aa =body;  
+        console.log("=================");
+        console.log("re-impresion Devolucion");
+        var listaJson = [];
+        //var dataCab = [{'codcli':'5','coddir':'0001','codper':'44001713'}];        
+        var token = this.getToken();
+        var identity = this.getIdentity();
+        console.log(token);
+        listaJson = [
+            {
+                "token": token,
+                "identity": identity,
+                "sucursal": sucursal,
+                "numcodope": numcodope
+            }
+        ];
+        console.log("listaJson:" + listaJson);
+
+
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json; charset=UTF-8");
+        headers.append("Authorization", token);
+
+        //let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8'});
+        //headers = new Headers({ 'Authorization': 'Basic'+ token});        
+        let options = new RequestOptions({ headers: headers });
+
+        return this._http.post(this.url + 'emitir-devolucion/re-imprimir-json', JSON.stringify(listaJson), options)
             .pipe(map(res => res.json()));
 
     }
@@ -385,7 +558,7 @@ export class LoginService {
             this.datadef = null;
         }
         return this.datadef;
-    }
+    }    
 
     consultaArticuloBarraAjuIng(busqueda: string) {
         //let aa =body;  
@@ -403,7 +576,7 @@ export class LoginService {
                 "data": busqueda,
             }
         ];
-        console.log("listaJson:" + listaJson);
+        console.log("Enviar listaJson:" + JSON.stringify(listaJson));
 
 
         let headers = new Headers();
@@ -453,6 +626,7 @@ export class LoginService {
     }
 
     consultaRucClienteExterno(selectedTipoDocValue: string, numdoc: string) {
+        console.log("va a consultar por "+ selectedTipoDocValue);
         if(selectedTipoDocValue == "RUC"){
             let params = 'nruc=' + numdoc;
             let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
@@ -500,5 +674,91 @@ export class LoginService {
 
     }
 
+    getCodeVale(codvale: string) {
+        //let aa =body;  
+        console.log("=================");
+        console.log("getCodeVale: " + codvale);
+        var listaJson = [];        
+        var token = this.getToken();
+        var identity = this.getIdentity();
+        console.log(token);
+        listaJson = [
+            {
+                "token": token,
+                "identity": identity,
+                "codvale": codvale,
+            }
+        ];
+        console.log("listaJson:" + JSON.stringify(listaJson));
+
+
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json; charset=UTF-8");
+        headers.append("Authorization", token);
+
+        //let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8'});
+        //headers = new Headers({ 'Authorization': 'Basic'+ token});        
+        let options = new RequestOptions({ headers: headers });
+
+        return this._http.post(this.url + 'emitir-vale/get-code-json', JSON.stringify(listaJson), options)
+            .pipe(map(res => res.json()));
+
+    }
+
+    getCierreUsuario() {
+        //let aa =body;  
+        console.log("=================");
+        //console.log("getCodeVale: " + codvale);
+        var listaJson = [];        
+        var token = this.getToken();
+        var identity = this.getIdentity();
+        console.log(token);
+        listaJson = [
+            {
+                "token": token,
+                "identity": identity                
+            }
+        ];
+        console.log("listaJson:" + JSON.stringify(listaJson));
+
+
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json; charset=UTF-8");
+        headers.append("Authorization", token);
+
+        //let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8'});
+        //headers = new Headers({ 'Authorization': 'Basic'+ token});        
+        let options = new RequestOptions({ headers: headers });
+
+        return this._http.post(this.url + 'emitir-vale/get-cierre-usuario-json', JSON.stringify(listaJson), options)
+            .pipe(map(res => res.json()));
+
+    }
+
+    listaDevolucion() {
+
+        var listaJson = [];
+        var token = this.getToken();
+        var identity = this.getIdentity();
+        listaJson = [
+            {
+                "token": token,
+                "identity": identity,
+            }
+        ];
+        console.log("enviar listaJson:" + listaJson);
+
+        let headers = new Headers();
+        headers.append("Content-Type", "application/json; charset=UTF-8");
+        headers.append("Authorization", token);
+
+        //let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8'});
+        //headers = new Headers({ 'Authorization': 'Basic'+ token});        
+        let options = new RequestOptions({ headers: headers });
+
+        return this._http.post(this.url + 'emitir-devolucion/lista-json', JSON.stringify(listaJson), options)
+            .pipe(map(res => res.json()));
+
+    }
 
 }

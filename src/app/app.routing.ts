@@ -13,7 +13,7 @@ const appRoutes: Routes = [
     {path: '', component: LoginComponent},    
     //{path: '', component: CatalogComponent},
     {path: '', redirectTo: 'login' , pathMatch: 'full'},
-    {canActivate: [AdminGuard], path: 'catalogo', component: CatalogComponent},
+    {canActivate: [AdminGuard], path: 'pos', component: CatalogComponent},
     {path: '**', component: ZnoexisteComponent}
 ];
 

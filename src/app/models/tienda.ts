@@ -1,6 +1,6 @@
 export class Tienda {
     
-    $key: string;    
+    codtab: string;    
     destab: string;    
     activo: number;
     

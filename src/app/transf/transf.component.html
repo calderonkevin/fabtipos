@@ -3,17 +3,31 @@
         <span>Cliente</span>
         {{invoiceCab.nomcom}}
     </div>-->
+
     <div class="customer">
         <mat-icon>store</mat-icon>
         <mat-form-field>
             <mat-label>Tienda Destino</mat-label>
-            <mat-select [(ngModel)]="selectedSucrefValue" name="sucref">                
-                <mat-option *ngFor="let tienda of tiendaList" [value]="tienda.$key">
+            <mat-select [(ngModel)]="selectedSucrefValue" name="sucref">
+                <mat-option *ngFor="let tienda of tiendaList" [value]="tienda.codtab">
                     {{tienda.destab}}
-                  </mat-option>
+                </mat-option>
             </mat-select>
         </mat-form-field>
     </div>
+    <!--
+    <div class="customer">
+        <mat-icon>account_circle</mat-icon>
+        <mat-form-field>
+            <mat-label>Personal</mat-label>
+            <mat-select [(ngModel)]="selectedSucrefValue" name="sucref">
+                <mat-option *ngFor="let tienda of tiendaList" [value]="tienda.codtab">
+                    {{tienda.destab}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    -->
     <div class="searchAdd">
         <mat-icon>search</mat-icon>
         <input type="search" placeholder="Ingrese código de barra" id="detectabarra" name="detectabarra" value=""
@@ -42,7 +56,7 @@
                     <h6 mat-line>{{invoItem.serpro}}</h6>
                     <h6 mat-line style="color: #00F;" *ngIf="invoItem.sucursal != sucursal">{{invoItem.dessucursal}}
                     </h6>
-                </div>                
+                </div>
             </button>
             <button mat-icon-button class="deleteItem" (click)="invoItemDelete(i)">
                 <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>

@@ -6,6 +6,7 @@
   min-height: 50px;
 	position: fixed;
 	z-index: 3;
+	background-color: #1e88e5;
 }
 .mat-toolbar .mat-toolbar-row{
   padding: 0 8px;

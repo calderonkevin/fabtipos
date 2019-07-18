@@ -14,4 +14,5 @@ export class Productbarcode {
     talla: string;
     serpro: string;
     fecvendet: string;
+    imagen: string;
 }

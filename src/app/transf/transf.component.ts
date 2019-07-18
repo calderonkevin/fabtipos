@@ -20,6 +20,10 @@ import { CatalogComponent } from '../catalog/catalog.component';
 declare var jQuery: any;
 declare var $: any;
 
+export interface Personal {
+  codcli: string;
+  nomcom: string;
+}
 
 @Component({
   selector: 'app-transf',
@@ -30,6 +34,7 @@ declare var $: any;
 export class TransfComponent {  
 
   tiendaList: Tienda[];
+  personalListCombo: Personal[];
 
   constructor(
     private _loginService: LoginService,
@@ -63,24 +68,8 @@ export class TransfComponent {
   ngOnInit() {
 
     console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-
-   
-
-
-    this._productService.getTienda()
-    .snapshotChanges()
-    .subscribe(item => {
-      this.tiendaList = [];
-      //console.log(item.length);
-      item.forEach(element => {
-        let x = element.payload.toJSON();
-        //console.log(element.key);
-        x["$key"] = element.key;
-        //console.log(element.key);
-        this.tiendaList.push(x as Tienda);
-      });
-    });
-
+    this.verSucursalcombo();
+    
     this.identity = this._loginService.getIdentity();
     //this.invoiceCab = [{'codcli':'5','coddir':'0001','codper':'44001713','nomcom':'otros mas'}];
     this.invoiceCab = this._loginService.getDataDef();
@@ -231,7 +220,9 @@ export class TransfComponent {
             descolor: indSelect[0].descolor,
             talla: indSelect[0].talla,
             serpro: indSelect[0].serpro,
-            fecvendet: indSelect[0].fecvendet
+            fecvendet: indSelect[0].fecvendet,
+            imagen: indSelect[0].imagen,
+            importe: 0
           };
 
           this.addInvoiceDet(this.tmpInvoiceDet);
@@ -259,7 +250,9 @@ export class TransfComponent {
             descolor: indSelect[0].descolor,
             talla: indSelect[0].talla,
             serpro: indSelect[0].serpro,
-            fecvendet: indSelect[0].fecvendet
+            fecvendet: indSelect[0].fecvendet,
+            imagen: indSelect[0].imagen,
+            importe: 0
           };
 
           this.addInvoiceDet(this.tmpInvoiceDet);
@@ -343,7 +336,9 @@ export class TransfComponent {
             descolor: indSelect[0].descolor,
             talla: indSelect[0].talla,
             serpro: indSelect[0].serpro,
-            fecvendet: indSelect[0].fecvendet
+            fecvendet: indSelect[0].fecvendet,
+            imagen: indSelect[0].imagen,
+            importe: 0
           };
 
           this.addInvoiceDet(this.tmpInvoiceDet);
@@ -371,7 +366,9 @@ export class TransfComponent {
             descolor: indSelect[0].descolor,
             talla: indSelect[0].talla,
             serpro: indSelect[0].serpro,
-            fecvendet: indSelect[0].fecvendet
+            fecvendet: indSelect[0].fecvendet,
+            imagen: indSelect[0].imagen,
+            importe: 0
           };
 
           this.addInvoiceDet(this.tmpInvoiceDet);
@@ -389,7 +386,8 @@ export class TransfComponent {
 
   public getTiendaDestab(idsucursal) {
     var desTienda = "";
-    var indTienda = this.tiendaList.filter(obj => obj.$key.padStart(6, '0') == idsucursal);
+    //var indTienda = this.tiendaList.filter(obj => obj.$key.padStart(6, '0') == idsucursal);
+    var indTienda = this.tiendaList.filter(obj => obj.codtab == idsucursal);
     if (indTienda.length > 0) {
       desTienda = indTienda[0].destab;
     }
@@ -428,6 +426,13 @@ export class TransfComponent {
     {
       this.loading = false;
       this.toastr.error("Falta Seleccionar Tienda Destino");
+      return;
+    }
+
+    if(this.sucursal == this.selectedSucrefValue)
+    {
+      this.loading = false;
+      this.toastr.error("No se puede realizar transferencia a la misma Tienda");
       return;
     }
 
@@ -504,6 +509,47 @@ export class TransfComponent {
     
   }
 
+  verSucursalcombo(): void {
+
+    this._loginService.sucursalCombo().subscribe(
+      response => {
+        console.log("L I S T A   D E   SUCURSAL222 COMBO");
+        console.log(response);        
+        this.tiendaList = response.data;  
+        console.log(this.tiendaList);
+        console.log("L I S T A   D E   SUCURSAL222 FIN COMBO");
+      },
+      error => {
+        console.log(<any>error);
+        //console.log("error 454545.");
+        var errorMessage = <any>error;
+        if (errorMessage != null) {
+          var body = JSON.parse(error._body);          
+        }
+      }
+    )
+  }
+
+  verPersonalCombo(): void {
+
+    this._loginService.personalCombo().subscribe(
+      response => {
+        console.log("L I S T A   D E   PERSONAL COMBO");
+        console.log(response);        
+        this.tiendaList = response.data;  
+        console.log(this.tiendaList);
+        console.log("L I S T A   D E   PERSONAL FIN COMBO");
+      },
+      error => {
+        console.log(<any>error);
+        //console.log("error 454545.");
+        var errorMessage = <any>error;
+        if (errorMessage != null) {
+          var body = JSON.parse(error._body);          
+        }
+      }
+    )
+  }
 
 
 }

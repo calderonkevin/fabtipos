@@ -14,8 +14,8 @@ export class Ticket {
       numcodope: string;
       feccre: string;      
       fecmod: string;
-      fabrica: string;
-      desfabrica: string;
+      codcli: string;
+      nomcom: string;
       dessucursal: string;
       desmoneda: string;
       usernamecre: string;

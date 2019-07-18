@@ -1,8 +1,75 @@
-.example-container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .example-container > * {
+.ttlDialog{
+    position: relative
+}
+.ttlDialog h2{
+    
+}
+.ttlDialog .mat-icon-button{
+    position: absolute;
+    top: -4px;
+    right: 0;
+}
+.dialogSearch{
     width: 100%;
-  }
+    position: relative;
+}
+.dialogSearch .mat-form-field{
+    width: calc(100% - 76px);
+    float: left;
+    clear: right;
+}
+.dialogSearch .mat-raised-button{
+    width: 70px;
+    float: right;
+    clear: right;
+    margin: 6px 0 0 0;
+    background-color: #1e88e5;
+}
+.btnResultCustomer{
+    width: 100%;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.2);
+}
+.ulConsult {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px 0;
+    margin: 0;
+    display: inline-block;
+}
+.ulConsult .liConsult{
+    list-style: none;
+    width: 100%;
+    line-height: 18px;
+    font-size: 14px;
+    white-space: normal;
+    padding: 6px;
+    box-sizing: border-box;
+}  
+.ulConsult .liConsult:first-child{
+    font-weight: 800;
+    font-size: 16px;
+    color: #3f51b5;
+    background-color: rgba(63,81,181,.15);
+    border-radius: 4px;
+    padding: 12px 0 8px 0;
+    margin: 0 0 10px 0;
+}
+.resultEmpty{
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    color: #999;
+    box-sizing: border-box;
+    padding: 30px 20px 20px 20px;
+    margin: 0;
+    text-align: center;
+}
+.resultEmpty .mat-icon{
+    opacity: .75;
+    display: block;
+    margin: 0 auto;
+    width: 30px;
+    height: 30px;
+    font-size: 31px;
+    padding: 0 0 10px 0;
+}

@@ -9,6 +9,8 @@ import { ShopComponent }  from './shop/shop.component';
 import { TransfComponent }  from './transf/transf.component';
 import { DevolucionComponent }  from './devolucion/devolucion.component';
 import { CatalogComponent }  from './catalog/catalog.component';
+import { ProductComponent }  from './product/product.component';
+import { Product2Component }  from './product2/product2.component';
 import { LoginComponent }  from './login/login.component';
 import { ZnoexisteComponent }  from './znoexiste/znoexiste.component';
 import { ProductService } from './common/services/product.service';
@@ -16,6 +18,7 @@ import { MyDialogComponent } from './my-dialog/my-dialog.component';
 import { MyDialogEditarPrecioComponent } from './my-dialog/my-dialog-editar-precio.component';
 import { MyDialogDevolucionComponent } from './my-dialog-devolucion/my-dialog-devolucion.component';
 import { MyDialogConsultaClienteComponent } from './my-dialog-consulta-cliente/my-dialog-consulta-cliente.component';
+import { MyDialogVentaDetalleComponent } from './my-dialog-venta-detalle/my-dialog-venta-detalle.component';
 
 //material
 import { MaterialModule } from './zmaterial/material';
@@ -45,9 +48,10 @@ import { AdminGuard } from './common/services/admin.guard';
 @NgModule({
   declarations: [
     AppComponent, HeaderComponent, ShopComponent, TransfComponent
-    , DevolucionComponent, CatalogComponent, LoginComponent, ZnoexisteComponent
+    , DevolucionComponent, CatalogComponent
+    , ProductComponent, Product2Component, LoginComponent, ZnoexisteComponent
     , MyDialogComponent, MyDialogEditarPrecioComponent, MyDialogDevolucionComponent
-    , MyDialogConsultaClienteComponent
+    , MyDialogConsultaClienteComponent , MyDialogVentaDetalleComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +70,8 @@ import { AdminGuard } from './common/services/admin.guard';
     MyDialogComponent,
     MyDialogEditarPrecioComponent,
     MyDialogDevolucionComponent,
-    MyDialogConsultaClienteComponent
+    MyDialogConsultaClienteComponent,
+    MyDialogVentaDetalleComponent
   ],
   providers: [LoginService, ProductService, appRoutingProviders, AdminGuard],
   bootstrap: [AppComponent]

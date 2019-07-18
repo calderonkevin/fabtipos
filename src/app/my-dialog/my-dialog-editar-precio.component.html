@@ -1,13 +1,25 @@
 <h2 mat-dialog-title style="margin: 0px; padding: 0px;">{{data.nompro}}</h2>
 <h2 mat-dialog-title style="font-size: 12px; margin: 0px; padding: 0px;">{{data.descolor}}</h2>
+<h2 mat-dialog-title style="margin: 0px; padding: 0px;" *ngIf="this.dataDef.editarprecioventa  == 0">Precio S/ {{data.punituser}}</h2>
+
 
 <mat-dialog-content>
   <div class="example-container">
-    <mat-form-field>      
-      <input id="txtpunituser" name="txtpunituser"  type="number" matInput placeholder="Precio" [(ngModel)]="data.punituser" >
+    <mat-form-field *ngIf="this.dataDef.tiposerpro  == 1">
+        <input id="txtcantid" name="txtcantid" type="number" matInput placeholder="Cantidad"
+          [(ngModel)]="data.cantid" onfocus="this.select()">
     </mat-form-field>
-      <mat-form-field>      
-      <input id="txtdescuentouser" name="txtdescuentouser"  type="number" matInput placeholder="Descuento" [(ngModel)]="data.descuentouser" >
+    <mat-form-field *ngIf="this.dataDef.editarprecioventa  == 1">
+      <input id="txtpunituser" name="txtpunituser" type="number" matInput placeholder="Precio"
+        [(ngModel)]="data.punituser" onfocus="this.select()">
+    </mat-form-field>
+    <mat-form-field *ngIf="this.dataDef.tiposerpro  == 1">
+      <input id="txtdescuentouser" name="txtdescuentouser" type="number" matInput placeholder="Descuento"
+        [(ngModel)]="data.descuentouser" onfocus="this.select()">
+    </mat-form-field>
+    <mat-form-field>
+      <input id="txtobservdet" name="txtobservdet" type="text" matInput placeholder="Observación"
+        [(ngModel)]="data.observ" onfocus="this.select()">
     </mat-form-field>
   </div>
 </mat-dialog-content>
@@ -15,5 +27,5 @@
   <button mat-raised-button mat-dialog-close>Cancelar</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
   <button mat-raised-button color="primary" [mat-dialog-close]="data">Actualizar</button>
-  
+
 </mat-dialog-actions>

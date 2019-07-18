@@ -1,207 +1,191 @@
 <div class="shop">
-
-    <div id="print-section" style="display: none;">
-        <style>
-            .fontGen {
-                font-family: Verdana, Geneva, sans-serif;
-                font-size: 10px;
-                font-style: normal;
-                font-variant: normal;
-
-            }
-
-            .tTitle {
-                font-size: 12px;
-                font-weight: bold;
-                text-align: center;
-            }
-
-            .tNumTicket {
-                font-weight: bold;
-                text-align: center;
-            }
-
-
-            .tLinea {
-                text-align: center;
-            }
-
-            .tTabla {
-                font-size: 8px;
-            }
-        </style>
-
-        <div class="ticket">
-            <div class="fontGen tTitle">SISGENPERU</div>
-            <div class="fontGen tNumTicket">Ticket No. 00000151</div>
-            <div class="fontGen">Tienda: MALVINAS-H99</div>
-            <div class="fontGen">Fecha de Emisión: 26/01/2019 04:24:12 PM</div>
-            <div class="fontGen tLinea">--------------------------------------------------------------</div>
-
-            <table class="fontGen tTabla">
-                <tr>
-                    <td class="tCantidad">1000</td>
-                    <td class="producto">PANTALLA-HUAWEI-P9-LITE-2017-(P8-LITE-2017/NOVA-LITE)
-                        <br>00121254212542125 TRANSPARENTE
-                    </td>
-                    <td class="tPrecio">1,208.50</td>
-                </tr>
-                <tr>
-                    <td class="tCantidad">2</td>
-                    <td class="producto">PANTALLA-HUAWEI-P9-LITE-2017<br>00121254212542125 TRANSPARENTE</td>
-                    <td class="tPrecio">10.00</td>
-                </tr>
-                <tr>
-                    <td class="tCantidad">1</td>
-                    <td class="producto">PANTALLA-HUAWEI-P9-LITE-2017<br>00121254212542125 TRANSPARENTE</td>
-                    <td class="tPrecio">10.00</td>
-                </tr>
-            </table>
-            <div class="fontGen tLinea">--------------------------------------------------------------</div>
-            <table class="fontGen tTabla">
-                <tr>
-                    <td class="tTotal">TOTAL</td>
-                    <td class="tTotal">1,208.50</td>
-                </tr>
-            </table>
-            <div class="fontGen tCambioDoc">Gracias por realizar sus compras en SISGENPERU</div>
-            <div class="fontGen tCambioDoc">Para mas información, por favor visite</div>
-            <div class="fontGen tCambioDoc">www.sisgenperu.com</div>
-            <div class="fontGen tCambioDoc">Cambiar por Factura o Boleta</div>
-        </div>
-    </div>
-    <button (click)="print()" style="display: none;">print</button>
-
-    <div id="divPagos" style="display:none;">
-        <h4>DETALLE DE VENTA</h4>
-        <div>{{ invoGetTotal() }}</div>
-
-        <div>Cliente</div>
-        <div>
-            <div>{{invoiceCab.desinden}} {{invoiceCab.codcli}}</div>
-            <div>{{invoiceCab.nomcom}}</div>
-            <div>
-                <button id="#btnBuscarConsultaCliente" name="#btnBuscarConsultaCliente" mat-raised-button
-                    color="primary" (click)="openDialogConsultaCliente()">
-                    <mat-icon>edit</mat-icon>
-                </button></div>
-
-        </div>
-
-        <div class="customer" style="display:none;">
-            <mat-icon>account_circle</mat-icon>
-            <mat-form-field>
-                <mat-label>Cliente</mat-label>
-                <mat-select [(ngModel)]="selectedCodcliValue" name="codcli">
-                    <mat-option *ngFor="let cliente of clientes" [value]="cliente.codcli">
-                        {{cliente.nomcom}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-
-        <div>Tipo de Documento</div>
-        <mat-button-toggle-group [(value)]="selectedTipoVentaValue">
-            <mat-button-toggle value="0012">Boleta</mat-button-toggle>
-            <mat-button-toggle value="0011">Factura</mat-button-toggle>
-            <mat-button-toggle value="0090">Ticket</mat-button-toggle>
-        </mat-button-toggle-group>
-
-
-        <div>Forma de Pago</div>
-        <mat-button-toggle-group [(value)]="selectedFormaPagoValue">
-            <mat-button-toggle value="CONT">Contado</mat-button-toggle>
-            <mat-button-toggle value="CRED">Crédito</mat-button-toggle>
-        </mat-button-toggle-group>
-
-        <div>Soles</div>
-        <div class="searchAdd">
-            
-            <mat-icon>attach_money</mat-icon>
-            <input type="number" placeholder="Ingrese monto soles" id="pagoefectivo" name="pagoefectivo" value="0.00"
-                onfocus="this.select()" autocomplete="off">
-            <!--<button mat-icon-button>
-            <mat-icon>close</mat-icon>
-        </button>-->
-        </div>
-
-        <div>Pago en Banco (Tarjeta / Deposito / Transferencia)</div>
-        <div class="searchAdd">                
-            <mat-icon>payment</mat-icon>
-            <input type="number" placeholder="Ingrese Monto Tarjeta" id="pagotarjeta" name="pagotarjeta" value="0.00"
-                onfocus="this.select()" autocomplete="off">
-            <!--<button mat-icon-button>
-                <mat-icon>close</mat-icon>
-            </button>-->
-        </div>
-
-
-        <div class="total">
-            <h3>Item: [{{ invoGetCantid() }}] Total S/ {{ invoGetTotal() }}</h3>
-            <button id="#btnRegresar" name="#btnRegresar" mat-raised-button color="primary" (click)="crearAtras()"
-                style="font-size: 24px;">
-                <mat-icon>undo</mat-icon>
-                Atras
+    <div class="divWrap" id="divPagos" style="display:none;">
+        <div class="topShop">
+            <button mat-icon-button>
+                <mat-icon aria-label="" (click)="crearAtras()">arrow_back</mat-icon>
             </button>
+            <h1 class="title">{{ totalCantidad }} productos seleccionados</h1>
+        </div>
+
+        <div class="middleShop">
+            <button class="customer" mat-button (click)="openDialogConsultaCliente()">
+                <h2>{{invoiceCab.desinden}} {{invoiceCab.codcli}} <span>Cambiar</span></h2>
+                <h6>{{invoiceCab.nomcom}}</h6>
+                <!--
+                <button mat-icon-button class="deleteItem">
+                    <mat-icon aria-label="">close</mat-icon>
+                </button>
+                -->
+            </button>
+            <div class="payDetail">
+                <div class="rowRB2" *ngIf="this.dataDef.tipdocshow  == 1">
+                    <mat-button-toggle-group [(value)]="selectedTipoVentaValue">
+                        <mat-button-toggle value="0012">Boleta</mat-button-toggle>
+                        <mat-button-toggle value="0011">Factura</mat-button-toggle>
+                        <mat-button-toggle value="0090">Ticket</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+                <div class="rowRB2" *ngIf="this.dataDef.formapagoshow  == 1" (click)="btnFormaPago()">
+                    <mat-button-toggle-group [(value)]="selectedFormaPagoValue">
+                        <mat-button-toggle value="CONT">Contado</mat-button-toggle>
+                        <mat-button-toggle value="CRED">Crédito</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+                <div *ngIf="selectedFormaPagoValue == 'CONT'">
+                    <div class="rowRB">
+                        <span class="spanLabel">Efectivo</span>
+                        <div class="wrapInput wIcon">
+                            <mat-form-field [floatLabel]="'never'">
+                                <mat-label>0.00</mat-label>
+                                <span matPrefix>S/. &nbsp;</span>
+                                <input type="number" matInput placeholder="Efectivo" [(ngModel)]="pagoefectivo"
+                                    onfocus="this.select()" autocomplete="off">
+                            </mat-form-field>
+                            <button mat-icon-button (click)="pago01()">
+                                <mat-icon aria-label="">subdirectory_arrow_left</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="rowRB">
+                        <span class="spanLabel">{{ this.lblVisaText }}</span>
+                        <div class="wrapInput wIcon">
+                            <mat-form-field [floatLabel]="'never'">
+                                <mat-label>0.00</mat-label>
+                                <span matPrefix>S/. &nbsp;</span>
+                                <input type="number" matInput placeholder="{{ this.lblVisaText }}" [(ngModel)]="pagovisa"
+                                    onfocus="this.select()" autocomplete="off">
+                            </mat-form-field>
+                            <button mat-icon-button (click)="pago02()">
+                                <mat-icon aria-label="">subdirectory_arrow_left</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="rowRB" *ngIf="this.dataDef.tiposerpro  == 1">
+                        <span class="spanLabel">Mastercard</span>
+                        <div class="wrapInput wIcon">
+                            <mat-form-field [floatLabel]="'never'">
+                                <mat-label>0.00</mat-label>
+                                <span matPrefix>S/. &nbsp;</span>
+                                <input type="number" matInput placeholder="Mastercard" [(ngModel)]="pagomastercard"
+                                    onfocus="this.select()" autocomplete="off">
+                            </mat-form-field>
+                            <button mat-icon-button (click)="pago03()">
+                                <mat-icon aria-label="">subdirectory_arrow_left</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="rowRB3 x100" *ngIf="this.dataDef.formapagocuponshow  == 1">
+                        <div class="wrapInput">
+                            <mat-icon aria-label="">local_offer</mat-icon>
+                            <mat-form-field [floatLabel]="'never'">
+                                <mat-label>Ingresar código Vale</mat-label>
+                                <input type="text" matInput placeholder="Código Cupón" [(ngModel)]="pagotextcupon" (keyup.enter)="buscarCodeVale()"
+                                    onfocus="this.select()" autocomplete="off">
+                            </mat-form-field>                            
+                        </div>
+                    </div>
+                    <div class="rowRB" *ngIf="this.dataDef.formapagocuponshow  == 1">
+                        <span class="spanLabel">Importe del Vale</span>
+                        <span class="spanLabel"> {{ pagocodcupon }} S/. {{ pagocupon }}</span>                        
+                    </div>
+                </div>
+                <div class="rowRB3 x100" *ngIf="tienedescuento == 'SI'">
+                    <div class="wrapInput">
+                        <mat-icon aria-label="">verified_user</mat-icon>
+                        <mat-form-field [floatLabel]="'never'">
+                            <mat-label>Ingresar código de autorización</mat-label>
+                            <input type="password" matInput placeholder="Autorización" [(ngModel)]="codautorizacion"
+                                onfocus="this.select()" autocomplete="off">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottomShop">
             <button [disabled]="loading" id="#btnCrear" name="#btnCrear" mat-raised-button color="primary"
-                (click)="crearTicket()" style="font-size: 24px;">
-                <mat-icon>save</mat-icon>
-                Guardar
+                (click)="crearTicket()">                
+                <div class="infoBtnBottom2">Total Venta S/ {{ totalPagar | number:'0.2'}}<span *ngIf="this.selectedFormaPagoValue == 'CONT' && this.darvuelto > 0 ">Vuelto S/ {{ darvuelto | number:'0.2'}}</span></div>
+                <button mat-icon-button>
+                    <mat-icon aria-label="">check</mat-icon>
+                </button>
             </button>
             <img *ngIf="loading"
                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
         </div>
-        <!-- FINNNNNNN-->
+
     </div>
 
-    <div id="divProductos" style="display:block;">
-        <div class="searchAdd">
-            <mat-icon>search</mat-icon>
-            <input type="search" placeholder="Ingrese código de barra" id="detectabarra" name="detectabarra"
-                value="7750126000691" onfocus="this.select()" (keyup.enter)="buscarFire($event.target.value)" autocomplete="off">
-            <!--<button mat-icon-button>
-            <mat-icon>close</mat-icon>
-        </button>-->
+    <div class="divWrap" id="divProductos" style="display:block;">
+        <div class="topShop">
+            <div class="searchAdd">
+                <mat-icon>search</mat-icon>
+                <input type="text" placeholder="Ingrese código de barra" id="detectabarra" name="detectabarra"
+                    value="" onfocus="this.select()" (keyup.enter)="buscarFire($event.target.value)"
+                    autocomplete="off">
+                
+                <button mat-icon-button id="detectabarra2" name="detectabarra2" (click)="buscarFire(newHero.value)" style="display:none;">
+                    <mat-icon>close</mat-icon>
+                </button>
+                
+            </div>
         </div>
-        <div class="listItems">
+        <div class="middleShop">
             <div class="listEmpty" *ngIf="invoiceDet.length == 0">
                 <h1>Venta</h1>
                 <img src="../../assets/images/icon-scanbarcode.png">
                 <p>Escanea los productos que deseas agregar.</p>
             </div>
-            <div class="item" *ngFor="let invoItem of invoiceDet; let i = index">
-                <button mat-button (click)="openDialogEditarPrecio(i, invoItem)">
-                    <div class="photoItem">
-                        <!--<mat-icon mat-list-icon>fastfood</mat-icon>-->
-                        <img
-                            src="https://falabella.scene7.com/is/image/FalabellaPE/15767763_1?$producto308$&amp;wid=472&amp;hei=472">
-                    </div>
-                    <div class="textItem">
-                        <!--<h4 mat-line>{{invoItem.codpro}}-{{invoItem.sucursal}}-{{i}}-{{invoItem.nompro}}</h4>-->
-                        <h4 mat-line>{{invoItem.nompro}}</h4>
-                        <h6 mat-line>{{invoItem.descolor}}</h6>
-                        <h6 mat-line>{{invoItem.serpro}}</h6>
-                        <h6 mat-line style="color: #00F;" *ngIf="invoItem.sucursal != sucursal">{{invoItem.dessucursal}}
-                        </h6>
-                    </div>
-                    <div class="priceItem">
-                        <!--<span class="currency">S/</span>-->
-                        <span>S/ {{invoItem.punituser}}</span>
-                        <span>S/ {{invoItem.descuentouser}}</span>
-                    </div>
-                </button>
-                <button mat-icon-button class="deleteItem" (click)="invoItemDelete(i)">
-                    <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
-                </button>
+
+            <div class="listItem">
+                <div *ngFor="let invoItem of invoiceDet; let i = index">
+                    <button class="addedItem" mat-button (click)="openDialogEditarPrecio(i, invoItem)">
+                        <div class="photoItem">
+                            <div class="badge" *ngIf="this.dataDef.tiposerpro  == 1">{{invoItem.cantid}}</div>
+                            <img
+                                [src]="invoItem.imagen !== '' ? url3 + 'imgcom/1005/vt02/small/' + invoItem.imagen : url3 + '/imgcom/1005/vt02/small/none.jpg'">
+                        </div>
+                        <div class="infoItem">
+                            <div class="textItem">
+                                <h4 mat-line>{{invoItem.nompro}}</h4>
+                                <h6 mat-line *ngIf="tiposerpro == 3">{{invoItem.descolor}}</h6>
+                                <h6 mat-line>{{invoItem.serpro}} </h6>
+                                <h6 mat-line>{{invoItem.observ}} </h6>
+                                <h6 style="color:blue;" mat-line *ngIf="invoItem.sucursal != sucursal">{{invoItem.dessucursal}}
+                                </h6>
+                            </div>
+                            <div class="priceItem">
+                                <h4>S/ {{invoItem.punituser | number:'0.2'}}</h4>
+                                <h6 *ngIf="this.dataDef.tiposerpro  == 1">S/ {{invoItem.descuentouser | number:'0.2'}}</h6>
+                            </div>
+                        </div>
+                        <button mat-icon-button class="deleteItem" (click)="invoItemDelete(i)">
+                            <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+                        </button>
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="total">
-            <button id="#btnNext" name="#btnNext" mat-raised-button color="primary" (click)="crearNext()"
-                style="font-size: 24px;">
-                [{{ invoGetCantid() }}] Siguiente S/ {{ invoGetTotal() }}
+        <div class="bottomShop">
+            <div class="rowRB" *ngIf="this.dataDef.tiposerpro  == 1">
+                <span class="spanLabel">Descuento general</span>
+                <div class="wrapInput">
+                    <mat-form-field [floatLabel]="'never'">
+                        <mat-label>0.00</mat-label>
+                        <span matPrefix>S/. &nbsp;</span>
+                        <input type="number" matInput placeholder="0.00" [(ngModel)]="descuentoGeneral"
+                            onfocus="this.select()" autocomplete="off">
+                    </mat-form-field>
+                </div>
+            </div>
+            <button [disabled]="totalCantidad == 0" id="#btnNext" name="#btnNext" mat-raised-button color="primary"
+                (click)="crearSiguiente()" style="font-size: 24px;">
+                <div class="infoBtnBottom">S/ {{ totalPagar | number:'0.2'}}<span>{{ totalCantidad }} productos seleccionados</span>
+                </div>
+                <button mat-icon-button>
+                    <mat-icon aria-label="">navigate_next</mat-icon>
+                </button>
             </button>
         </div>
     </div>
 
 </div>
-<iframe id="iframeImpresion" name=iframeImpresion style="display:none;"></iframe>

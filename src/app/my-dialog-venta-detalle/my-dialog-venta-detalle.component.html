@@ -1,0 +1,46 @@
+<div class="ttlDialog">
+    <h2 mat-dialog-title>[{{ this.data.element.serie }}-{{ this.data.element.numdoc }}] {{ this.data.element.nomcom }} S/ {{ this.data.element.total | number:'0.2' }}</h2>
+    <button mat-icon-button [mat-dialog-close]="">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<mat-dialog-content>
+
+    <div class="dialogResult">
+        <table mat-table [dataSource]="dataSourceVentaDet" class="mat-elevation-z8">
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="serpro">
+                <th mat-header-cell *matHeaderCellDef> Barra </th>
+                <td mat-cell *matCellDef="let element"> {{element.serpro}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="nompro">
+                <th mat-header-cell *matHeaderCellDef> Artículo </th>
+                <td mat-cell *matCellDef="let element"> {{element.nompro}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="descolor">
+                <th mat-header-cell *matHeaderCellDef> <span *ngIf="this.dataDef.tiposerpro  == 3">Color</span> </th>
+                <td mat-cell *matCellDef="let element" > <span *ngIf="this.dataDef.tiposerpro  == 3">{{element.descolor}} </span></td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="cantid">
+                <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+                <td mat-cell *matCellDef="let element"> {{element.cantid}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="punit">
+                <th mat-header-cell *matHeaderCellDef> Precio </th>
+                <td mat-cell *matCellDef="let element"> {{ element.punit }} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsVentaDet"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsVentaDet;"></tr>
+        </table>
+    </div>
+</mat-dialog-content>

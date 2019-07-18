@@ -14,4 +14,18 @@ export class Invoicedet {
     destalla? : string;
     serpro: string;
     fecvendet: string;
+    imagen: string;
+
+    importe: number;
+    saldo?: number;
+    acuenta?: number;
+    observ?: string;
+    
+    /*
+    constructor() {
+        this.importe = -1;
+        this.saldo = -1;
+        this.acuenta = -1;
+    }
+    */
 }

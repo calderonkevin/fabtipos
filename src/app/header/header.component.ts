@@ -103,6 +103,13 @@ export class HeaderComponent implements OnInit {
   logout(): void {
     localStorage.clear();
     this._router.navigate(['/']);
+    window.close();
+  }
+
+  onenvio(){
+
+    console.log("ingresa");
+    $("#aForm").submit();
   }
 
   onSearchChange(searchValue: string) {

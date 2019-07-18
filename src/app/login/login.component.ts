@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit  {
         private _loginService: LoginService
     ){
         this.title = "Identificate";
-        //this.emailForm = "v2@sisgenperu.com";
-        //this.pwdForm = "1234568";
+        //this.emailForm = "demo@mix.com";
+        //this.pwdForm = "112233";
         this.emailForm = "";
         this.pwdForm = "";
         this.codError = -999;
@@ -77,8 +77,16 @@ export class LoginComponent implements OnInit  {
                     this.status = "success";
                     localStorage.setItem('identity', JSON.stringify(response.data));
                     localStorage.setItem('token', JSON.stringify(response.token));
-                    localStorage.setItem('datadef', JSON.stringify(response.datadef));
-                    this._router.navigate(['/catalogo']);  
+                    localStorage.setItem('datadef', JSON.stringify(response.datadef));                    
+                    //window.open("/pos" , "ventana1" , "width=100%,height=100%,scrollbars=YES");
+                    this.emailForm = "";
+                    this.pwdForm = "";
+                    this._router.navigate(['/pos']);
+                    ////window.close();                    
+                    ////window.open('/pos',"winpos","width="+screen.availWidth+",height="+((screen.availHeight*1)-80) +",location=no,status=no,menubar=no,toolbar=no,resizable=no,scrollbars=1,fullscreen=yes");
+                    //var elem = document.documentElement;
+                    //elem.requestFullscreen();
+                    
                     
                 }else{
                     this.status = "danger";
