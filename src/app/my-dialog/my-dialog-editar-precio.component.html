@@ -5,7 +5,7 @@
 
 <mat-dialog-content>
   <div class="example-container">
-    <mat-form-field *ngIf="this.dataDef.tiposerpro  == 1">
+    <mat-form-field *ngIf="this.dataDef.tiposerpro  == 1 || this.dataDef.tiposerpro  == 4">
         <input id="txtcantid" name="txtcantid" type="number" matInput placeholder="Cantidad"
           [(ngModel)]="data.cantid" onfocus="this.select()">
     </mat-form-field>

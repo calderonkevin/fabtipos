@@ -119,7 +119,7 @@
         <div class="topShop">
             <div class="searchAdd">
                 <mat-icon>search</mat-icon>
-                <input type="text" placeholder="Ingrese código de barra" id="detectabarra" name="detectabarra"
+                <input type="text" placeholder="Ingrese código de barra" id="detectabarra" name="detectabarra" #newHero
                     value="" onfocus="this.select()" (keyup.enter)="buscarFire($event.target.value)"
                     autocomplete="off">
                 
@@ -140,14 +140,14 @@
                 <div *ngFor="let invoItem of invoiceDet; let i = index">
                     <button class="addedItem" mat-button (click)="openDialogEditarPrecio(i, invoItem)">
                         <div class="photoItem">
-                            <div class="badge" *ngIf="this.dataDef.tiposerpro  == 1">{{invoItem.cantid}}</div>
+                            <div class="badge" *ngIf="this.dataDef.tiposerpro  == 1 || this.dataDef.tiposerpro  == 4">{{invoItem.cantid}}</div>
                             <img
-                                [src]="invoItem.imagen !== '' ? url3 + 'imgcom/1005/vt02/small/' + invoItem.imagen : url3 + '/imgcom/1005/vt02/small/none.jpg'">
+                                [src]="invoItem.imagen != '' ? url3 + 'imgcom/1005/vt02/small/' + invoItem.imagen : url3 + 'imgcom/1005/vt02/small/none.jpg'">
                         </div>
                         <div class="infoItem">
                             <div class="textItem">
                                 <h4 mat-line>{{invoItem.nompro}}</h4>
-                                <h6 mat-line *ngIf="tiposerpro == 3">{{invoItem.descolor}}</h6>
+                                <h6 mat-line *ngIf="this.dataDef.tiposerpro == 3 || this.dataDef.tiposerpro == 4">{{invoItem.descolor}}</h6>
                                 <h6 mat-line>{{invoItem.serpro}} </h6>
                                 <h6 mat-line>{{invoItem.observ}} </h6>
                                 <h6 style="color:blue;" mat-line *ngIf="invoItem.sucursal != sucursal">{{invoItem.dessucursal}}

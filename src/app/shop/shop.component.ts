@@ -134,7 +134,7 @@ export class ShopComponent {
     this.selectedTipoVentaValue = this.dataDef['tipdocdef'];//"0090"; // 0011-FACTURA, 0012-BOLETA, 0090-TICKET  
     this.selectedFormaPagoValue = this.dataDef['formapagodef'];//"CONT";
     
-    if(this.dataDef['tiposerpro'] == 3){
+    if(this.dataDef['tiposerpro'] == 3 || this.dataDef['tiposerpro'] == 4){
       this.lblVisaText= "Bancos (depo-trans-pos)";
     }
     else{
@@ -239,7 +239,7 @@ export class ShopComponent {
       this.toastr.warning('Ingrese dato a buscar');
       return;
     }
-    if (this.tiposerpro == 1) {
+    if (this.tiposerpro == 1 || this.tiposerpro == 4) {
       if (this.invoiceDet.filter(obj => obj.serpro == this.searchValue).length > 0) {
         //var lateranIndex = this.invoiceDet.findIndex(this.searchValue);        
         var lateranIndex = this.invoiceDet.indexOf(this.invoiceDet.filter(obj => obj.serpro == this.searchValue)[0]);
@@ -371,6 +371,13 @@ export class ShopComponent {
         //  this.toastr.error('No exsiste producto en el almacen seleccionado: ' + this.searchValue);
         //  return;
         //}
+        if (this.tiposerpro == 4) {
+          var indSelect = this.productBarcodeList.filter(obj => obj.sucursal == this.sucursal && obj.cantid > 0)
+          if (indSelect.length === 0) {        
+            this.toastr.error('No existe Stock del codigo de barras en el almacen seleccionado: ' + this.searchValue);
+            return;
+          }
+        }
 
         var indSelect = this.productBarcodeList.filter(obj => obj.sucursal != this.sucursal && obj.cantid > 0)
         if (indSelect.length > 0) {

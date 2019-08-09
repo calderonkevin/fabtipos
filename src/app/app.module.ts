@@ -16,6 +16,7 @@ import { ZnoexisteComponent }  from './znoexiste/znoexiste.component';
 import { ProductService } from './common/services/product.service';
 import { MyDialogComponent } from './my-dialog/my-dialog.component';
 import { MyDialogEditarPrecioComponent } from './my-dialog/my-dialog-editar-precio.component';
+import { MyDialogEditarCantidComponent } from './my-dialog-editar-cantid/my-dialog-editar-cantid.component';
 import { MyDialogDevolucionComponent } from './my-dialog-devolucion/my-dialog-devolucion.component';
 import { MyDialogConsultaClienteComponent } from './my-dialog-consulta-cliente/my-dialog-consulta-cliente.component';
 import { MyDialogVentaDetalleComponent } from './my-dialog-venta-detalle/my-dialog-venta-detalle.component';
@@ -50,7 +51,7 @@ import { AdminGuard } from './common/services/admin.guard';
     AppComponent, HeaderComponent, ShopComponent, TransfComponent
     , DevolucionComponent, CatalogComponent
     , ProductComponent, Product2Component, LoginComponent, ZnoexisteComponent
-    , MyDialogComponent, MyDialogEditarPrecioComponent, MyDialogDevolucionComponent
+    , MyDialogComponent, MyDialogEditarPrecioComponent, MyDialogEditarCantidComponent, MyDialogDevolucionComponent
     , MyDialogConsultaClienteComponent , MyDialogVentaDetalleComponent
   ],
   imports: [
@@ -69,6 +70,7 @@ import { AdminGuard } from './common/services/admin.guard';
   entryComponents: [
     MyDialogComponent,
     MyDialogEditarPrecioComponent,
+    MyDialogEditarCantidComponent,
     MyDialogDevolucionComponent,
     MyDialogConsultaClienteComponent,
     MyDialogVentaDetalleComponent

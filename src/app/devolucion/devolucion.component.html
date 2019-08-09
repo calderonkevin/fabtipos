@@ -54,9 +54,10 @@
         <div class="item" *ngFor="let invoItem of invoiceDet; let i = index">
             <button mat-button (click)="openDialogEditarPrecio(i, invoItem)">
                 <div class="photoItem">
-                    <!--<mat-icon mat-list-icon>fastfood</mat-icon>-->
-                    <img
-                        src="https://falabella.scene7.com/is/image/FalabellaPE/15767763_1?$producto308$&amp;wid=472&amp;hei=472">
+                    <!--<mat-icon mat-list-icon>fastfood</mat-icon>-->                    
+                        <img
+                        [src]="invoItem.imagen != '' ? url3 + 'imgcom/1005/vt02/small/' + invoItem.imagen : url3 + 'imgcom/1005/vt02/small/none.jpg'">
+                        <h4 mat-line>{{invoItem.cantid}}</h4>
                 </div>
                 <div class="textItem">
                     <!--<h4 mat-line>{{invoItem.codpro}}-{{invoItem.sucursal}}-{{i}}-{{invoItem.nompro}}</h4>-->

@@ -14,6 +14,9 @@ export var GLOBAL = {
     //url: 'http://gairtaxi.com/api/',
     //url2: 'http://gairtaxi.com/rest/',
     //url3: 'http://gairtaxi.com/'
+    //url: 'https://adpcell.com/api/',
+    //url2: 'https://adpcell.com/rest/',
+    //url3: 'https://adpcell.com/'        
     
 
 }

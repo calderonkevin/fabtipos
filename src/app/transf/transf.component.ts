@@ -14,7 +14,7 @@ import { ProductService } from '../common/services/product.service';
 import { ToastrService } from 'ngx-toastr';
 
 //Dialog
-import { MyDialogEditarPrecioComponent } from '../my-dialog/my-dialog-editar-precio.component';
+import { MyDialogEditarCantidComponent } from '../my-dialog-editar-cantid/my-dialog-editar-cantid.component';
 import { CatalogComponent } from '../catalog/catalog.component';
 
 declare var jQuery: any;
@@ -46,6 +46,8 @@ export class TransfComponent {
 
   }
 
+  dataDef = [];
+  url3: string = "";
   invoiceId: number = 0;
   invoiceCab = [];
   invoiceDet = [];
@@ -69,8 +71,10 @@ export class TransfComponent {
 
     console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     this.verSucursalcombo();
+    this.url3 = this._loginService.url3;
     
     this.identity = this._loginService.getIdentity();
+    this.dataDef = this._loginService.getDataDef();
     //this.invoiceCab = [{'codcli':'5','coddir':'0001','codper':'44001713','nomcom':'otros mas'}];
     this.invoiceCab = this._loginService.getDataDef();
     console.log("entra a oninit de TRANSFERENCIA ");
@@ -158,6 +162,12 @@ export class TransfComponent {
       return;
     }
 
+    console.log("this.tiposerpro" + this.dataDef['tiposerpro']);
+    if (this.dataDef['tiposerpro'] == 0 || this.dataDef['tiposerpro'] == undefined) {
+      this.toastr.warning('Falta definir tipo de validacion de codigos de barras');
+      return;
+    }
+
     if (this.sucursal == "") {
       this.toastr.warning('Falta Configurar Tienda');
       return;
@@ -168,9 +178,22 @@ export class TransfComponent {
       return;
     }
 
-    if (this.invoiceDet.filter(obj => obj.serpro == this.searchValue).length > 0) {
-      this.toastr.warning('Existe duplicado del Código de barras.');
-      return;
+    if (this.dataDef['tiposerpro'] == 1 || this.dataDef['tiposerpro'] == 4) {
+      if (this.invoiceDet.filter(obj => obj.serpro == this.searchValue).length > 0) {
+        //var lateranIndex = this.invoiceDet.findIndex(this.searchValue);        
+        var lateranIndex = this.invoiceDet.indexOf(this.invoiceDet.filter(obj => obj.serpro == this.searchValue)[0]);
+        console.log("lateranIndex:" + lateranIndex + this.searchValue);        
+        this.invoiceDet[lateranIndex].cantid = (this.invoiceDet[lateranIndex].cantid * 1) + 1;
+        //this.toastr.warning('Existe duplicado del Código de barras.');
+        return;
+      }
+    }
+
+    if (this.dataDef['tiposerpro'] == 3) {
+      if (this.invoiceDet.filter(obj => obj.serpro == this.searchValue).length > 0) {
+        this.toastr.warning('Existe duplicado del Código de barras.');
+        return;
+      }
     }
 
     console.log("INGRESA:" + this.searchValue);
@@ -186,8 +209,13 @@ export class TransfComponent {
         console.log("DENTRO TIENE EL VALOR DE:" + this.searchValue);
         this.productBarcodeList = [];
         var item = response.data;
-        console.log("item: "+ item);
-        console.log("item.length" + item.length);        
+        console.log("item: "+ JSON.stringify(item));
+        console.log("item.length" + item.length);  
+        
+        if (item.length === 0) {
+          this.toastr.error('No existe codigo de barras: ' + this.searchValue);
+          return;
+        }
 
         item.forEach(element => {
           var x = element;
@@ -195,7 +223,7 @@ export class TransfComponent {
           x["$key"] = element.serpro;
           //console.log(element.key);
           this.productBarcodeList.push(x as Productbarcode);          
-          console.log("lista de this.productBarcodeList:" + this.productBarcodeList);
+          console.log("lista de this.productBarcodeList:" + JSON.stringify(this.productBarcodeList));
 
         });
         console.log("cantidad se esta ejecutando solo: " + this.productBarcodeList.filter(obj => obj.cantid < 0).length);
@@ -403,13 +431,14 @@ export class TransfComponent {
         dessucursal: invoiceDet.dessucursal,
         codpro: invoiceDet.codpro,
         nompro: invoiceDet.nompro,
-        cantid: 1,
+        cantid: invoiceDet.cantid,
         punituser: invoiceDet.punituser,
         codcol: invoiceDet.codcol,
         descolor: invoiceDet.descolor,
         talla: invoiceDet.talla,
         serpro: invoiceDet.serpro,
-        fecvendet: invoiceDet.fecvendet
+        fecvendet: invoiceDet.fecvendet,
+        imagen: invoiceDet.imagen
       });
 
     this.searchValue = "";
@@ -508,6 +537,60 @@ export class TransfComponent {
       })
     
   }
+
+  openDialogEditarCantid(item: number, invoItem: Invoicedet): void {
+
+    console.log("item:" + item);
+    console.log("invoItem:" + invoItem.nompro);
+
+    this.tmpInvoiceDet = invoItem;
+
+
+    let dialogRefDes = this.dialog.open(MyDialogEditarCantidComponent, {
+      width: '450px',
+      // data: { name: this.name, animal: this.animal }
+      //data: ''
+      data: {        
+        nompro: invoItem.nompro,
+        descolor: invoItem.descolor,
+        cantid: invoItem.cantid,
+        punituser: invoItem.punituser,
+        descuentouser: invoItem.descuentouser,
+        observ: invoItem.observ,
+        item: item
+      }
+
+    });
+    //$("#txtpunituser").select();
+
+    dialogRefDes.afterClosed().subscribe(result => {
+      if (result != "") {
+        //alert(result);
+        console.log(result);
+        console.log("AAAAAAAAA" + result.punituser);
+
+        var tmpLista = this.invoiceDet.filter(obj => obj.codpro == this.tmpInvoiceDet.codpro);
+        console.log(tmpLista);
+        for (let item of tmpLista) {
+          var objIndex = this.invoiceDet.findIndex(obj => obj.id == item.id);
+          console.log("objIndex:" + objIndex)
+          var wc = (result.cantid * 1);
+          //var wp = (result.punituser * 1);
+          //var wpd = (result.descuentouser * 1);
+          //var wobserv = result.observ;
+          this.invoiceDet[objIndex].cantid = wc.toFixed(0);
+          //this.invoiceDet[objIndex].punituser = wp.toFixed(2);
+          //this.invoiceDet[objIndex].observ = wobserv;
+        }
+      }
+
+      //console.log('The dialog was closed');
+      //this.animal = result;
+    });
+
+  }
+
+
 
   verSucursalcombo(): void {
 

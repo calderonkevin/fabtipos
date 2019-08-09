@@ -30,8 +30,11 @@
     -->
     <div class="searchAdd">
         <mat-icon>search</mat-icon>
-        <input type="search" placeholder="Ingrese código de barra" id="detectabarra" name="detectabarra" value=""
+        <input type="text" placeholder="Ingrese código de barra" id="detectabarra" name="detectabarra" value="" #newHero
             onfocus="this.select()" (keyup.enter)="buscarFire($event.target.value)" autocomplete="off">
+        <button mat-icon-button id="detectabarra2" name="detectabarra2" (click)="buscarFire(newHero.value)" style="display:none;">
+            <mat-icon>close</mat-icon>
+        </button>
         <!--<button mat-icon-button>
             <mat-icon>close</mat-icon>
         </button>-->
@@ -43,11 +46,12 @@
             <p>Escanea los productos que deseas agregar.</p>
         </div>
         <div class="item" *ngFor="let invoItem of invoiceDet; let i = index">
-            <button mat-button>
+            <button mat-button (click)="openDialogEditarCantid(i, invoItem)">
                 <div class="photoItem">
                     <!--<mat-icon mat-list-icon>fastfood</mat-icon>-->
+                    <div class="badge" *ngIf="this.dataDef.tiposerpro  == 1 || this.dataDef.tiposerpro  == 4">{{invoItem.cantid}}</div>
                     <img
-                        src="https://falabella.scene7.com/is/image/FalabellaPE/15767763_1?$producto308$&amp;wid=472&amp;hei=472">
+                                [src]="invoItem.imagen != '' ? url3 + 'imgcom/1005/vt02/small/' + invoItem.imagen : url3 + 'imgcom/1005/vt02/small/none.jpg'">
                 </div>
                 <div class="textItem">
                     <!--<h4 mat-line>{{invoItem.codpro}}-{{invoItem.sucursal}}-{{i}}-{{invoItem.nompro}}</h4>-->

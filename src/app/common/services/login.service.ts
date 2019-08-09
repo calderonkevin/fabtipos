@@ -144,9 +144,26 @@ export class LoginService {
         //let headers = new Headers({ 'Content-Type': 'application/json; charset=UTF-8'});
         //headers = new Headers({ 'Authorization': 'Basic'+ token});        
         let options = new RequestOptions({ headers: headers });
-            
-        return this._http.post(this.url + 'articulo/lista12', JSON.stringify(listaJson), options)
+        
+        if(this.datadef['tiposerpro'] == 1 || this.datadef['tiposerpro'] == 3)
+        {
+            return this._http.post(this.url + 'articulo/lista12', JSON.stringify(listaJson), options)
             .pipe(map(res => res.json()));
+        }
+
+        if(this.datadef['tiposerpro'] == 4)
+        {
+            return this._http.post(this.url + 'articulo/lista13in', JSON.stringify(listaJson), options)
+           .pipe(map(res => res.json()));
+        }
+            
+        
+
+        
+        
+           
+
+            
 
 
     }    

@@ -115,7 +115,7 @@ export class DevolucionComponent {
   invoGetTotal(): string {
     var total = 0;
     for (let item of this.invoiceDet) {
-      total = total + (item.cantid * item.punituser)
+      total = total + (item.cantid * item.punituser)      
     }    
     return total.toFixed(2)
   }
@@ -228,9 +228,9 @@ export class DevolucionComponent {
               dessucursal : "", //this.getTiendaDestab(indSelect[0].sucursal),
               codpro: indSelect[0].codpro,
               nompro: indSelect[0].nompro,
-              cantid: 1,
+              cantid: indSelect[0].cantid,
               descuentouser:0.00,
-              punituser: wacuenta,
+              punituser: wacuenta / indSelect[0].cantid,
               codcol: indSelect[0].codcol,
               descolor: indSelect[0].descolor,
               talla: indSelect[0].talla,
@@ -282,7 +282,7 @@ export class DevolucionComponent {
         dessucursal: invoiceDet.dessucursal,
         codpro: invoiceDet.codpro,
         nompro: invoiceDet.nompro,
-        cantid: 1,
+        cantid: invoiceDet.cantid,
         punituser: invoiceDet.punituser,
         codcol: invoiceDet.codcol,
         descolor: invoiceDet.descolor,

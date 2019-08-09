@@ -109,7 +109,7 @@ export class CatalogComponent implements OnInit {
     console.log("entra a oninit CATALOGO");
     console.log(this._loginService.getDataDef());
 
-    if(this.dataDef['tiposerpro'] == 3){
+    if(this.dataDef['tiposerpro'] == 3 || this.dataDef['tiposerpro'] == 4){
       this.lblVisaText= "Bancos (depo-trans-pos)";
     }
     else{
@@ -428,7 +428,7 @@ export class CatalogComponent implements OnInit {
 
   agregarProductoVenta(item){
     
-    if(this.dataDef['tiposerpro'] != 1){
+    if(this.dataDef['tiposerpro'] != 1 && this.dataDef['tiposerpro'] != 4){
       return;
     }
 
